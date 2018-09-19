@@ -53,6 +53,19 @@ The platform have been developed using Java for the API endpoints and controller
 `AdminController.java`  
 * New method added
 
+```
+    @PreAuthorize("hasAuthority('SYS_ADMIN')")
+    @RequestMapping(value = "/updates", method = RequestMethod.GET)
+    @ResponseBody
+    public UpdateMessage checkUpdates() throws ThingsboardException {
+        try {
+            return updateService.checkUpdates();
+        } catch (Exception e) {
+            throw handleException(e);
+        }
+    }
+```
+
 `AlarmController.java`
 * New controller      
 
@@ -63,6 +76,7 @@ The platform have been developed using Java for the API endpoints and controller
 * New controller    
 
 `AuthController`
+
 * /auth/changePassword, parameter change
 ```
 public void changePassword (
@@ -93,7 +107,7 @@ public void requestResetPasswordByEmail (
             )
 ``` 
 
-* /noauth/activate
+* /noauth/activate, parameter change
 
 ```
 public JsonNode activateUser(
@@ -110,10 +124,379 @@ public JsonNode activateUser(
             )
 ```
 
+* /noauth/resetPassword, parameter change
 
-git diff --stat release-1.0:application/src/main/java/org/thingsboard/server/controller/AuditLogController.java.java master:application/src/main/java/org/thingsboard/server/controller/AdminController.java
+```
+public JsonNode resetPassword(
+            @RequestParam(value = "resetToken") String resetToken,
+            @RequestParam(value = "password") String password,
+            HttpServletRequest request
+            )
+```
 
-git diff release-1.0:application/src/main/java/org/thingsboard/server/controller/AuthController.java master:application/src/main/java/org/thingsboard/server/controller/AuthController.java
+```
+public void requestResetPasswordByEmail (
+            @RequestBody JsonNode resetPasswordByEmailRequest,
+            HttpServletRequest request
+            )
+```
+
+`BaseController`
+
+It does not have endpoints, all the methods extend from it.
+
+`ComponentDescriptorController`
+
+* /components/actions/{pluginClazz:.+}, delete method
+
+```
+    @RequestMapping(value = "/components/actions/{pluginClazz:.+}", method = RequestMethod.GET)
+```
+
+* /components, params = {"componentTypes"}, new method, overload method
+
+```
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','TENANT_ADMIN')")
+    @RequestMapping(value = "/components", params = {"componentTypes"}, method = RequestMethod.GET)
+    @ResponseBody
+    public List<ComponentDescriptor> getComponentDescriptorsByTypes(@RequestParam("componentTypes") String[] strComponentTypes)
+```
+
+`CustomerController`
+
+* /customer/{customerId}/shortInfo, new method
+
+```
+    @PreAuthorize("hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')")
+    @RequestMapping(value = "/customer/{customerId}/shortInfo", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonNode getShortCustomerInfoById(@PathVariable(CUSTOMER_ID) String strCustomerId)
+```
+
+* customer/{customerId}/title, new method
+
+```
+    @PreAuthorize("hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')")
+    @RequestMapping(value = "/customer/{customerId}/title", method = RequestMethod.GET, produces = "application/text")
+    @ResponseBody
+    public String getCustomerTitleById(@PathVariable(CUSTOMER_ID) String strCustomerId)
+```
+
+* /tenant/customers, new method
+
+```
+    @PreAuthorize("hasAuthority('TENANT_ADMIN')")
+    @RequestMapping(value = "/tenant/customers", params = {"customerTitle"}, method = RequestMethod.GET)
+    @ResponseBody
+    public Customer getTenantCustomer(@RequestParam String customerTitle) 
+```
+
+`DashboardController`
+
+* /dashboard/serverTime, new method
+
+```
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')")
+    @RequestMapping(value = "/dashboard/serverTime", method = RequestMethod.GET)
+    @ResponseBody
+    public long getServerTime()
+```
+
+* /dashboard/info/{dashboardId}, new method
+
+```
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')")
+    @RequestMapping(value = "/dashboard/info/{dashboardId}", method = RequestMethod.GET)
+    @ResponseBody
+    public DashboardInfo getDashboardInfoById(@PathVariable(DASHBOARD_ID) String strDashboardId)
+```
+
+* /customer/dashboard/{dashboardId} => /customer/{customerId}/dashboard/{dashboardId}, delete method, add parameter, change endpoint, new method
+
+```
+    @PreAuthorize("hasAuthority('TENANT_ADMIN')")
+    @RequestMapping(value = "/customer/dashboard/{dashboardId}", method = RequestMethod.DELETE)
+    @ResponseBody 
+    public Dashboard unassignDashboardFromCustomer(@PathVariable("dashboardId") String strDashboardId)
+```
+
+```
+    @PreAuthorize("hasAuthority('TENANT_ADMIN')")
+    @RequestMapping(value = "/customer/{customerId}/dashboard/{dashboardId}", method = RequestMethod.DELETE)
+    @ResponseBody 
+    public Dashboard unassignDashboardFromCustomer(@PathVariable("customerId") String strCustomerId,
+                                                   @PathVariable(DASHBOARD_ID) String strDashboardId)
+```
+
+* /dashboard/{dashboardId}/customers, new method
+
+```
+    @PreAuthorize("hasAuthority('TENANT_ADMIN')")
+    @RequestMapping(value = "/dashboard/{dashboardId}/customers", method = RequestMethod.POST)
+    @ResponseBody
+    public Dashboard updateDashboardCustomers(@PathVariable(DASHBOARD_ID) String strDashboardId,
+                                              @RequestBody String[] strCustomerIds)
+```
+
+* /dashboard/{dashboardId}/customers/add, new method
+
+```
+    @PreAuthorize("hasAuthority('TENANT_ADMIN')")
+    @RequestMapping(value = "/dashboard/{dashboardId}/customers/add", method = RequestMethod.POST)
+    @ResponseBody
+    public Dashboard addDashboardCustomers(@PathVariable(DASHBOARD_ID) String strDashboardId,
+                                           @RequestBody String[] strCustomerIds)
+```
+
+* /dashboard/{dashboardId}/customers/remove, new method
+
+
+```
+    @PreAuthorize("hasAuthority('TENANT_ADMIN')")
+    @RequestMapping(value = "/dashboard/{dashboardId}/customers/remove", method = RequestMethod.POST)
+    @ResponseBody
+    public Dashboard removeDashboardCustomers(@PathVariable(DASHBOARD_ID) String strDashboardId,
+                                              @RequestBody String[] strCustomerIds)
+```
+
+* /customer/public/dashboard/{dashboardId}, new method
+
+```
+    @PreAuthorize("hasAuthority('TENANT_ADMIN')")
+    @RequestMapping(value = "/customer/public/dashboard/{dashboardId}", method = RequestMethod.POST)
+    @ResponseBody
+    public Dashboard assignDashboardToPublicCustomer(@PathVariable(DASHBOARD_ID) String strDashboardId)
+```
+
+* /customer/public/dashboard/{dashboardId}, new method
+
+```
+    @PreAuthorize("hasAuthority('TENANT_ADMIN')")
+    @RequestMapping(value = "/customer/public/dashboard/{dashboardId}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public Dashboard unassignDashboardFromPublicCustomer(@PathVariable(DASHBOARD_ID)
+```
+
+* /tenant/{tenantId}/dashboards, new method
+
+```
+    @PreAuthorize("hasAuthority('SYS_ADMIN')")
+    @RequestMapping(value = "/tenant/{tenantId}/dashboards", params = { "limit" }, method = RequestMethod.GET)
+    @ResponseBody
+    public TextPageData<DashboardInfo> getTenantDashboards(
+            @PathVariable("tenantId") String strTenantId,
+            @RequestParam int limit,
+            @RequestParam(required = false) String textSearch,
+            @RequestParam(required = false) String idOffset,
+            @RequestParam(required = false) String textOffset)
+```
+
+* /tenant/dashboards, change return type
+
+```
+public TextPageData<Dashboard> getTenantDashboards
+```
+
+```
+public TextPageData<DashboardInfo> getTenantDashboards
+```
+
+* /customer/{customerId}/dashboards, change return type
+
+```
+public TextPageData<Dashboard> getCustomerDashboards
+```
+
+```
+public TextPageData<DashboardInfo> getCustomerDashboards
+```
+
+`DeviceController`
+
+* /device, Authorization change
+
+```
+@PreAuthorize("hasAuthority('TENANT_ADMIN')")
+```
+
+```
+@PreAuthorize("hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')")
+```
+
+* /customer/public/device/{deviceId}, new method
+
+```
+    @PreAuthorize("hasAuthority('TENANT_ADMIN')")
+    @RequestMapping(value = "/customer/public/device/{deviceId}", method = RequestMethod.POST)
+    @ResponseBody
+    public Device assignDeviceToPublicCustomer(@PathVariable(DEVICE_ID) String strDeviceId)
+```
+
+* /tenant/devices, parameter added
+
+```
+    @PreAuthorize("hasAuthority('TENANT_ADMIN')")
+    @RequestMapping(value = "/tenant/devices", params = {"limit"}, method = RequestMethod.GET)
+    @ResponseBody
+    public TextPageData<Device> getTenantDevices(
+            @RequestParam int limit,
+            @RequestParam(required = false) String textSearch,
+            @RequestParam(required = false) String idOffset,
+            @RequestParam(required = false) String textOffset)
+```
+
+```
+    @PreAuthorize("hasAuthority('TENANT_ADMIN')")
+    @RequestMapping(value = "/tenant/devices", params = {"limit"}, method = RequestMethod.GET)
+    @ResponseBody
+    public TextPageData<Device> getTenantDevices(
+            @RequestParam int limit,
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) String textSearch,
+            @RequestParam(required = false) String idOffset,
+            @RequestParam(required = false) String textOffset)
+```
+
+* /tenant/devices, new method, overload method
+
+```
+    @PreAuthorize("hasAuthority('TENANT_ADMIN')")
+    @RequestMapping(value = "/tenant/devices", params = {"deviceName"}, method = RequestMethod.GET)
+    @ResponseBody
+    public Device getTenantDevice(
+            @RequestParam String deviceName)
+```
+
+* /customer/{customerId}/devices, parameter added
+
+```
+    @PreAuthorize("hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')")
+    @RequestMapping(value = "/customer/{customerId}/devices", params = {"limit"}, method = RequestMethod.GET)
+    @ResponseBody
+    public TextPageData<Device> getCustomerDevices(
+            @PathVariable("customerId") String strCustomerId,
+            @RequestParam int limit,
+            @RequestParam(required = false) String textSearch,
+            @RequestParam(required = false) String idOffset,
+            @RequestParam(required = false) String textOffset)
+```
+
+```
+    @PreAuthorize("hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')")
+    @RequestMapping(value = "/customer/{customerId}/devices", params = {"limit"}, method = RequestMethod.GET)
+    @ResponseBody
+    public TextPageData<Device> getCustomerDevices(
+            @PathVariable("customerId") String strCustomerId,
+            @RequestParam int limit,
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) String textSearch,
+            @RequestParam(required = false) String idOffset,
+            @RequestParam(required = false) String textOffset)
+```
+
+* /devices, new method
+
+```
+    @PreAuthorize("hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')")
+    @RequestMapping(value = "/devices", params = {"deviceIds"}, method = RequestMethod.GET)
+    @ResponseBody
+    public List<Device> getDevicesByIds(
+            @RequestParam("deviceIds") String[] strDeviceIds)
+```
+
+* /devices, new method
+
+```
+@PreAuthorize("hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')")
+    @RequestMapping(value = "/devices", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Device> findByQuery(@RequestBody DeviceSearchQuery query)
+```
+
+* /devices/types, new method
+
+```
+@PreAuthorize("hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')")
+    @RequestMapping(value = "/device/types", method = RequestMethod.GET)
+    @ResponseBody
+    public List<EntitySubtype> getDeviceTypes()
+```
+
+`EntityRelationController.java`
+* New controller   
+
+`HttpValidationCallback.java`
+* New controller  
+
+`RpcController.java`
+* New controller 
+
+`PluginController.java`
+* Deleted controller 
+
+`RuleController.java`
+* Deleted controller 
+
+`RuleChainController.java`
+* New controller 
+
+`TbUrlConstants.java`
+* New controller 
+
+`TelemetryController.java`
+* New controller 
+
+`UserController.java`
+
+* /user/tokenAccessEnabled, new method
+
+```
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')")
+    @RequestMapping(value = "/user/tokenAccessEnabled", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean isUserTokenAccessEnabled()
+```
+
+* /user/{userId}/token, new method
+```
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')")
+    @RequestMapping(value = "/user/{userId}/token", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonNode getUserToken(@PathVariable(USER_ID) String strUserId)
+```
+
+* /user, parameter added
+```
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')")
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    @ResponseBody 
+    public User saveUser(@RequestBody User user,
+            HttpServletRequest request)
+```
+
+```
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')")
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    @ResponseBody 
+    public User saveUser(@RequestBody User user,
+                         @RequestParam(required = false, defaultValue = "true") boolean sendActivationMail,
+                         HttpServletRequest request)
+```
+
+* /user/{userId}/activationLink, new method
+
+```
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')")
+    @RequestMapping(value = "/user/{userId}/activationLink", method = RequestMethod.GET, produces = "text/plain")
+    @ResponseBody
+    public String getActivationLink(
+            @PathVariable(USER_ID) String strUserId,
+            HttpServletRequest request)
+```
+
+git diff --stat release-1.0:application/src/main/java/org/thingsboard/server/controller/UserController.java master:application/src/main/java/org/thingsboard/server/controller/UserController.java
+
+git diff release-1.0:application/src/main/java/org/thingsboard/server/controller/UserController.java master:application/src/main/java/org/thingsboard/server/controller/UserController.java
 
 ### Zetta 
 
