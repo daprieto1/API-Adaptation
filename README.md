@@ -169,3 +169,11 @@ In this alteration were a lot of changes in the Web Socket feature, but nothing 
 
 The files that define API endpoints are `lib/api_resources/servers.js` and `lib/api_resources/peer_management.js`. These files remained with almost no changes between the versions 1.0.0 and 1.5.0, the endpoints or methods signature did were not modified during this time. That means that `ZettaJS` is not a good open source API to work with.
 
+# API-Metamodel 
+
+We are using a metamodel proposed by the open source project [APIDiscoverer](https://github.com/SOM-Research/APIDiscoverer) 
+
+```
+APIDiscoverer/metamodel/
+```
+It's the project thats desribes the REST Web API metamodel. 

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openAPI.core:Root
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:openAPI.core="http://example.com/openAPI/core"
+    xsi:schemaLocation="http://example.com/openAPI/core ../model/openAPI.ecore">
+  <api swagger="1"
+      host="localhost"
+      basePath="/api/v1">
+    <schemes>http</schemes>
+    <paths pattern="/auth/user">
+      <get summary=""
+          description=""
+          operationId=""
+          deprecated="false">
+        <tagReferences>GET</tagReferences>
+        <schemes>http</schemes>
+      </get>
+    </paths>
+    <paths pattern="/auth/changePassword">
+      <post
+          deprecated="false">
+        <tagReferences>POST</tagReferences>
+        <schemes>http</schemes>
+      </post>
+    </paths>
+    <paths pattern="/noauth/activate">
+      <get parameters="//@paramters.1 //@paramters.0"
+          responses="//@responses.0">
+        <schemes>http</schemes>
+      </get>
+    </paths>
+    <paths pattern="/noauth/resetPasswordByEmail">
+      <get summary=""
+          description=""
+          operationId=""
+          deprecated="false">
+        <tagReferences>POST</tagReferences>
+      </get>
+    </paths>
+    <paths pattern="/noauth/resetPassword">
+      <get summary=""
+          deprecated="false">
+        <tagReferences>GET</tagReferences>
+      </get>
+    </paths>
+  </api>
+  <paramters
+      format=""
+      name="request"
+      allowEmplyValue="false"/>
+  <paramters
+      schema="//@schemas.0"
+      type="object"
+      format=""
+      description=""
+      pattern=""
+      default=""
+      name="activateRequest"
+      location="body"
+      allowEmplyValue="true"
+      referenceName=""/>
+  <schemas type="object"
+      name="JsonNode"/>
+  <schemas type="object"
+      pattern=""
+      name="HttpServletRequest"
+      title="HttpServletRequest"/>
+  <responses
+      schema="//@schemas.0"
+      description="JsonNode"
+      code=""
+      referenceName="JsonNode"/>
+</openAPI.core:Root>
