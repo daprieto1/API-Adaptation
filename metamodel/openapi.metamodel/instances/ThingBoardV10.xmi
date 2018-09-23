@@ -9,147 +9,95 @@
       host="localhost"
       basePath="/api">
     <schemes>http</schemes>
-    <paths parameters="//@paramters.11"
+    <paths parameters="//@paramters.8"
         pattern="/device/{deviceId}">
-      <get parameters="//@paramters.11"
+      <get parameters="//@paramters.8"
           summary="Get"
           description=""
           operationId="getDeviceById"/>
     </paths>
-    <paths parameters="//@paramters.10"
+    <paths parameters="//@paramters.7"
         pattern="/device">
       <post
-          parameters="//@paramters.10"
+          parameters="//@paramters.7"
           summary="Post"
           description=""
           operationId="saveDevice"
-          responses="//@api/@responses.1">
+          responses="//@api/@responses.0">
         <schemes>http</schemes>
       </post>
     </paths>
-    <paths parameters="//@paramters.11"
+    <paths parameters="//@paramters.8"
         pattern="/device/{deviceId}">
       <delete
-          parameters="//@paramters.11"
+          parameters="//@paramters.8"
           summary="Delete"
           description=""
           operationId="deleteDevice">
         <schemes>http</schemes>
       </delete>
     </paths>
-    <paths parameters="//@paramters.9 //@paramters.11"
+    <paths parameters="//@paramters.6 //@paramters.8"
         pattern="/customer/{customerId}/device/{deviceId}">
       <post
-          parameters="//@paramters.9 //@paramters.11"
+          parameters="//@paramters.6 //@paramters.8"
           summary="Post"
           description=""
           operationId="assignDeviceToCustomer"
-          responses="//@api/@responses.1">
+          responses="//@api/@responses.0">
         <schemes>http</schemes>
       </post>
     </paths>
-    <paths parameters="//@paramters.11"
+    <paths parameters="//@paramters.8"
         pattern="/customer/device/{deviceId}">
       <delete
-          parameters="//@paramters.11"
+          parameters="//@paramters.8"
           summary="Delete"
           description=""
           operationId="unassignDeviceFromCustomer"
-          responses="//@api/@responses.1">
+          responses="//@api/@responses.0">
         <schemes>http</schemes>
       </delete>
     </paths>
-    <paths parameters="//@paramters.11"
-        pattern="/customer/public/device/{deviceId}">
-      <post
-          parameters="//@paramters.11"
-          summary="Post"
-          description=""
-          operationId="assignDeviceToPublicCustomer"
-          responses="//@api/@responses.1">
-        <schemes>http</schemes>
-      </post>
-    </paths>
-    <paths parameters="//@paramters.11"
+    <paths parameters="//@paramters.8"
         pattern="/device/{deviceId}/credentials">
-      <get parameters="//@paramters.11"
+      <get parameters="//@paramters.8"
           summary="Get"
           operationId="getDeviceCredentialsByDeviceId"
-          responses="//@api/@responses.2">
-        <schemes>http</schemes>
-      </get>
-    </paths>
-    <paths parameters="//@paramters.8"
-        pattern="/device/credentials">
-      <post
-          parameters="//@paramters.8"
-          summary="Post"
-          operationId="saveDeviceCredentials"
-          responses="//@api/@responses.2">
-        <schemes>http</schemes>
-      </post>
-    </paths>
-    <paths parameters="//@paramters.7 //@paramters.6 //@paramters.5 //@paramters.4 //@paramters.3"
-        pattern="/tenant/devices">
-      <get parameters="//@paramters.7 //@paramters.6 //@paramters.5 //@paramters.4 //@paramters.3"
-          summary="Get"
-          operationId="getTenantDevices"
-          responses="//@api/@responses.4">
-        <schemes>http</schemes>
-      </get>
-    </paths>
-    <paths parameters="//@paramters.2"
-        pattern="/tenant/devices">
-      <get parameters="//@paramters.2"
-          summary="Get"
-          operationId="getTenantDevice"
           responses="//@api/@responses.1">
         <schemes>http</schemes>
       </get>
     </paths>
-    <paths parameters="//@paramters.9 //@paramters.7 //@paramters.6 //@paramters.5 //@paramters.4 //@paramters.3"
-        pattern="/customer/{customerId}/devices">
-      <get parameters="//@paramters.9 //@paramters.7 //@paramters.6 //@paramters.5 //@paramters.4 //@paramters.3"
-          summary="Get"
-          operationId=""
-          responses="//@api/@responses.4">
-        <schemes>http</schemes>
-      </get>
-    </paths>
-    <paths parameters="//@paramters.1"
-        pattern="/devices">
-      <get parameters="//@paramters.1"
-          summary="Get"
-          description=""
-          operationId="getDevicesByIds"
-          responses="//@api/@responses.3">
-        <schemes>http</schemes>
-      </get>
-    </paths>
-    <paths parameters="//@paramters.0"
-        pattern="/devices">
+    <paths parameters="//@paramters.5"
+        pattern="/device/credentials">
       <post
-          parameters="//@paramters.0"
+          parameters="//@paramters.5"
           summary="Post"
-          description=""
-          operationId="findByQuery"
-          responses="//@api/@responses.3">
+          operationId="saveDeviceCredentials"
+          responses="//@api/@responses.1">
         <schemes>http</schemes>
       </post>
     </paths>
-    <paths pattern="/device/types">
-      <get summary=""
-          responses="//@api/@responses.0">
+    <paths parameters="//@paramters.4 //@paramters.3 //@paramters.2 //@paramters.1"
+        pattern="/tenant/devices">
+      <get parameters="//@paramters.4 //@paramters.3 //@paramters.2 //@paramters.1"
+          summary="Get"
+          operationId="getTenantDevices"
+          responses="//@api/@responses.2">
+        <schemes>http</schemes>
+      </get>
+    </paths>
+    <paths parameters="//@paramters.6 //@paramters.4 //@paramters.3 //@paramters.2 //@paramters.1"
+        pattern="/customer/{customerId}/devices">
+      <get parameters="//@paramters.6 //@paramters.4 //@paramters.3 //@paramters.2 //@paramters.1"
+          summary="Get"
+          operationId=""
+          responses="//@api/@responses.2">
         <schemes>http</schemes>
       </get>
     </paths>
     <responses
-        schema="//@schemas.5"
-        description="List&lt;EntitySubtype>"
-        declaringContext="//@api"
-        referenceName="List&lt;EntitySubtype>"/>
-    <responses
-        schema="//@schemas.25"
+        schema="//@schemas.24"
         description="Device"
         code=""
         declaringContext="//@api"
@@ -160,22 +108,11 @@
         declaringContext="//@api"
         referenceName="DeviceCredentials"/>
     <responses
-        schema="//@schemas.5"
-        description="List&lt;Device>"
-        referenceName="List&lt;Device>"/>
-    <responses
         schema="//@schemas.2"
         description="TextPageData&lt;Device>"
         declaringContext="//@api"
         referenceName="TextPageData&lt;Device>"/>
   </api>
-  <paramters
-      schema="//@schemas.26"
-      type="object"
-      name="DeviceSearchQuery"
-      location="body"
-      required="true"
-      referenceName="DeviceSearchQuery"/>
   <paramters
       type="array"
       description="String[]"
@@ -183,11 +120,6 @@
       location="query"
       required="true"
       referenceName="deviceIds"/>
-  <paramters
-      type="string"
-      name="deviceName"
-      required="true"
-      referenceName="deviceName"/>
   <paramters
       type="string"
       format=""
@@ -208,12 +140,6 @@
       location="query"
       required="false"
       referenceName="textSearch"/>
-  <paramters
-      type="string"
-      name="type"
-      location="query"
-      required="false"
-      referenceName="type"/>
   <paramters
       type="integer"
       name="limit"
@@ -237,7 +163,7 @@
       allowEmplyValue="false"
       referenceName="customerId"/>
   <paramters
-      schema="//@schemas.25"
+      schema="//@schemas.24"
       type="object"
       name="Device"
       location="body"
@@ -328,7 +254,6 @@
       name="DeviceCredentialsType"
       title="DeviceCredentialsType">
     <enum>ACCESS_TOKEN</enum>
-    <enum>X509_CERTIFICATE</enum>
   </schemas>
   <schemas type="object"
       name="DeviceCredentials"
@@ -359,81 +284,22 @@
       title="TenantId"
       allOf="//@schemas.20"/>
   <schemas type="string"
-      name="type"
-      title="type"/>
-  <schemas type="string"
       name="name"
       title="name"
       readOnly="false"/>
   <schemas type="object"
       name="Device"
       title="Device"
-      properties="//@schemas.24 //@schemas.23 //@schemas.19 //@schemas.22"/>
+      properties="//@schemas.23 //@schemas.19 //@schemas.22 //@schemas.26"/>
   <schemas type="object"
+      description="com.fasterxml.jackson.databind.JsonNode"
       pattern=""
-      name="DeviceSearchQuery"
-      title="DeviceSearchQuery"
-      properties="//@schemas.27 //@schemas.34 //@schemas.36"/>
+      default=""
+      name="JsonNode"
+      title="JsonNode"
+      example=""/>
   <schemas type="object"
-      pattern=""
-      name="RelationsSearchParameters"
-      title="RelationsSearchParameters"
-      properties="//@schemas.32 //@schemas.28 //@schemas.33"/>
-  <schemas type="integer"
-      pattern=""
-      name="maxLevel"
-      title="maxLevel"/>
-  <schemas type="object"
-      name="EntitySearchDirection"
-      title="EntitySearchDirection"
-      readOnly="true">
-    <enum>FROM</enum>
-    <enum>TO</enum>
-  </schemas>
-  <schemas name="entityType"
-      title="entityType"
-      required="//@schemas.35"/>
-  <schemas type="object"
-      pattern=""
-      name="direction"
-      title="direction"
-      required="//@schemas.29"/>
-  <schemas type="object"
-      description=""
-      name="rootId"
-      title="rootId"
-      required="//@schemas.4"/>
-  <schemas type="object"
-      name="rootType"
-      title="rootType"
-      required="//@schemas.35"/>
-  <schemas type="array"
-      description="List&lt;String>"
-      pattern=""
-      name="deviceTypes"
-      title="deviceTypes"
-      required="//@schemas.5"/>
-  <schemas type="object"
-      pattern=""
-      name="EntityType"
-      title="EntityType"
-      example="">
-    <enum>TENANT</enum>
-    <enum>CUSTOMER</enum>
-    <enum>USER</enum>
-    <enum>DASHBOARD</enum>
-    <enum>ASSET</enum>
-    <enum>DEVICE</enum>
-    <enum>ALARM</enum>
-    <enum>RULE_CHAIN</enum>
-    <enum>RULE_NODE</enum>
-  </schemas>
-  <schemas type="string"
-      name="relationType"
-      title="relationType"/>
-  <schemas type="object"
-      pattern=""
-      name="EntitySubtype"
-      title="EntitySubtype"
-      properties="//@schemas.22 //@schemas.30 //@schemas.23"/>
+      name="additionalInfo"
+      title="additionalInfo"
+      required="//@schemas.25"/>
 </openAPI.core:Root>
