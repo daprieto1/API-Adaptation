@@ -14,7 +14,8 @@
       <get parameters="//@paramters.8"
           summary="Get"
           description=""
-          operationId="getDeviceById"/>
+          operationId="getDeviceById"
+          exceptions="//@schemas.0"/>
     </paths>
     <paths parameters="//@paramters.7"
         pattern="/device">
@@ -23,7 +24,8 @@
           summary="Post"
           description=""
           operationId="saveDevice"
-          responses="//@api/@responses.0">
+          responses="//@api/@responses.0"
+          exceptions="//@schemas.0">
         <schemes>http</schemes>
       </post>
     </paths>
@@ -33,7 +35,8 @@
           parameters="//@paramters.8"
           summary="Delete"
           description=""
-          operationId="deleteDevice">
+          operationId="deleteDevice"
+          exceptions="//@schemas.0">
         <schemes>http</schemes>
       </delete>
     </paths>
@@ -44,7 +47,8 @@
           summary="Post"
           description=""
           operationId="assignDeviceToCustomer"
-          responses="//@api/@responses.0">
+          responses="//@api/@responses.0"
+          exceptions="//@schemas.0">
         <schemes>http</schemes>
       </post>
     </paths>
@@ -55,7 +59,8 @@
           summary="Delete"
           description=""
           operationId="unassignDeviceFromCustomer"
-          responses="//@api/@responses.0">
+          responses="//@api/@responses.0"
+          exceptions="//@schemas.0">
         <schemes>http</schemes>
       </delete>
     </paths>
@@ -64,7 +69,8 @@
       <get parameters="//@paramters.8"
           summary="Get"
           operationId="getDeviceCredentialsByDeviceId"
-          responses="//@api/@responses.1">
+          responses="//@api/@responses.1"
+          exceptions="//@schemas.0">
         <schemes>http</schemes>
       </get>
     </paths>
@@ -74,7 +80,8 @@
           parameters="//@paramters.5"
           summary="Post"
           operationId="saveDeviceCredentials"
-          responses="//@api/@responses.1">
+          responses="//@api/@responses.1"
+          exceptions="//@schemas.0">
         <schemes>http</schemes>
       </post>
     </paths>
@@ -91,24 +98,26 @@
         pattern="/customer/{customerId}/devices">
       <get parameters="//@paramters.6 //@paramters.4 //@paramters.3 //@paramters.2 //@paramters.1"
           summary="Get"
+          description=""
           operationId=""
-          responses="//@api/@responses.2">
+          responses="//@api/@responses.2"
+          exceptions="//@schemas.0">
         <schemes>http</schemes>
       </get>
     </paths>
     <responses
-        schema="//@schemas.24"
+        schema="//@schemas.26"
         description="Device"
         code=""
         declaringContext="//@api"
         referenceName="Device"/>
     <responses
-        schema="//@schemas.17"
+        schema="//@schemas.19"
         description="DeviceCredentials"
         declaringContext="//@api"
         referenceName="DeviceCredentials"/>
     <responses
-        schema="//@schemas.2"
+        schema="//@schemas.4"
         description="TextPageData&lt;Device>"
         declaringContext="//@api"
         referenceName="TextPageData&lt;Device>"/>
@@ -147,7 +156,7 @@
       required="true"
       referenceName="limit"/>
   <paramters
-      schema="//@schemas.17"
+      schema="//@schemas.19"
       type="object"
       format=""
       name="DeviceCredentials"
@@ -163,7 +172,7 @@
       allowEmplyValue="false"
       referenceName="customerId"/>
   <paramters
-      schema="//@schemas.24"
+      schema="//@schemas.26"
       type="object"
       name="Device"
       location="body"
@@ -176,6 +185,21 @@
       required="true"
       allowEmplyValue="false"
       referenceName="deviceId"/>
+  <schemas type="object"
+      pattern=""
+      name="ThingsboardException"
+      title="ThingsboardException"
+      properties="//@schemas.1"/>
+  <schemas name="ThingsboardErrorCode "
+      title="ThingsboardErrorCode">
+    <enum>GENERAL(2)</enum>
+    <enum>AUTHENTICATION(10)</enum>
+    <enum>JWT_TOKEN_EXPIRED(11)</enum>
+    <enum>PERMISSION_DENIED(20)</enum>
+    <enum>INVALID_ARGUMENTS(30)</enum>
+    <enum>BAD_REQUEST_PARAMS(31)</enum>
+    <enum>ITEM_NOT_FOUND(32)</enum>
+  </schemas>
   <schemas type="number"
       name="serialVersionUID"
       title="serialVersionUID"/>
@@ -183,13 +207,13 @@
       pattern=""
       name="SearchTextBased"
       title="SearchTextBased"
-      properties="//@schemas.0"
-      allOf="//@schemas.20"/>
+      properties="//@schemas.2"
+      allOf="//@schemas.22"/>
   <schemas type="object"
       name="TextPageData"
       title="TextPageData"
-      properties="//@schemas.3 //@schemas.6 //@schemas.7"
-      allOf="//@schemas.1"/>
+      properties="//@schemas.5 //@schemas.8 //@schemas.9"
+      allOf="//@schemas.3"/>
   <schemas type="boolean"
       pattern=""
       name="hasNext"
@@ -208,14 +232,14 @@
   <schemas type="object"
       name="TextPageLink"
       title="TextPageLink"
-      properties="//@schemas.8 //@schemas.9 //@schemas.10"
-      allOf="//@schemas.11"/>
+      properties="//@schemas.10 //@schemas.11 //@schemas.12"
+      allOf="//@schemas.13"/>
   <schemas type="array"
       format=""
       name="data"
       title="data"
-      required="//@schemas.5"
-      value="//@schemas.5"/>
+      required="//@schemas.7"
+      value="//@schemas.7"/>
   <schemas type="string"
       name="textSearch"
       title="textSearch"/>
@@ -229,22 +253,22 @@
       pattern=""
       name="BasePageLink"
       title="BasePageLink"
-      properties="//@schemas.12 //@schemas.13"/>
+      properties="//@schemas.14 //@schemas.15"/>
   <schemas type="object"
       description="UUID"
       pattern=""
       name="idOffset"
       title="idOffset"
       example=""
-      required="//@schemas.4"
-      value="//@schemas.4"/>
+      required="//@schemas.6"
+      value="//@schemas.6"/>
   <schemas type="integer"
       name="limit"
       title="limit"/>
   <schemas type="object"
       name="DeviceId"
       title="DeviceId"
-      allOf="//@schemas.20"/>
+      allOf="//@schemas.22"/>
   <schemas type="string"
       name="credentialsValue"
       title="credentialsValue"/>
@@ -258,7 +282,7 @@
   <schemas type="object"
       name="DeviceCredentials"
       title="DeviceCredentials"
-      properties="//@schemas.15 //@schemas.16 //@schemas.18 //@schemas.14"/>
+      properties="//@schemas.17 //@schemas.18 //@schemas.20 //@schemas.16"/>
   <schemas type="string"
       name="credentialsId"
       title="credentialsId"/>
@@ -266,23 +290,23 @@
       pattern=""
       name="CustomerId"
       title="CustomerId"
-      allOf="//@schemas.20"/>
+      allOf="//@schemas.22"/>
   <schemas type="object"
       name="UUIDBased"
       title="UUIDBased"
-      properties="//@schemas.21"/>
+      properties="//@schemas.23"/>
   <schemas type="object"
       description="UUID "
       pattern=""
       default=""
       name="id"
       title="id"
-      required="//@schemas.4"
-      value="//@schemas.4"/>
+      required="//@schemas.6"
+      value="//@schemas.6"/>
   <schemas type="object"
       name="TenantId"
       title="TenantId"
-      allOf="//@schemas.20"/>
+      allOf="//@schemas.22"/>
   <schemas type="string"
       name="name"
       title="name"
@@ -290,7 +314,7 @@
   <schemas type="object"
       name="Device"
       title="Device"
-      properties="//@schemas.23 //@schemas.19 //@schemas.22 //@schemas.26"/>
+      properties="//@schemas.25 //@schemas.21 //@schemas.24 //@schemas.28"/>
   <schemas type="object"
       description="com.fasterxml.jackson.databind.JsonNode"
       pattern=""
@@ -301,5 +325,5 @@
   <schemas type="object"
       name="additionalInfo"
       title="additionalInfo"
-      required="//@schemas.25"/>
+      required="//@schemas.27"/>
 </openAPI.core:Root>

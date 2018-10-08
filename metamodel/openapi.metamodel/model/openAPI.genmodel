@@ -136,6 +136,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute openAPI.ecore#//Operation/schemes"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute openAPI.ecore#//Operation/deprecated"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference openAPI.ecore#//Operation/path"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference openAPI.ecore#//Operation/exceptions"/>
     </genClasses>
     <genClasses ecoreClass="openAPI.ecore#//ExternalDocs">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute openAPI.ecore#//ExternalDocs/description"/>
@@ -217,7 +218,7 @@
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute openAPI.ecore#//JSONPointer/ref"/>
     </genClasses>
     <genClasses image="false" ecoreClass="openAPI.ecore#//SecurityContext">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference openAPI.ecore#//SecurityContext/securityRequirement"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference openAPI.ecore#//SecurityContext/securityRequirements"/>
     </genClasses>
     <genClasses image="false" ecoreClass="openAPI.ecore#//ParameterContext">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference openAPI.ecore#//ParameterContext/parameters"/>
@@ -231,6 +232,10 @@
     <genClasses image="false" ecoreClass="openAPI.ecore#//ArrayContext">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute openAPI.ecore#//ArrayContext/collectionFormat"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference openAPI.ecore#//ArrayContext/items"/>
+    </genClasses>
+    <genClasses ecoreClass="openAPI.ecore#//SecurityRequirement">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference openAPI.ecore#//SecurityRequirement/securityScopes"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference openAPI.ecore#//SecurityRequirement/securitySchema"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
