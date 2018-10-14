@@ -148,8 +148,6 @@
         eType="#//SchemeType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="deprecated" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="path" eType="#//Path" eOpposite="#//Path/get"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="exceptions" upperBound="-1"
-        eType="#//Schema"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExternalDocs">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
