@@ -54,6 +54,9 @@
   }, {
     "name" : "telemetry",
     "description" : "methods of TelemetryController"
+  }, {
+    "name" : "tenant",
+    "description" : "methods of TenantController"
   } ],
   "paths" : {
     "/settings" : {
@@ -3432,6 +3435,113 @@
           }
         }
       }
+    },
+    "/tenant/{tenantId}" : {
+      "get" : {
+        "tags" : [ "tenant" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "tenantId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get tenant by id",
+        "description" : "get tenant by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Tenant"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "tenant" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "tenantId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "delete tenant by id",
+        "description" : "delete tenant by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/tenant" : {
+      "post" : {
+        "tags" : [ "tenant" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "tenant",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/Tenant"
+          },
+          "required" : true
+        } ],
+        "summary" : "save tenant",
+        "description" : "save tenant",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Tenant"
+            }
+          }
+        }
+      }
+    },
+    "/tenants" : {
+      "get" : {
+        "tags" : [ "tenant" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get tenants by search",
+        "description" : "get tenants by search",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/Tenant"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "responses" : {
@@ -4203,6 +4313,17 @@
             "type" : "object",
             "$ref" : "#/definitions/NodeConnectionInfo"
           }
+        }
+      }
+    },
+    "Tenant" : {
+      "type" : "object",
+      "properties" : {
+        "title" : {
+          "type" : "string"
+        },
+        "region" : {
+          "type" : "string"
         }
       }
     }
