@@ -45,6 +45,9 @@
   }, {
     "name" : "event",
     "description" : "methods of EventController"
+  }, {
+    "name" : "rpc",
+    "description" : "methods of RpcController"
   } ],
   "paths" : {
     "/settings" : {
@@ -2598,7 +2601,7 @@
           "required" : false
         } ],
         "summary" : "get events by type and entity id",
-        "description" : "get events by type, entity id and entity type",
+        "description" : "get events by type and entity id",
         "produces" : [ "application/json" ],
         "responses" : {
           "200" : {
@@ -2607,6 +2610,68 @@
               "type" : "object",
               "$ref" : "#/definitions/TimePageData",
               "x-genericType" : "#/definitions/Event"
+            }
+          }
+        }
+      }
+    },
+    "/oneway/{deviceId}" : {
+      "post" : {
+        "tags" : [ "rcp" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "deviceId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "body",
+          "name" : "requestBody",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        } ],
+        "summary" : "handle one way device RPC request",
+        "description" : "handle one way device RPC request",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/DeferredResult",
+              "x-genericType" : "#/definitions/ResponseEntity"
+            }
+          }
+        }
+      }
+    },
+    "/twoway/{deviceId}" : {
+      "post" : {
+        "tags" : [ "rcp" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "deviceId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "body",
+          "name" : "requestBody",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        } ],
+        "summary" : "handle one way device RPC request",
+        "description" : "handle one way device RPC request",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/DeferredResult",
+              "x-genericType" : "#/definitions/ResponseEntity"
             }
           }
         }
@@ -3267,6 +3332,10 @@
           "example" : "{'a':'b'}"
         }
       }
+    },
+    "DeferredResult" : {
+      "type" : "object",
+      "x-generic" : true
     }
   },
   "host" : "virtserver.swaggerhub.com",
