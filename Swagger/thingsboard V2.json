@@ -1354,6 +1354,330 @@
           }
         }
       }
+    },
+    "/customer/{customerId}/dashboard/{dashboardId}" : {
+      "post" : {
+        "tags" : [ "dashboard" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "customerId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "dashboardId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "assign dashboard to the costumer",
+        "description" : "assign dashboard to the costumer",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Dashboard"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "dashboard" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "customerId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "dashboardId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "unassign dashboard to the costumer",
+        "description" : "unassign dashboard to the costumer",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Dashboard"
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/{dashboardId}/customers" : {
+      "post" : {
+        "tags" : [ "dashboard" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "dashboardId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "body",
+          "name" : "strCustomerIds",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "required" : true
+        } ],
+        "summary" : "update customer dashboard",
+        "description" : "update customer dashboard",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Dashboard"
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/{dashboardId}/customers/add" : {
+      "post" : {
+        "tags" : [ "dashboard" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "dashboardId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "body",
+          "name" : "strCustomerIds",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "required" : true
+        } ],
+        "summary" : "add dashboard to customers",
+        "description" : "add dashboard to customers",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Dashboard"
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/{dashboardId}/customers/remove" : {
+      "post" : {
+        "tags" : [ "dashboard" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "dashboardId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "body",
+          "name" : "strCustomerIds",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "required" : true
+        } ],
+        "summary" : "remove dashboard to customers",
+        "description" : "remove dashboard to customers",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Dashboard"
+            }
+          }
+        }
+      }
+    },
+    "/customer/public/dashboard/{dashboardId}" : {
+      "post" : {
+        "tags" : [ "dashboard" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "dashboardId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "assign dashboard to public customer",
+        "description" : "assign dashboard to public customer",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Dashboard"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "dashboard" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "dashboardId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get tenant dashboards information",
+        "description" : "get tenant dashboards information",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Dashboard"
+            }
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/dashboards" : {
+      "get" : {
+        "tags" : [ "dashboard" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "tenantId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get tenant dashboards",
+        "description" : "get tenant dashboards",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/DashboarInfo"
+            }
+          }
+        }
+      }
+    },
+    "/tenant/dashboards" : {
+      "get" : {
+        "tags" : [ "dashboard" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get current tenant dashboards information",
+        "description" : "get current tenant dashboards information",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/DashboarInfo"
+            }
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/dashboards" : {
+      "get" : {
+        "tags" : [ "dashboard" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "customerId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get customers dashboards information",
+        "description" : "get customers dashboards information",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TimePageData",
+              "x-genericType" : "#/definitions/DashboarInfo"
+            }
+          }
+        }
+      }
     }
   },
   "responses" : {
