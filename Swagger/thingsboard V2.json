@@ -48,6 +48,9 @@
   }, {
     "name" : "rpc",
     "description" : "methods of RpcController"
+  }, {
+    "name" : "rule",
+    "description" : "methods of RuleChainController"
   } ],
   "paths" : {
     "/settings" : {
@@ -2676,6 +2679,236 @@
           }
         }
       }
+    },
+    "/ruleChain/{ruleChainId}" : {
+      "get" : {
+        "tags" : [ "rule" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "ruleChainId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get rule chain by id",
+        "description" : "get rule chain by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/RuleChain"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "rule" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "ruleChainId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "delete rule chain by id",
+        "description" : "delete rule chain by id",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/ruleChain/{ruleChainId}/metadata" : {
+      "get" : {
+        "tags" : [ "rule" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "ruleChainId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get rule chain metadata by id",
+        "description" : "get rule chain metadata by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/RuleChainMetaData"
+            }
+          }
+        }
+      }
+    },
+    "/ruleChain" : {
+      "post" : {
+        "tags" : [ "rule" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "ruleChain",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/RuleChain"
+          },
+          "required" : true
+        } ],
+        "summary" : "save rule chain",
+        "description" : "save rule chain",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/RuleChain"
+            }
+          }
+        }
+      }
+    },
+    "/ruleChain/{ruleChainId}/root" : {
+      "post" : {
+        "tags" : [ "rule" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "ruleChainId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "body",
+          "name" : "ruleChain",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/RuleChain"
+          },
+          "required" : true
+        } ],
+        "summary" : "set root rule chain",
+        "description" : "set root  rule chain",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/RuleChain"
+            }
+          }
+        }
+      }
+    },
+    "/ruleChain/metadata" : {
+      "post" : {
+        "tags" : [ "rule" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "ruleChainMetaData",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/RuleChainMetaData"
+          },
+          "required" : true
+        } ],
+        "summary" : "save rule chain metadata",
+        "description" : "save rule chain metadata",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/RuleChainMetaData"
+            }
+          }
+        }
+      }
+    },
+    "/ruleChains" : {
+      "get" : {
+        "tags" : [ "rule" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get rule chain by search",
+        "description" : "get rule chain by search",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/RuleChain"
+            }
+          }
+        }
+      }
+    },
+    "/ruleNode/{ruleNodeId}/debugIn" : {
+      "get" : {
+        "tags" : [ "rule" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "ruleNodeId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get lastest rule node debug inputs",
+        "description" : "get lastest rule node debug inputs",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "/ruleChain/testScript" : {
+      "post" : {
+        "tags" : [ "rule" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inputParams",
+          "schema" : {
+            "type" : "object"
+          },
+          "required" : true
+        } ],
+        "summary" : "test script",
+        "description" : "test script",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
     }
   },
   "responses" : {
@@ -3329,13 +3562,126 @@
         },
         "body" : {
           "type" : "object",
-          "example" : "{'a':'b'}"
+          "example" : "{'a':'b'q}"
         }
       }
     },
     "DeferredResult" : {
       "type" : "object",
       "x-generic" : true
+    },
+    "RuleNodeId" : {
+      "type" : "object",
+      "required" : [ "id", "entityType" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "entityType" : {
+          "enum" : [ "RULE_NODE" ]
+        }
+      }
+    },
+    "RuleChainId" : {
+      "type" : "object",
+      "required" : [ "id", "entityType" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "entityType" : {
+          "enum" : [ "RULE_CHAIN" ]
+        }
+      }
+    },
+    "RuleChain" : {
+      "type" : "object",
+      "properties" : {
+        "tenantId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/TenantId"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "root" : {
+          "type" : "boolean"
+        },
+        "debugMode" : {
+          "type" : "boolean"
+        },
+        "configuration" : {
+          "type" : "object",
+          "example" : "{'a':'b'}"
+        },
+        "firstRuleNodeId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/RuleNodeId"
+        }
+      }
+    },
+    "RuleNode" : {
+      "type" : "object",
+      "properties" : {
+        "ruleChainId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/RuleChainId"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "debugMode" : {
+          "type" : "boolean"
+        },
+        "configuration" : {
+          "type" : "object",
+          "example" : "{'a':'b'}"
+        }
+      }
+    },
+    "NodeConnectionInfo" : {
+      "type" : "object",
+      "properties" : {
+        "fromIndex" : {
+          "type" : "integer"
+        },
+        "toIndex" : {
+          "type" : "integer"
+        },
+        "type" : {
+          "type" : "string"
+        }
+      }
+    },
+    "RuleChainMetaData" : {
+      "type" : "object",
+      "properties" : {
+        "ruleChainId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/RuleChainId"
+        },
+        "nodes" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "$ref" : "#/definitions/RuleNode"
+          }
+        },
+        "connections" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "$ref" : "#/definitions/NodeConnectionInfo"
+          }
+        }
+      }
     }
   },
   "host" : "virtserver.swaggerhub.com",
