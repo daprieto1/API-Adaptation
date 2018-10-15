@@ -42,6 +42,9 @@
   }, {
     "name" : "entityRelation",
     "description" : "methods of EntityRelationController"
+  }, {
+    "name" : "event",
+    "description" : "methods of EventController"
   } ],
   "paths" : {
     "/settings" : {
@@ -2483,6 +2486,131 @@
           }
         }
       }
+    },
+    "/events/{entityType}/{entityId}/{eventType}" : {
+      "get" : {
+        "tags" : [ "event" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "entityType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "entityId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "eventType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "tenantId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "startTime",
+          "type" : "number",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "endTime",
+          "type" : "number",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "ascOrder",
+          "type" : "boolean",
+          "required" : false,
+          "default" : false
+        }, {
+          "in" : "query",
+          "name" : "offset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get events by type, entity id and entity type",
+        "description" : "get events by type, entity id and entity type",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TimePageData",
+              "x-genericType" : "#/definitions/Event"
+            }
+          }
+        }
+      }
+    },
+    "/events/{entityType}/{entityId}" : {
+      "get" : {
+        "tags" : [ "event" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "entityType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "entityId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "tenantId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "startTime",
+          "type" : "number",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "endTime",
+          "type" : "number",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "ascOrder",
+          "type" : "boolean",
+          "required" : false,
+          "default" : false
+        }, {
+          "in" : "query",
+          "name" : "offset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get events by type and entity id",
+        "description" : "get events by type, entity id and entity type",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TimePageData",
+              "x-genericType" : "#/definitions/Event"
+            }
+          }
+        }
+      }
     }
   },
   "responses" : {
@@ -3114,6 +3242,29 @@
             "type" : "object",
             "$ref" : "#/definitions/EntityTypeFilter"
           }
+        }
+      }
+    },
+    "Event" : {
+      "type" : "object",
+      "properties" : {
+        "tenantId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/TenantId"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "uid" : {
+          "type" : "string"
+        },
+        "entityId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/EntityId"
+        },
+        "body" : {
+          "type" : "object",
+          "example" : "{'a':'b'}"
         }
       }
     }
