@@ -36,6 +36,9 @@
   }, {
     "name" : "dashboard",
     "description" : "methods of DashboardController"
+  }, {
+    "name" : "device",
+    "description" : "methods of DeviceController"
   } ],
   "paths" : {
     "/settings" : {
@@ -1678,6 +1681,388 @@
           }
         }
       }
+    },
+    "/device/{deviceId}" : {
+      "get" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "deviceId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get device by id",
+        "description" : "get device by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Device"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "deviceId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "delete device by id",
+        "description" : "delete device by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/device" : {
+      "post" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "device",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/Device"
+          },
+          "required" : true
+        } ],
+        "summary" : "save device",
+        "description" : "save device",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Device"
+            }
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/device/{deviceId}" : {
+      "post" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "customerId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "deviceId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "assign device to customer",
+        "description" : "assign device to customer",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Device"
+            }
+          }
+        }
+      }
+    },
+    "/customer/device/{deviceId}" : {
+      "delete" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "deviceId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "unassign device to customer",
+        "description" : "unassign device to customer",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Device"
+            }
+          }
+        }
+      }
+    },
+    "/customer/public/device/{deviceId}" : {
+      "post" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "deviceId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "assign device to public customer",
+        "description" : "assign device to public customer",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Device"
+            }
+          }
+        }
+      }
+    },
+    "/device/{deviceId}/credentials" : {
+      "get" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "deviceId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get device credentials by device id",
+        "description" : "get device credentials by device id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/DeviceCredentials"
+            }
+          }
+        }
+      }
+    },
+    "/device/credentials" : {
+      "post" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "deviceCredentials",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/DeviceCredentials"
+          },
+          "required" : true
+        } ],
+        "summary" : "save device credentials",
+        "description" : "save device credentials",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/DeviceCredentials"
+            }
+          }
+        }
+      }
+    },
+    "/tenant/devices" : {
+      "get" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "type",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get devices of the current tenant",
+        "description" : "get devices of the current tenant",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/Device"
+            }
+          }
+        }
+      }
+    },
+    "/tenant/devices2" : {
+      "get" : {
+        "x-duplicated" : true,
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "deviceName",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get tenant device by name",
+        "description" : "get tenant device by name",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Device"
+            }
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/devices" : {
+      "get" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "customerId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "type",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get customer devices",
+        "description" : "get customer devices",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/Device"
+            }
+          }
+        }
+      }
+    },
+    "/devices" : {
+      "get" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "strDeviceIds",
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "required" : true
+        } ],
+        "summary" : "get devices by id",
+        "description" : "get devices by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/Device"
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "query",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/DeviceSearchQuery"
+          },
+          "required" : true
+        } ],
+        "summary" : "get devices by query",
+        "description" : "get devices by query",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/Device"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/device/types" : {
+      "get" : {
+        "tags" : [ "device" ],
+        "summary" : "get device types",
+        "description" : "get device types",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/EntitySubtype"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "responses" : {
@@ -2163,6 +2548,80 @@
         "configuration" : {
           "type" : "object",
           "example" : "{'a':'b'}"
+        }
+      }
+    },
+    "Device" : {
+      "type" : "object",
+      "properties" : {
+        "tenantId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/TenantId"
+        },
+        "customerId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/CustomerId"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "clazz" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DeviceId" : {
+      "type" : "object",
+      "required" : [ "id", "entityType" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "entityType" : {
+          "enum" : [ "DEVICE" ]
+        }
+      }
+    },
+    "DeviceCredentialsType" : {
+      "type" : "string",
+      "enum" : [ "ACCESS_TOKEN", "X509_CERTIFICATE" ]
+    },
+    "DeviceCredentials" : {
+      "type" : "object",
+      "properties" : {
+        "deviceId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/DeviceId"
+        },
+        "credentialsType" : {
+          "type" : "object",
+          "$ref" : "#/definitions/DeviceCredentialsType"
+        },
+        "credentialsId" : {
+          "type" : "string"
+        },
+        "credentialsValue" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DeviceSearchQuery" : {
+      "type" : "object",
+      "properties" : {
+        "parameters" : {
+          "type" : "object",
+          "$ref" : "#/definitions/RelationsSearchParameters"
+        },
+        "relationType" : {
+          "type" : "string"
+        },
+        "deviceTypes" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
         }
       }
     }
