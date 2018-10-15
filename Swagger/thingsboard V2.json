@@ -51,6 +51,9 @@
   }, {
     "name" : "rule",
     "description" : "methods of RuleChainController"
+  }, {
+    "name" : "telemetry",
+    "description" : "methods of TelemetryController"
   } ],
   "paths" : {
     "/settings" : {
@@ -2905,6 +2908,526 @@
             "description" : "OK",
             "schema" : {
               "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "/{entityType}/{entityId}/keys/attributes" : {
+      "get" : {
+        "tags" : [ "telemetry" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "entityType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "entityId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get attributes keys",
+        "description" : "get attributes keys",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/DeferredResult",
+              "x-genericType" : "#/definitions/ResponseEntity"
+            }
+          }
+        }
+      }
+    },
+    "/{entityType}/{entityId}/keys/attributes/{scope}" : {
+      "get" : {
+        "tags" : [ "telemetry" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "entityType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "entityId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "scope",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get attributes keys by scope",
+        "description" : "get attributes keys by scope",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/DeferredResult",
+              "x-genericType" : "#/definitions/ResponseEntity"
+            }
+          }
+        }
+      }
+    },
+    "/{entityType}/{entityId}/values/attributes" : {
+      "get" : {
+        "tags" : [ "telemetry" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "entityType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "entityId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get attributes",
+        "description" : "get attributes",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/DeferredResult",
+              "x-genericType" : "#/definitions/ResponseEntity"
+            }
+          }
+        }
+      }
+    },
+    "/{entityType}/{entityId}/values/attributes/{scope}" : {
+      "get" : {
+        "tags" : [ "telemetry" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "entityType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "entityId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "scope",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get attributes by scope",
+        "description" : "get attributes by scope",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/DeferredResult",
+              "x-genericType" : "#/definitions/ResponseEntity"
+            }
+          }
+        }
+      }
+    },
+    "/{entityType}/{entityId}/keys/timeseries" : {
+      "get" : {
+        "tags" : [ "telemetry" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "entityType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "entityId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get time series keys",
+        "description" : "get time series keys",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/DeferredResult",
+              "x-genericType" : "#/definitions/ResponseEntity"
+            }
+          }
+        }
+      }
+    },
+    "/{entityType}/{entityId}/values/timeseries" : {
+      "get" : {
+        "tags" : [ "telemetry" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "entityType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "entityId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get lastest time series",
+        "description" : "lastest get time series",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/DeferredResult",
+              "x-genericType" : "#/definitions/ResponseEntity"
+            }
+          }
+        }
+      }
+    },
+    "/{entityType}/{entityId}/values/timeseries2" : {
+      "get" : {
+        "tags" : [ "telemetry" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "entityType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "entityId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "keys",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "startTs",
+          "type" : "number",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "endTs",
+          "type" : "number",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "interval",
+          "type" : "number",
+          "default" : 0,
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "number",
+          "default" : 100,
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "agg",
+          "type" : "string",
+          "default" : "NONE",
+          "required" : true
+        } ],
+        "summary" : "get time series",
+        "description" : "get time series",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/DeferredResult",
+              "x-genericType" : "#/definitions/ResponseEntity"
+            }
+          }
+        }
+      }
+    },
+    "/{deviceId}/{scope}" : {
+      "post" : {
+        "tags" : [ "telemetry" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "deviceId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "scope",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "body",
+          "name" : "request",
+          "schema" : {
+            "type" : "object"
+          },
+          "required" : true
+        } ],
+        "summary" : "save device attributes",
+        "description" : "save device attributes",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/DeferredResult",
+              "x-genericType" : "#/definitions/ResponseEntity"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "telemetry" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "deviceId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "scope",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "keys",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "save device attributes",
+        "description" : "save device attributes",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/DeferredResult",
+              "x-genericType" : "#/definitions/ResponseEntity"
+            }
+          }
+        }
+      }
+    },
+    "/{entityType}/{entityId}/{scope}" : {
+      "post" : {
+        "tags" : [ "telemetry" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "entityType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "entityId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "scope",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "body",
+          "name" : "request",
+          "schema" : {
+            "type" : "object"
+          },
+          "required" : true
+        } ],
+        "summary" : "save device attributes v1",
+        "description" : "save device attributes v1",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/DeferredResult",
+              "x-genericType" : "#/definitions/ResponseEntity"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "telemetry" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "entityType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "entityId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "scope",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "keys",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "save device attributes",
+        "description" : "save device attributes",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/DeferredResult",
+              "x-genericType" : "#/definitions/ResponseEntity"
+            }
+          }
+        }
+      }
+    },
+    "/{entityType}/{entityId}/attributes/{scope}" : {
+      "post" : {
+        "tags" : [ "telemetry" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "entityType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "entityId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "scope",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "body",
+          "name" : "request",
+          "schema" : {
+            "type" : "object"
+          },
+          "required" : true
+        } ],
+        "summary" : "save device attributes v2",
+        "description" : "save device attributes v2",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/DeferredResult",
+              "x-genericType" : "#/definitions/ResponseEntity"
+            }
+          }
+        }
+      }
+    },
+    "/{entityType}/{entityId}/timeseries/{scope}" : {
+      "post" : {
+        "tags" : [ "telemetry" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "entityType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "entityId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "scope",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "body",
+          "name" : "request",
+          "schema" : {
+            "type" : "object"
+          },
+          "required" : true
+        } ],
+        "summary" : "save entity telemetry",
+        "description" : "save entity telemetry",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/DeferredResult",
+              "x-genericType" : "#/definitions/ResponseEntity"
+            }
+          }
+        }
+      }
+    },
+    "/{entityType}/{entityId}/timeseries/{scope}/{ttl}" : {
+      "post" : {
+        "tags" : [ "telemetry" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "entityType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "entityId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "scope",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "ttl",
+          "type" : "number",
+          "required" : true
+        }, {
+          "in" : "body",
+          "name" : "request",
+          "schema" : {
+            "type" : "object"
+          },
+          "required" : true
+        } ],
+        "summary" : "save entity telemetry",
+        "description" : "save entity telemetry",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/DeferredResult",
+              "x-genericType" : "#/definitions/ResponseEntity"
             }
           }
         }
