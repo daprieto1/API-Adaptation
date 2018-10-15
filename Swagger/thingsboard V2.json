@@ -39,6 +39,9 @@
   }, {
     "name" : "device",
     "description" : "methods of DeviceController"
+  }, {
+    "name" : "entityRelation",
+    "description" : "methods of EntityRelationController"
   } ],
   "paths" : {
     "/settings" : {
@@ -2063,6 +2066,423 @@
           }
         }
       }
+    },
+    "/relation" : {
+      "post" : {
+        "tags" : [ "entityRelation" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "query",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/EntityRelation"
+          },
+          "required" : true
+        } ],
+        "summary" : "save relation between two entities",
+        "description" : "save relation between two entities",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "entityRelation" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "strFromId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strFromType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strRelationType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strRelationTypeGroup",
+          "type" : "string",
+          "required" : false,
+          "default" : "relationTypeGroup"
+        }, {
+          "in" : "query",
+          "name" : "strToId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strToType",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "remove relation between two entities",
+        "description" : "remove relation between two entities",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "get" : {
+        "tags" : [ "entityRelation" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "strFromId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strFromType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strRelationType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strRelationTypeGroup",
+          "type" : "string",
+          "required" : false,
+          "default" : "relationTypeGroup"
+        }, {
+          "in" : "query",
+          "name" : "strToId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strToType",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get relation between two entities",
+        "description" : "get relation between two entities",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/EntityRelation"
+            }
+          }
+        }
+      }
+    },
+    "/relations" : {
+      "delete" : {
+        "tags" : [ "entityRelation" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "strId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strType",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "remove relation by type",
+        "description" : "remove relation by type",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "get" : {
+        "tags" : [ "entityRelation" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "strFromId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strFromType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strRelationTypeGroup",
+          "type" : "string",
+          "required" : false,
+          "default" : "relationTypeGroup"
+        } ],
+        "summary" : "get relations of entity (from)",
+        "description" : "get relations of entity (from)",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/EntityRelation"
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "entityRelation" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "query",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/EntityRelationsQuery"
+          },
+          "required" : true
+        } ],
+        "summary" : "get relations by query",
+        "description" : "get relations by query",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/EntityRelation"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/relations2" : {
+      "get" : {
+        "tags" : [ "entityRelation" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "strFromId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strFromType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strRelationType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strRelationTypeGroup",
+          "type" : "string",
+          "required" : false,
+          "default" : "relationTypeGroup"
+        } ],
+        "summary" : "get relations of entity (from) by type",
+        "description" : "get relations of entity (from) by type",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/EntityRelation"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/relations3" : {
+      "get" : {
+        "tags" : [ "entityRelation" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "strToId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strToType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strRelationTypeGroup",
+          "type" : "string",
+          "required" : false,
+          "default" : "relationTypeGroup"
+        } ],
+        "summary" : "get relations of entity (to) by type",
+        "description" : "get relations of entity (to) by type",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/EntityRelation"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/relations4" : {
+      "get" : {
+        "tags" : [ "entityRelation" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "strToId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strToType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strRelationType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strRelationTypeGroup",
+          "type" : "string",
+          "required" : false,
+          "default" : "relationTypeGroup"
+        } ],
+        "summary" : "get relations of entity (to) by type",
+        "description" : "get relations of entity (to) by type",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/EntityRelation"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/relations/info" : {
+      "get" : {
+        "tags" : [ "entityRelation" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "strFromId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strFromType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strRelationTypeGroup",
+          "type" : "string",
+          "required" : false,
+          "default" : "relationTypeGroup"
+        } ],
+        "summary" : "get relations information of entity (from)",
+        "description" : "get relations information of entity (from)",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/EntityRelationInfo"
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "entityRelation" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "query",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/EntityRelationsQuery"
+          },
+          "required" : true
+        } ],
+        "summary" : "get relations information by query",
+        "description" : "get relations information by query",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/EntityRelationInfo"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/relations/info2" : {
+      "get" : {
+        "tags" : [ "entityRelation" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "strToId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strToType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "strRelationTypeGroup",
+          "type" : "string",
+          "required" : false,
+          "default" : "relationTypeGroup"
+        } ],
+        "summary" : "get relations information of entity (to)",
+        "description" : "get relations information of entity (to)",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/EntityRelationInfo"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "responses" : {
@@ -2620,6 +3040,79 @@
           "type" : "array",
           "items" : {
             "type" : "string"
+          }
+        }
+      }
+    },
+    "RelationTypeGroup" : {
+      "type" : "string",
+      "enum" : [ "COMMON", "ALARM", "DASHBOARD", "RULE_CHAIN", "RULE_NODE" ]
+    },
+    "EntityRelation" : {
+      "type" : "object",
+      "properties" : {
+        "from" : {
+          "type" : "object",
+          "$ref" : "#/definitions/EntityId"
+        },
+        "to" : {
+          "type" : "object",
+          "$ref" : "#/definitions/EntityId"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "typeGroup" : {
+          "type" : "object",
+          "$ref" : "#/definitions/RelationTypeGroup"
+        },
+        "additionalInfo" : {
+          "type" : "object",
+          "example" : "{'a':'b'}"
+        }
+      }
+    },
+    "EntityRelationInfo" : {
+      "type" : "object",
+      "allOf" : [ {
+        "$ref" : "#/definitions/EntityRelation"
+      } ],
+      "properties" : {
+        "fromName" : {
+          "type" : "string"
+        },
+        "toName" : {
+          "type" : "string"
+        }
+      }
+    },
+    "EntityTypeFilter" : {
+      "type" : "object",
+      "properties" : {
+        "relationType" : {
+          "type" : "string"
+        },
+        "entityTypes" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "$ref" : "#/definitions/EntityType"
+          }
+        }
+      }
+    },
+    "EntityRelationsQuery" : {
+      "type" : "object",
+      "properties" : {
+        "parameters" : {
+          "type" : "object",
+          "$ref" : "#/definitions/RelationsSearchParameters"
+        },
+        "filters" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "$ref" : "#/definitions/EntityTypeFilter"
           }
         }
       }
