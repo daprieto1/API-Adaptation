@@ -57,6 +57,9 @@
   }, {
     "name" : "tenant",
     "description" : "methods of TenantController"
+  }, {
+    "name" : "user",
+    "description" : "methods of UserController"
   } ],
   "paths" : {
     "/settings" : {
@@ -3538,6 +3541,206 @@
                 "type" : "object",
                 "$ref" : "#/definitions/Tenant"
               }
+            }
+          }
+        }
+      }
+    },
+    "/user/{userId}" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "userId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get user by id",
+        "description" : "get user by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/User"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "user" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "userId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "delete user by id",
+        "description" : "delete user by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/user" : {
+      "post" : {
+        "tags" : [ "user" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "user",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/User"
+          },
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "sendActivationMail",
+          "type" : "boolean",
+          "default" : true,
+          "required" : false
+        } ],
+        "summary" : "save user",
+        "description" : "save user",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/user/sendActivationMail" : {
+      "post" : {
+        "tags" : [ "user" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "email",
+          "type" : "string"
+        } ],
+        "summary" : "send activation email",
+        "description" : "send activation email",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/user/{userId}/activationLink" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "userId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get user by id",
+        "description" : "get user by id",
+        "produces" : [ "text/plain" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/users" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "tenantId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get users by tenant id",
+        "description" : "get users by tenant id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/users" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "customerId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get users by tenant id",
+        "description" : "get users by tenant id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/User"
             }
           }
         }
