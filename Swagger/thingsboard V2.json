@@ -63,6 +63,9 @@
   }, {
     "name" : "widgetsBundle",
     "description" : "methods of WidgetsBundleController"
+  }, {
+    "name" : "widgetType",
+    "description" : "methods of WidgetTypeController"
   } ],
   "paths" : {
     "/settings" : {
@@ -3874,6 +3877,122 @@
           }
         }
       }
+    },
+    "/widgetType/{widgetTypeId}" : {
+      "get" : {
+        "tags" : [ "widgetType" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "widgetTypeId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get widget type by id",
+        "description" : "get widget type by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/WidgetType"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "widgetType" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "widgetTypeId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "delete widget type by id",
+        "description" : "delete widget type by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/widgetType" : {
+      "post" : {
+        "tags" : [ "widgetType" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "widgetType",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/WidgetType"
+          }
+        } ],
+        "summary" : "save widget type",
+        "description" : "save widget type",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/WidgetType"
+            }
+          }
+        }
+      },
+      "get" : {
+        "tags" : [ "widgetType" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "isSystem",
+          "type" : "boolean",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "bundleAlias",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "alias",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get widget type by Type, bundle alias and alias",
+        "description" : "get widget type by Type, bundle alias and alias",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/WidgetType"
+            }
+          }
+        }
+      }
+    },
+    "/widgetTypes" : {
+      "get" : {
+        "tags" : [ "widgetType" ],
+        "summary" : "get list of widget type",
+        "description" : "get list of widget type",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/WidgetType"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "responses" : {
@@ -4681,6 +4800,28 @@
             "type" : "object",
             "$ref" : "#/definitions/byte"
           }
+        }
+      }
+    },
+    "WidgetType" : {
+      "type" : "object",
+      "properties" : {
+        "tenantId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/TenantId"
+        },
+        "bundleAlias" : {
+          "type" : "string"
+        },
+        "alias" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "descriptor" : {
+          "type" : "object",
+          "example" : "{'a':'b'q}"
         }
       }
     }
