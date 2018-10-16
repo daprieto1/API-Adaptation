@@ -60,6 +60,9 @@
   }, {
     "name" : "user",
     "description" : "methods of UserController"
+  }, {
+    "name" : "widgetsBundle",
+    "description" : "methods of WidgetsBundleController"
   } ],
   "paths" : {
     "/settings" : {
@@ -3745,6 +3748,132 @@
           }
         }
       }
+    },
+    "/widgetsBundle/{widgetsBundleId}" : {
+      "get" : {
+        "tags" : [ "widgetsBundle" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "widgetsBundleId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get widget by id",
+        "description" : "get widget by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/widgetsBundle"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "widgetsBundle" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "widgetsBundleId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "delete widget by id",
+        "description" : "delete widget by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/widgetsBundle"
+            }
+          }
+        }
+      }
+    },
+    "/widgetsBundle" : {
+      "post" : {
+        "tags" : [ "widgetsBundle" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "widgetsBundle",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/widgetsBundle"
+          }
+        } ],
+        "summary" : "save widget",
+        "description" : "save widget",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/widgetsBundle"
+            }
+          }
+        }
+      }
+    },
+    "/widgetsBundles" : {
+      "get" : {
+        "tags" : [ "widgetsBundle" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get widgets",
+        "description" : "get widgets",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/widgetsBundle"
+            }
+          }
+        }
+      }
+    },
+    "/widgetsBundles2" : {
+      "get" : {
+        "tags" : [ "widgetsBundle" ],
+        "summary" : "get widgets without pagination",
+        "description" : "get widgets without pagination",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/widgetsBundle"
+            }
+          }
+        }
+      }
     }
   },
   "responses" : {
@@ -4527,6 +4656,31 @@
         },
         "region" : {
           "type" : "string"
+        }
+      }
+    },
+    "byte" : {
+      "type" : "object"
+    },
+    "widgetsBundle" : {
+      "type" : "object",
+      "properties" : {
+        "tenantId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/TenantId"
+        },
+        "alias" : {
+          "type" : "string"
+        },
+        "title" : {
+          "type" : "string"
+        },
+        "image" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "$ref" : "#/definitions/byte"
+          }
         }
       }
     }
