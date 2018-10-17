@@ -565,7 +565,7 @@
             "description" : "OK",
             "schema" : {
               "type" : "object",
-              "$ref" : "#/definitions/TimePageData",
+              "$ref" : "#/definitions/TextPageData",
               "x-genericType" : "#/definitions/Asset"
             }
           }
@@ -638,7 +638,7 @@
             "description" : "OK",
             "schema" : {
               "type" : "object",
-              "$ref" : "#/definitions/TimePageData",
+              "$ref" : "#/definitions/TextPageData",
               "x-genericType" : "#/definitions/Asset"
             }
           }
@@ -727,6 +727,32 @@
           "name" : "customerId",
           "type" : "string",
           "required" : true
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "startTime",
+          "type" : "number",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "endTime",
+          "type" : "number",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "ascOrder",
+          "type" : "boolean",
+          "required" : false,
+          "default" : false
+        }, {
+          "in" : "query",
+          "name" : "offset",
+          "type" : "string",
+          "required" : false
         } ],
         "summary" : "get customer logs",
         "description" : "get customer logs",
@@ -848,7 +874,7 @@
         }
       }
     },
-    "/audit/log" : {
+    "/audit/logs" : {
       "get" : {
         "tags" : [ "auditLog" ],
         "parameters" : [ {
@@ -3542,11 +3568,9 @@
           "200" : {
             "description" : "OK",
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "object",
-                "$ref" : "#/definitions/Tenant"
-              }
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/Tenant"
             }
           }
         }
@@ -3870,9 +3894,11 @@
           "200" : {
             "description" : "OK",
             "schema" : {
-              "type" : "object",
-              "$ref" : "#/definitions/TextPageData",
-              "x-genericType" : "#/definitions/widgetsBundle"
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/widgetsBundle"
+              }
             }
           }
         }

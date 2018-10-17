@@ -1,0 +1,2294 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is a thingsboard API",
+    "version" : "1.0.0",
+    "title" : "Thingsboard API",
+    "contact" : {
+      "email" : "you@your-company.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags" : [ {
+    "name" : "admin",
+    "description" : "Secured Admin-only calls"
+  }, {
+    "name" : "auth",
+    "description" : "methods of AuthController"
+  }, {
+    "name" : "component",
+    "description" : "methods of ComponentDescriptorController"
+  }, {
+    "name" : "customer",
+    "description" : "methods of CustomerController"
+  }, {
+    "name" : "dashboard",
+    "description" : "methods of DashboardController"
+  }, {
+    "name" : "device",
+    "description" : "methods of DeviceController"
+  }, {
+    "name" : "event",
+    "description" : "methods of EventController"
+  }, {
+    "name" : "rule",
+    "description" : "methods of RuleController"
+  }, {
+    "name" : "tenant",
+    "description" : "methods of TenantController"
+  }, {
+    "name" : "user",
+    "description" : "methods of UserController"
+  }, {
+    "name" : "widgetsBundle",
+    "description" : "methods of WidgetsBundleController"
+  }, {
+    "name" : "widgetType",
+    "description" : "methods of WidgetTypeController"
+  } ],
+  "paths" : {
+    "/settings" : {
+      "post" : {
+        "tags" : [ "admin" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "adminSetting",
+          "description" : "the setting to add",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/AdminSettings"
+          }
+        } ],
+        "summary" : "save a new setting",
+        "description" : "save a new setting",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "items" : {
+                "$ref" : "#/definitions/AdminSettings"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/settings/{key}" : {
+      "get" : {
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "key",
+          "type" : "string",
+          "required" : true
+        } ],
+        "tags" : [ "admin" ],
+        "summary" : "get specific key",
+        "operationId" : "settings/{key}",
+        "description" : "get specific key",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "items" : {
+                "$ref" : "#/definitions/AdminSettings"
+              }
+            }
+          },
+          "400" : {
+            "$ref" : "#/responses/Badrequest"
+          }
+        }
+      }
+    },
+    "/settings/testMail" : {
+      "post" : {
+        "tags" : [ "admin" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "adminSetting",
+          "description" : "the setting with the email to test",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/AdminSettings"
+          }
+        } ],
+        "summary" : "Test the email",
+        "description" : "Test the email",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/auth/user" : {
+      "get" : {
+        "tags" : [ "auth" ],
+        "summary" : "get user",
+        "description" : "get user",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/auth/changePassword" : {
+      "post" : {
+        "tags" : [ "auth" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "currentPassword",
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "newPassword",
+          "type" : "string"
+        } ],
+        "summary" : "update password",
+        "description" : "update password",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/noauth/activate" : {
+      "get" : {
+        "tags" : [ "auth" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "activateToken",
+          "type" : "string"
+        } ],
+        "summary" : "Check activate token",
+        "description" : "Check activate token",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/ResponseEntity",
+              "x-genericType" : "string"
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "auth" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "activateToken",
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "password",
+          "type" : "string"
+        } ],
+        "summary" : "activate user",
+        "description" : "activate user",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "/noauth/resetPasswordByEmail" : {
+      "post" : {
+        "tags" : [ "auth" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "email",
+          "type" : "string"
+        } ],
+        "summary" : "reset password by email",
+        "description" : "reset password by email",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/noauth/resetPassword" : {
+      "get" : {
+        "tags" : [ "auth" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "resetToken",
+          "type" : "string"
+        } ],
+        "summary" : "Check reset token",
+        "description" : "Check reset token",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/ResponseEntity",
+              "x-genericType" : "string"
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "auth" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "resetToken",
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "password",
+          "type" : "string"
+        } ],
+        "summary" : "reset password",
+        "description" : "reset password",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "/component/{componentDescriptorClazz:.+}" : {
+      "get" : {
+        "tags" : [ "component" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "componentDescriptorClazz:.+",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get component descriptor by clazz",
+        "description" : "get component descriptor by clazz",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/ComponentDescriptor"
+            }
+          }
+        }
+      }
+    },
+    "/components/{componentType}" : {
+      "get" : {
+        "tags" : [ "component" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "componentType",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get component descriptor by type",
+        "description" : "get component descriptor by type",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/ComponentDescriptor"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/components/actions/{pluginClazz:.+}" : {
+      "get" : {
+        "tags" : [ "component" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "pluginClazz:.+",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get component descriptor",
+        "description" : "get component descripto",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/ComponentDescriptor"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer/{customerId}" : {
+      "get" : {
+        "tags" : [ "customer" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "customerId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get customer by id",
+        "description" : "get customer by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Customer"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "customer" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "customerId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "delete customer by id",
+        "description" : "delete customer by id",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/customer" : {
+      "post" : {
+        "tags" : [ "customer" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "customer",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/Customer"
+          }
+        } ],
+        "summary" : "save customer",
+        "description" : "save customer",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Customer"
+            }
+          }
+        }
+      }
+    },
+    "/customers" : {
+      "get" : {
+        "tags" : [ "customer" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get customers",
+        "description" : "get customers",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/Customer"
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/{dashboardId}" : {
+      "get" : {
+        "tags" : [ "dashboard" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "dashboardId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get dashboard by id",
+        "description" : "get dashboard by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Dashboard"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "dashboard" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "dashboardId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "delete dashboard information by id",
+        "description" : "delete dashboard information by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/dashboard" : {
+      "post" : {
+        "tags" : [ "dashboard" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "dashboard",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/Dashboard"
+          }
+        } ],
+        "summary" : "save dashboard",
+        "description" : "save dashboard",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Dashboard"
+            }
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/dashboard/{dashboardId}" : {
+      "post" : {
+        "tags" : [ "dashboard" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "customerId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "dashboardId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "assign dashboard to the costumer",
+        "description" : "assign dashboard to the costumer",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Dashboard"
+            }
+          }
+        }
+      }
+    },
+    "/dashboard/{dashboardId}/customers" : {
+      "post" : {
+        "tags" : [ "dashboard" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "dashboardId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "body",
+          "name" : "strCustomerIds",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "required" : true
+        } ],
+        "summary" : "update customer dashboard",
+        "description" : "update customer dashboard",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Dashboard"
+            }
+          }
+        }
+      }
+    },
+    "/tenant/dashboards" : {
+      "get" : {
+        "tags" : [ "dashboard" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get current tenant dashboards",
+        "description" : "get current tenant dashboards",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/Dashboard"
+            }
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/dashboards" : {
+      "get" : {
+        "tags" : [ "dashboard" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "customerId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get customers dashboards",
+        "description" : "get customers dashboards",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TimePageData",
+              "x-genericType" : "#/definitions/Dashboard"
+            }
+          }
+        }
+      }
+    },
+    "/device/{deviceId}" : {
+      "get" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "deviceId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get device by id",
+        "description" : "get device by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Device"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "deviceId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "delete device by id",
+        "description" : "delete device by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/device" : {
+      "post" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "device",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/Device"
+          },
+          "required" : true
+        } ],
+        "summary" : "save device",
+        "description" : "save device",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Device"
+            }
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/device/{deviceId}" : {
+      "post" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "customerId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "deviceId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "assign device to customer",
+        "description" : "assign device to customer",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Device"
+            }
+          }
+        }
+      }
+    },
+    "/customer/device/{deviceId}" : {
+      "delete" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "deviceId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "unassign device to customer",
+        "description" : "unassign device to customer",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Device"
+            }
+          }
+        }
+      }
+    },
+    "/device/{deviceId}/credentials" : {
+      "get" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "deviceId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get device credentials by device id",
+        "description" : "get device credentials by device id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/DeviceCredentials"
+            }
+          }
+        }
+      }
+    },
+    "/device/credentials" : {
+      "post" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "deviceCredentials",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/DeviceCredentials"
+          },
+          "required" : true
+        } ],
+        "summary" : "save device credentials",
+        "description" : "save device credentials",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/DeviceCredentials"
+            }
+          }
+        }
+      }
+    },
+    "/tenant/devices" : {
+      "get" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get devices of the current tenant",
+        "description" : "get devices of the current tenant",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/Device"
+            }
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/devices" : {
+      "get" : {
+        "tags" : [ "device" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "customerId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get customer devices",
+        "description" : "get customer devices",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/Device"
+            }
+          }
+        }
+      }
+    },
+    "/events/{entityType}/{entityId}/{eventType}" : {
+      "get" : {
+        "tags" : [ "event" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "entityType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "entityId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "eventType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "tenantId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "startTime",
+          "type" : "number",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "endTime",
+          "type" : "number",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "ascOrder",
+          "type" : "boolean",
+          "required" : false,
+          "default" : false
+        }, {
+          "in" : "query",
+          "name" : "offset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get events by type, entity id and entity type",
+        "description" : "get events by type, entity id and entity type",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TimePageData",
+              "x-genericType" : "#/definitions/Event"
+            }
+          }
+        }
+      }
+    },
+    "/events/{entityType}/{entityId}" : {
+      "get" : {
+        "tags" : [ "event" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "entityType",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "path",
+          "name" : "entityId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "tenantId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "startTime",
+          "type" : "number",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "endTime",
+          "type" : "number",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "ascOrder",
+          "type" : "boolean",
+          "required" : false,
+          "default" : false
+        }, {
+          "in" : "query",
+          "name" : "offset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get events by type and entity id",
+        "description" : "get events by type and entity id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TimePageData",
+              "x-genericType" : "#/definitions/Event"
+            }
+          }
+        }
+      }
+    },
+    "/rule/{ruleId}" : {
+      "get" : {
+        "tags" : [ "rule" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "ruleId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get rule by id",
+        "description" : "get rule by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/RuleMetaData"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "rule" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "ruleId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "delete rule by id",
+        "description" : "delete rule by id",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/rule/token/{pluginToken}" : {
+      "get" : {
+        "tags" : [ "rule" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "pluginToken",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get rules by plugin token",
+        "description" : "get rules by plugin token",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/RuleMetaData"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rule" : {
+      "post" : {
+        "tags" : [ "rule" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "source",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/RuleMetaData"
+          },
+          "required" : true
+        } ],
+        "summary" : "save rule",
+        "description" : "save rule",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/RuleMetaData"
+            }
+          }
+        }
+      },
+      "get" : {
+        "tags" : [ "rule" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get rules of current tenant",
+        "description" : "get rules of current tenant",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/RuleMetaData"
+            }
+          }
+        }
+      }
+    },
+    "/rule/{ruleId}/activate" : {
+      "post" : {
+        "tags" : [ "rule" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "ruleId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "activate rule by id",
+        "description" : "activate rule by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/rule/{ruleId}/suspend" : {
+      "post" : {
+        "tags" : [ "rule" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "ruleId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "suspend rule by id",
+        "description" : "suspend rule by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/rule/system" : {
+      "get" : {
+        "tags" : [ "rule" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get rule  by search",
+        "description" : "get rule by search",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/RuleMetaData"
+            }
+          }
+        }
+      }
+    },
+    "/rule/tenant/{tenantId}" : {
+      "get" : {
+        "tags" : [ "rule" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "tenantId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get rule  by search",
+        "description" : "get rule by search",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/RuleMetaData"
+            }
+          }
+        }
+      }
+    },
+    "/rules" : {
+      "get" : {
+        "tags" : [ "rule" ],
+        "summary" : "get all rules",
+        "description" : "get all rules",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/RuleMetaData"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}" : {
+      "get" : {
+        "tags" : [ "tenant" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "tenantId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get tenant by id",
+        "description" : "get tenant by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Tenant"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "tenant" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "tenantId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "delete tenant by id",
+        "description" : "delete tenant by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/tenant" : {
+      "post" : {
+        "tags" : [ "tenant" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "tenant",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/Tenant"
+          },
+          "required" : true
+        } ],
+        "summary" : "save tenant",
+        "description" : "save tenant",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Tenant"
+            }
+          }
+        }
+      }
+    },
+    "/tenants" : {
+      "get" : {
+        "tags" : [ "tenant" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get tenants by search",
+        "description" : "get tenants by search",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/Tenant"
+            }
+          }
+        }
+      }
+    },
+    "/user/{userId}" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "userId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get user by id",
+        "description" : "get user by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/User"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "user" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "userId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "delete user by id",
+        "description" : "delete user by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/user" : {
+      "post" : {
+        "tags" : [ "user" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "user",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/User"
+          },
+          "required" : true
+        } ],
+        "summary" : "save user",
+        "description" : "save user",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/user/sendActivationMail" : {
+      "post" : {
+        "tags" : [ "user" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "email",
+          "type" : "string"
+        } ],
+        "summary" : "send activation email",
+        "description" : "send activation email",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/users" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "tenantId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get users by tenant id",
+        "description" : "get users by tenant id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/customer/{customerId}/users" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "customerId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get users by tenant id",
+        "description" : "get users by tenant id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/widgetsBundle/{widgetsBundleId}" : {
+      "get" : {
+        "tags" : [ "widgetsBundle" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "widgetsBundleId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get widget by id",
+        "description" : "get widget by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/widgetsBundle"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "widgetsBundle" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "widgetsBundleId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "delete widget by id",
+        "description" : "delete widget by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/widgetsBundle"
+            }
+          }
+        }
+      }
+    },
+    "/widgetsBundle" : {
+      "post" : {
+        "tags" : [ "widgetsBundle" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "widgetsBundle",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/widgetsBundle"
+          }
+        } ],
+        "summary" : "save widget",
+        "description" : "save widget",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/widgetsBundle"
+            }
+          }
+        }
+      }
+    },
+    "/widgetsBundles" : {
+      "get" : {
+        "tags" : [ "widgetsBundle" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "limit",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "textSearch",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "idOffset",
+          "type" : "string",
+          "required" : false
+        }, {
+          "in" : "query",
+          "name" : "textOffset",
+          "type" : "string",
+          "required" : false
+        } ],
+        "summary" : "get widgets",
+        "description" : "get widgets",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/TextPageData",
+              "x-genericType" : "#/definitions/widgetsBundle"
+            }
+          }
+        }
+      }
+    },
+    "/widgetsBundles2" : {
+      "get" : {
+        "tags" : [ "widgetsBundle" ],
+        "summary" : "get widgets without pagination",
+        "description" : "get widgets without pagination",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/widgetsBundle"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/widgetType/{widgetTypeId}" : {
+      "get" : {
+        "tags" : [ "widgetType" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "widgetTypeId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get widget type by id",
+        "description" : "get widget type by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/WidgetType"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "widgetType" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "widgetTypeId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "delete widget type by id",
+        "description" : "delete widget type by id",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/widgetType" : {
+      "post" : {
+        "tags" : [ "widgetType" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "widgetType",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/WidgetType"
+          }
+        } ],
+        "summary" : "save widget type",
+        "description" : "save widget type",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/WidgetType"
+            }
+          }
+        }
+      },
+      "get" : {
+        "tags" : [ "widgetType" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "isSystem",
+          "type" : "boolean",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "bundleAlias",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "alias",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get widget type by Type, bundle alias and alias",
+        "description" : "get widget type by Type, bundle alias and alias",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/WidgetType"
+            }
+          }
+        }
+      }
+    },
+    "/widgetTypes" : {
+      "get" : {
+        "tags" : [ "widgetType" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "isSystem",
+          "type" : "boolean",
+          "required" : true
+        }, {
+          "in" : "query",
+          "name" : "bundleAlias",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get list of widget type",
+        "description" : "get list of widget type",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/WidgetType"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "responses" : {
+    "Badrequest" : {
+      "description" : "bad input parameter"
+    }
+  },
+  "definitions" : {
+    "AdminSettings" : {
+      "type" : "object",
+      "required" : [ "key", "jsonValue" ],
+      "properties" : {
+        "key" : {
+          "type" : "string",
+          "example" : "keyExample"
+        },
+        "jsonValue" : {
+          "type" : "object",
+          "example" : "{'a':'b'}"
+        }
+      }
+    },
+    "TenantId" : {
+      "type" : "object",
+      "required" : [ "id", "entityType" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "entityType" : {
+          "enum" : [ "TENANT" ]
+        }
+      }
+    },
+    "CustomerId" : {
+      "type" : "object",
+      "required" : [ "id", "entityType" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "entityType" : {
+          "enum" : [ "CUSTOMER" ]
+        }
+      }
+    },
+    "EntityId" : {
+      "type" : "object",
+      "required" : [ "id", "entityType" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "entityType" : {
+          "type" : "object",
+          "$ref" : "#/definitions/EntityType"
+        }
+      }
+    },
+    "EntityType" : {
+      "type" : "string",
+      "enum" : [ "TENANT", "DEVICE", "CUSTOMER", "RULE", "PLUGIN" ]
+    },
+    "TimePageLink" : {
+      "type" : "object",
+      "properties" : {
+        "startTime" : {
+          "type" : "number"
+        },
+        "endTime" : {
+          "type" : "number"
+        },
+        "ascOrder" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "TimePageData" : {
+      "type" : "object",
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "x-generic" : true
+          }
+        },
+        "hasNext" : {
+          "type" : "boolean"
+        },
+        "nextPageLink" : {
+          "type" : "object",
+          "$ref" : "#/definitions/TimePageLink"
+        }
+      }
+    },
+    "EntitySearchDirection" : {
+      "type" : "string",
+      "enum" : [ "From", "To" ]
+    },
+    "RelationsSearchParameters" : {
+      "type" : "object",
+      "properties" : {
+        "maxLevel" : {
+          "type" : "integer",
+          "default" : 1
+        },
+        "rootType" : {
+          "type" : "object",
+          "$ref" : "#/definitions/EntityType"
+        },
+        "rootId" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "direction" : {
+          "type" : "object",
+          "$ref" : "#/definitions/EntitySearchDirection"
+        }
+      }
+    },
+    "Authority" : {
+      "type" : "string",
+      "enum" : [ "SYS_ADMIN", "TENANT_ADMIN", "CUSTOMER_USER", "REFRESH_TOKEN" ]
+    },
+    "User" : {
+      "type" : "object",
+      "properties" : {
+        "tenantId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/TenantId"
+        },
+        "customerId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/CustomerId"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "authority" : {
+          "type" : "object",
+          "$ref" : "#/definitions/Authority"
+        },
+        "firstName" : {
+          "type" : "string"
+        },
+        "lastName" : {
+          "type" : "string"
+        },
+        "additionalInfo" : {
+          "type" : "object",
+          "example" : "{'a':'b'}"
+        }
+      }
+    },
+    "ResponseEntity" : {
+      "type" : "object",
+      "properties" : {
+        "statusCode" : {
+          "type" : "object"
+        },
+        "body" : {
+          "type" : "object",
+          "x-generic" : true
+        },
+        "hasNext" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "ComponentType" : {
+      "type" : "string",
+      "enum" : [ "FILTER", "PROCESSOR", "ACTION", "PLUGIN" ]
+    },
+    "ComponentScope" : {
+      "type" : "string",
+      "enum" : [ "SYSTEM", "TENANT" ]
+    },
+    "ComponentDescriptor" : {
+      "type" : "object",
+      "properties" : {
+        "type" : {
+          "type" : "object",
+          "$ref" : "#/definitions/ComponentType"
+        },
+        "scope" : {
+          "type" : "object",
+          "$ref" : "#/definitions/ComponentScope"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "clazz" : {
+          "type" : "string"
+        },
+        "configurationDescriptor" : {
+          "type" : "object"
+        },
+        "actions" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Customer" : {
+      "type" : "object",
+      "properties" : {
+        "type" : {
+          "type" : "object",
+          "$ref" : "#/definitions/TenantId"
+        },
+        "title" : {
+          "type" : "string"
+        },
+        "additionalInfo" : {
+          "type" : "object",
+          "example" : "{'a':'b'}"
+        }
+      }
+    },
+    "TextPageLink" : {
+      "type" : "object",
+      "properties" : {
+        "textSearch" : {
+          "type" : "string"
+        },
+        "textSearchBound" : {
+          "type" : "string"
+        },
+        "textOffset" : {
+          "type" : "string"
+        }
+      }
+    },
+    "TextPageData" : {
+      "type" : "object",
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "x-generic" : true
+          }
+        },
+        "hasNext" : {
+          "type" : "boolean"
+        },
+        "nextPageLink" : {
+          "type" : "object",
+          "$ref" : "#/definitions/TextPageLink"
+        }
+      }
+    },
+    "Dashboard" : {
+      "type" : "object",
+      "properties" : {
+        "configuration" : {
+          "type" : "object",
+          "example" : "{'a':'b'}"
+        }
+      }
+    },
+    "Device" : {
+      "type" : "object",
+      "properties" : {
+        "tenantId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/TenantId"
+        },
+        "customerId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/CustomerId"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "additionalInfo" : {
+          "type" : "object",
+          "example" : "{'a':'b'}"
+        }
+      }
+    },
+    "DeviceId" : {
+      "type" : "object",
+      "required" : [ "id", "entityType" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "entityType" : {
+          "enum" : [ "DEVICE" ]
+        }
+      }
+    },
+    "DeviceCredentialsType" : {
+      "type" : "string",
+      "enum" : [ "ACCESS_TOKEN" ]
+    },
+    "DeviceCredentials" : {
+      "type" : "object",
+      "properties" : {
+        "deviceId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/DeviceId"
+        },
+        "credentialsType" : {
+          "type" : "object",
+          "$ref" : "#/definitions/DeviceCredentialsType"
+        },
+        "credentialsId" : {
+          "type" : "string"
+        },
+        "credentialsValue" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Event" : {
+      "type" : "object",
+      "properties" : {
+        "tenantId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/TenantId"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "uid" : {
+          "type" : "string"
+        },
+        "entityId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/EntityId"
+        },
+        "body" : {
+          "type" : "object",
+          "example" : "{'a':'b'q}"
+        }
+      }
+    },
+    "ComponentLifecycleState" : {
+      "type" : "string",
+      "enum" : [ "ACTIVE", "SUSPENDED" ]
+    },
+    "RuleMetaData" : {
+      "type" : "object",
+      "properties" : {
+        "tenantId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/TenantId"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "state" : {
+          "type" : "object",
+          "$ref" : "#/definitions/ComponentLifecycleState"
+        },
+        "weight" : {
+          "type" : "number"
+        },
+        "pluginToken" : {
+          "type" : "string"
+        },
+        "filters" : {
+          "type" : "object",
+          "example" : "{'a':'b'}"
+        },
+        "processor" : {
+          "type" : "object",
+          "example" : "{'a':'b'}"
+        },
+        "action" : {
+          "type" : "object",
+          "example" : "{'a':'b'}"
+        },
+        "additionalInfo" : {
+          "type" : "object",
+          "example" : "{'a':'b'}"
+        }
+      }
+    },
+    "Tenant" : {
+      "type" : "object",
+      "properties" : {
+        "title" : {
+          "type" : "string"
+        },
+        "region" : {
+          "type" : "string"
+        },
+        "additionalInfo" : {
+          "type" : "object",
+          "example" : "{'a':'b'}"
+        }
+      }
+    },
+    "byte" : {
+      "type" : "object"
+    },
+    "widgetsBundle" : {
+      "type" : "object",
+      "properties" : {
+        "tenantId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/TenantId"
+        },
+        "alias" : {
+          "type" : "string"
+        },
+        "title" : {
+          "type" : "string"
+        },
+        "image" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "$ref" : "#/definitions/byte"
+          }
+        }
+      }
+    },
+    "WidgetType" : {
+      "type" : "object",
+      "properties" : {
+        "tenantId" : {
+          "type" : "object",
+          "$ref" : "#/definitions/TenantId"
+        },
+        "bundleAlias" : {
+          "type" : "string"
+        },
+        "alias" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "descriptor" : {
+          "type" : "object",
+          "example" : "{'a':'b'q}"
+        }
+      }
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/thingsboard/2.0.0",
+  "schemes" : [ "https" ]
+}
