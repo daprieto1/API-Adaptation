@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="Diff" nsURI="http://www.uniandes.edu.co/diff" nsPrefix="Diff">
+  <eClassifiers xsi:type="ecore:EClass" name="Diff">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="newVersion" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="oldVersion" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="refactoringType" upperBound="-1"
+        eType="#//RefactoringType" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="change" upperBound="-1"
+        eType="#//Change" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RefactoringType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="changes" upperBound="-1"
+        eType="#//Change"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Change">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="changeElement" eType="#//APIElementType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MoveDownInHierarchy" eSuperTypes="#//Complex"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ReorderTypeParameters" eSuperTypes="#//Complex"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ContractSuperSet" eSuperTypes="#//Complex"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MoveUpInHierarchy" eSuperTypes="#//Complex"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Simple" eSuperTypes="#//Change">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="new" eType="#//ElementReference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="old" eType="#//ElementReference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Add" eSuperTypes="#//Simple"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Delete" eSuperTypes="#//Simple"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DefaultClause" eSuperTypes="#//Delete"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Modify" eSuperTypes="#//Simple"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Rename" eSuperTypes="#//Modify"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AccessModifier" eSuperTypes="#//Modify"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeBound" eSuperTypes="#//Modify"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ResultType" eSuperTypes="#//Modify"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FieldValue" eSuperTypes="#//Modify"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeAPI" eSuperTypes="#//Modify"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OtherModifier" eSuperTypes="#//Modify"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ElementReference">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="apiElementName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="apiElement" lowerBound="1"
+        eType="#//APIElement"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="APIElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Complex" eSuperTypes="#//Change">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="simpleDiffs" lowerBound="2"
+        upperBound="-1" eType="#//Simple"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="APIElementType">
+    <eLiterals name="package"/>
+    <eLiterals name="class" value="1"/>
+    <eLiterals name="interface" value="2"/>
+    <eLiterals name="method" value="3"/>
+    <eLiterals name="constructor" value="4"/>
+    <eLiterals name="field" value="5"/>
+    <eLiterals name="enumeration" value="6"/>
+    <eLiterals name="elementAnnotation" value="7"/>
+    <eLiterals name="enumLiteral" value="8"/>
+    <eLiterals name="methodParameter" value="9"/>
+    <eLiterals name="typeField" value="10"/>
+    <eLiterals name="exceptionThrow" value="11"/>
+    <eLiterals name="typeParameter" value="12"/>
+  </eClassifiers>
+</ecore:EPackage>
