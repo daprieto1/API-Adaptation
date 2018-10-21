@@ -17,6 +17,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="changeElement" eType="#//APIElementType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MoveDownInHierarchy" eSuperTypes="#//Complex"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ChangeParameterLocation" eSuperTypes="#//Complex"/>
   <eClassifiers xsi:type="ecore:EClass" name="ReorderTypeParameters" eSuperTypes="#//Complex"/>
   <eClassifiers xsi:type="ecore:EClass" name="ContractSuperSet" eSuperTypes="#//Complex"/>
   <eClassifiers xsi:type="ecore:EClass" name="MoveUpInHierarchy" eSuperTypes="#//Complex"/>
@@ -43,7 +44,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="apiElement" lowerBound="1"
         eType="#//APIElement"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="APIElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="APIElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="location" eType="#//ParameterLocation"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Complex" eSuperTypes="#//Change">
     <eStructuralFeatures xsi:type="ecore:EReference" name="simpleDiffs" lowerBound="2"
         upperBound="-1" eType="#//Simple"/>
@@ -62,5 +65,14 @@
     <eLiterals name="typeField" value="10"/>
     <eLiterals name="exceptionThrow" value="11"/>
     <eLiterals name="typeParameter" value="12"/>
+    <eLiterals name="Location" value="13"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ParameterLocation">
+    <eLiterals name="none"/>
+    <eLiterals name="query" value="1"/>
+    <eLiterals name="path" value="2" literal="path"/>
+    <eLiterals name="header" value="3"/>
+    <eLiterals name="body" value="4"/>
+    <eLiterals name="formData" value="5"/>
   </eClassifiers>
 </ecore:EPackage>
