@@ -17,7 +17,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="changeElement" eType="#//APIElementType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MoveDownInHierarchy" eSuperTypes="#//Complex"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ChangeParameterLocation" eSuperTypes="#//Complex"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RelocateParameter" eSuperTypes="#//Complex">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="newLocation" eType="#//ParameterLocation"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="oldLocation" eType="#//ParameterLocation"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReorderTypeParameters" eSuperTypes="#//Complex"/>
   <eClassifiers xsi:type="ecore:EClass" name="ContractSuperSet" eSuperTypes="#//Complex"/>
   <eClassifiers xsi:type="ecore:EClass" name="MoveUpInHierarchy" eSuperTypes="#//Complex"/>
@@ -39,13 +42,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="TypeAPI" eSuperTypes="#//Modify"/>
   <eClassifiers xsi:type="ecore:EClass" name="OtherModifier" eSuperTypes="#//Modify"/>
   <eClassifiers xsi:type="ecore:EClass" name="ElementReference">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="apiElementName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="EObject" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="apiElement" lowerBound="1"
-        eType="#//APIElement"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="APIElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="location" eType="#//ParameterLocation"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Complex" eSuperTypes="#//Change">
     <eStructuralFeatures xsi:type="ecore:EReference" name="simpleDiffs" lowerBound="2"
@@ -68,7 +66,6 @@
     <eLiterals name="Location" value="13"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ParameterLocation">
-    <eLiterals name="none"/>
     <eLiterals name="query" value="1"/>
     <eLiterals name="path" value="2" literal="path"/>
     <eLiterals name="header" value="3"/>
