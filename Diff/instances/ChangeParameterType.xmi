@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diff:Diff xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:Diff="http://www.uniandes.edu.co/diff"
+    xsi:schemaLocation="http://www.uniandes.edu.co/diff ../Diff.ecore"
+    newVersion="version 2"
+    oldVersion="version 1">
+  <change xsi:type="Diff:ParameterType"
+      changeElement="typeParameter">
+    <new EObject="Age"/>
+    <old EObject="Age"/>
+    <oldDefinition
+        SchemaName=""
+        type="string"/>
+    <newDefinition
+        type="integer"/>
+  </change>
+  <change xsi:type="Diff:ParameterType"
+      changeElement="typeParameter">
+    <new EObject="UserInformation"/>
+    <old EObject="UserInformation"/>
+    <oldDefinition
+        SchemaName="User"
+        type="object"/>
+    <newDefinition
+        SchemaName="Customer"
+        type="object"/>
+  </change>
+</Diff:Diff>
