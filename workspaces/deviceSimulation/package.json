@@ -1,0 +1,14 @@
+{
+  "name": "devicesimulation",
+  "version": "1.0.0",
+  "description": "This code will simulate an IoT device sending data permanently by a period of time, as well as a divice that needs retrieve information",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "daprieto",
+  "license": "ISC",
+  "dependencies": {
+    "cron": "^1.5.0"
+  }
+}
