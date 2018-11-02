@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diff:Diff xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:Diff="http://www.uniandes.edu.co/diff"
+    xsi:schemaLocation="http://www.uniandes.edu.co/diff ../Diff.ecore"
+    newVersion="2.0"
+    oldVersion="1.0">
+  <change xsi:type="Diff:Delete"
+      changeElement="methodParameter">
+    <old EObject="currentPassword"/>
+  </change>
+  <change xsi:type="Diff:Delete"
+      changeElement="methodParameter">
+    <old EObject="newPassword"/>
+  </change>
+  <change xsi:type="Diff:Add"
+      changeElement="methodParameter">
+    <new EObject="changePasswordRequest"/>
+  </change>
+  <change xsi:type="Diff:RelocateParameter"
+      changeElement="methodParameter"
+      simpleDiffs="//@change.0 //@change.1 //@change.2"
+      newLocation="body"/>
+</Diff:Diff>
