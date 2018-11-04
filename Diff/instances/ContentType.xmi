@@ -8,10 +8,12 @@
     oldVersion="version 1">
   <change xsi:type="Diff:ResultType"
       changeElement="method">
-    <new EObject="application/json"
+    <new  xsi:type="Diff:ElementReferenceValues"
+    	EObject="application/json"
         xpath="root/api/paths[5]/get"
         defaultValue=""/>
-    <old EObject="application/xml"
+    <old  xsi:type="Diff:ElementReferenceValues" 
+    	EObject="application/xml"
         xpath="root/api/paths[4]/get"/>
   </change>
 </Diff:Diff>

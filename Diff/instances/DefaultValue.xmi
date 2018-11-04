@@ -8,10 +8,12 @@
     oldVersion="version 1">
   <change xsi:type="Diff:FieldValue"
       changeElement="methodParameter">
-    <new EObject="limitPage"
+    <new xsi:type="Diff:ElementReferenceValues"
+        EObject="limitPage"
         xpath="root/API/Path[9]/get"
         defaultValue="30"/>
-    <old EObject="limitPage"
+    <old xsi:type="Diff:ElementReferenceValues"
+        EObject="limitPage"
         xpath="root/API/Path[3]/get"
         defaultValue="20"/>
   </change>

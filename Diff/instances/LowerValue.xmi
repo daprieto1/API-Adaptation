@@ -8,12 +8,14 @@
     oldVersion="version 1">
   <change xsi:type="Diff:FieldValue"
       changeElement="methodParameter">
-    <new EObject="offset"
+    <new  xsi:type="Diff:ElementReferenceValues"
+    	EObject="offset"
         xpath="root/API/Path[9]/get"
         defaultValue="10"
         maximumValue="50"
         minimum="5"/>
-    <old EObject="offset"
+    <old  xsi:type="Diff:ElementReferenceValues"
+    	EObject="offset"
         xpath="root/API/Path[4]/get"
         defaultValue="10"
         maximumValue="40"
