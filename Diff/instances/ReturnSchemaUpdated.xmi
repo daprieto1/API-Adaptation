@@ -16,4 +16,14 @@
     <new EObject="name"
         xpath="root/api/definitions[3]"/>
   </change>
+  <change xsi:type="Diff:Delete"
+      changeElement="class">
+    <old EObject="oldParameter"
+        xpath="root/api/definitions[1]"/>
+  </change>
+  <change xsi:type="Diff:Delete"
+      changeElement="class">
+    <old EObject="fisrtName"
+        xpath="root/api/definitions[1]"/>
+  </change>
 </Diff:Diff>
