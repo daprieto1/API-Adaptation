@@ -38,6 +38,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="AccessModifier" eSuperTypes="#//Modify"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeBound" eSuperTypes="#//Modify"/>
   <eClassifiers xsi:type="ecore:EClass" name="ResultType" eSuperTypes="#//Modify"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ConsumeType" eSuperTypes="#//Modify"/>
   <eClassifiers xsi:type="ecore:EClass" name="FieldValue" eSuperTypes="#//Modify"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeAPI" eSuperTypes="#//Modify"/>
   <eClassifiers xsi:type="ecore:EClass" name="OtherModifier" eSuperTypes="#//Modify"/>
