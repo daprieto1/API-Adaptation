@@ -6,15 +6,11 @@
     xsi:schemaLocation="http://www.uniandes.edu.co/diff ../Diff.ecore"
     newVersion="version 2"
     oldVersion="version 1">
-  <change xsi:type="Diff:FieldValue"
+  <change xsi:type="Diff:DefaultValue"
       changeElement="methodParameter">
-    <new xsi:type="Diff:ElementReferenceValues"
-        EObject="limitPage"
-        xpath="root/API/Path[9]/get"
-        defaultValue="30"/>
-    <old xsi:type="Diff:ElementReferenceValues"
-        EObject="limitPage"
-        xpath="root/API/Path[3]/get"
-        defaultValue="20"/>
+    <new EObject="limit"
+        xpath="root/API/Path[9]/get"/>
+    <old EObject="limit"
+        xpath="root/API/Path[2]/get"/>
   </change>
 </Diff:Diff>

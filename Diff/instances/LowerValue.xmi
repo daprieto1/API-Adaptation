@@ -6,19 +6,11 @@
     xsi:schemaLocation="http://www.uniandes.edu.co/diff ../Diff.ecore"
     newVersion="version 2"
     oldVersion="version 1">
-  <change xsi:type="Diff:FieldValue"
+  <change xsi:type="Diff:LowerBondary"
       changeElement="methodParameter">
-    <new  xsi:type="Diff:ElementReferenceValues"
-    	EObject="offset"
-        xpath="root/API/Path[9]/get"
-        defaultValue="10"
-        maximumValue="50"
-        minimum="5"/>
-    <old  xsi:type="Diff:ElementReferenceValues"
-    	EObject="offset"
-        xpath="root/API/Path[4]/get"
-        defaultValue="10"
-        maximumValue="40"
-        minimum="10"/>
+    <new EObject="offset"
+        xpath="root/API/Paths[3]/get"/>
+    <old EObject="offset"
+        xpath="root/API/Paths[3]/get"/>
   </change>
 </Diff:Diff>
