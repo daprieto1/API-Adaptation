@@ -52,6 +52,12 @@
             <labelColor xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_blue']"/>
           </endLabelStyleDescription>
         </computedStyleDescriptions>
+        <computedStyleDescriptions xmi:type="style:BundledImageDescription" xmi:id="_ZTQEIN_mEeiUupGmDkqKfw" labelExpression="service:render" labelAlignment="LEFT" tooltipExpression="service:renderTooltip" sizeComputationExpression="1">
+          <borderColor xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          <labelFormat>bold</labelFormat>
+          <labelColor xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          <color xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+        </computedStyleDescriptions>
       </data>
     </ownedAnnotationEntries>
     <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_pwSXR9TCEei2Z_LUb-4YDQ" source="GMF_DIAGRAMS">
@@ -249,6 +255,10 @@
             <children xmi:type="notation:Node" xmi:id="_vLD949TCEei2Z_LUb-4YDQ" type="3010" element="_vKq8UtTCEei2Z_LUb-4YDQ">
               <styles xmi:type="notation:FontStyle" xmi:id="_vLD95NTCEei2Z_LUb-4YDQ" fontName="Segoe UI" fontHeight="8"/>
               <layoutConstraint xmi:type="notation:Location" xmi:id="_vLD95dTCEei2Z_LUb-4YDQ"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_ZTYnAN_mEeiUupGmDkqKfw" type="3010" element="_ZTPdEN_mEeiUupGmDkqKfw">
+              <styles xmi:type="notation:FontStyle" xmi:id="_ZTYnAd_mEeiUupGmDkqKfw" fontName="Segoe UI" fontHeight="8" bold="true"/>
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_ZTYnAt_mEeiUupGmDkqKfw"/>
             </children>
             <styles xmi:type="notation:SortingStyle" xmi:id="_vLA6mdTCEei2Z_LUb-4YDQ"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_vLA6mtTCEei2Z_LUb-4YDQ"/>
@@ -1199,6 +1209,14 @@
         <semanticElements xmi:type="ecore:EAttribute" href="Diff.ecore#//ElementReference/lineNumber"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_vKrjYNTCEei2Z_LUb-4YDQ" labelAlignment="LEFT">
           <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']"/>
+      </ownedElements>
+      <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_ZTPdEN_mEeiUupGmDkqKfw" name="xpath : EString" tooltipText="">
+        <target xmi:type="ecore:EAttribute" href="Diff.ecore#//ElementReference/xpath"/>
+        <semanticElements xmi:type="ecore:EAttribute" href="Diff.ecore#//ElementReference/xpath"/>
+        <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_ZTQEId_mEeiUupGmDkqKfw" labelAlignment="LEFT" description="_ZTQEIN_mEeiUupGmDkqKfw">
+          <labelFormat>bold</labelFormat>
         </ownedStyle>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']"/>
       </ownedElements>

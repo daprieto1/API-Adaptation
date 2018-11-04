@@ -8,7 +8,9 @@
     oldVersion="version 1">
   <change xsi:type="Diff:Rename"
       changeElement="methodParameter">
-    <new EObject="username"/>
-    <old EObject="nameUser"/>
+    <new EObject="username"
+        xpath="root/API/Paths[3]/post"/>
+    <old EObject="nameUser"
+        xpath="root/API/Paths[2]/post"/>
   </change>
 </Diff:Diff>

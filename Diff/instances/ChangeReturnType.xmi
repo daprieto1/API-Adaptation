@@ -8,8 +8,10 @@
     oldVersion="1.0">
   <change xsi:type="Diff:ReturnType"
       changeElement="ReturnType">
-    <new EObject="root/API/Paths[1]/Get"/>
-    <old EObject="root/API/Paths[5]/Get"/>
+    <new EObject="200"
+        xpath="root/API/Paths[1]/Get"/>
+    <old EObject="200"
+        xpath="root/API/Paths[5]/Get"/>
     <oldDefinition
         SchemaName="code"
         type="string"/>
@@ -19,8 +21,10 @@
   </change>
   <change xsi:type="Diff:ReturnType"
       changeElement="ReturnType">
-    <new EObject="root/API/Paths[5]/Get"/>
-    <old EObject="root/API/Paths[1]/Get"/>
+    <new EObject="200"
+        xpath="root/API/Paths[5]/Get"/>
+    <old EObject="200"
+        xpath="root/API/Paths[1]/Get"/>
     <oldDefinition
         SchemaName="user"
         type="string"/>
