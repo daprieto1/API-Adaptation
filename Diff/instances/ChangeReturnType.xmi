@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diff:Diff xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:Diff="http://www.uniandes.edu.co/diff"
+    xsi:schemaLocation="http://www.uniandes.edu.co/diff ../Diff.ecore"
+    newVersion="2.0"
+    oldVersion="1.0">
+  <change xsi:type="Diff:ReturnType"
+      changeElement="ReturnType">
+    <new EObject="root/API/Paths[1]/Get"/>
+    <old EObject="root/API/Paths[5]/Get"/>
+    <oldDefinition
+        SchemaName="code"
+        type="string"/>
+    <newDefinition
+        SchemaName="code"
+        type="integer"/>
+  </change>
+  <change xsi:type="Diff:ReturnType"
+      changeElement="ReturnType">
+    <new EObject="root/API/Paths[5]/Get"/>
+    <old EObject="root/API/Paths[1]/Get"/>
+    <oldDefinition
+        SchemaName="user"
+        type="string"/>
+    <newDefinition
+        SchemaName="user"
+        type="object"/>
+  </change>
+</Diff:Diff>

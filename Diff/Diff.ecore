@@ -64,6 +64,7 @@
     <eLiterals name="exceptionThrow" value="11"/>
     <eLiterals name="typeParameter" value="12"/>
     <eLiterals name="Location" value="13"/>
+    <eLiterals name="ReturnType" value="14"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ParameterLocation">
     <eLiterals name="query" value="1"/>
@@ -93,5 +94,12 @@
     <eLiterals name="array" value="6"/>
     <eLiterals name="file" value="7" literal="file"/>
     <eLiterals name="null" value="8" literal="null"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReturnType" instanceTypeName="ReturnType"
+      eSuperTypes="#//Modify">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="oldDefinition" lowerBound="1"
+        eType="#//ElementDefinition" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="newDefinition" lowerBound="1"
+        eType="#//ElementDefinition" containment="true"/>
   </eClassifiers>
 </ecore:EPackage>
