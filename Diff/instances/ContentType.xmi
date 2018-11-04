@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diff:Diff xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:Diff="http://www.uniandes.edu.co/diff"
+    xsi:schemaLocation="http://www.uniandes.edu.co/diff ../Diff.ecore"
+    newVersion="version 2"
+    oldVersion="version 1">
+  <change xsi:type="Diff:ResultType"
+      changeElement="method">
+    <new EObject="application/json"
+        xpath="root/api/paths[5]/get"
+        defaultValue=""/>
+    <old EObject="application/xml"
+        xpath="root/api/paths[4]/get"/>
+  </change>
+</Diff:Diff>
