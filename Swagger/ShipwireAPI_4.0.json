@@ -1,0 +1,3051 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Shipwire APIs",
+    "description" : "# Welcome to the Shipwire API\n\nGet started using the world's most robust developer toolset for shipping and logistics.\n",
+    "termsOfService" : "",
+    "contact" : {
+      "email" : "contact@shipwire.com"
+    },
+    "license" : {
+      "name" : "Private License",
+      "url" : "https://opensource.org/licenses/MIT"
+    },
+    "version" : "4.0"
+  },
+  "paths" : {
+    "/api/v4/auth" : {
+      "get" : {
+        "summary" : "List tokens for a v4 API user",
+        "description" : "List all tokens for a v4 API user.",
+        "operationId" : "AuthTokenController@index",
+        "tags" : [ "Auth Tokens" ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "tokens" : {
+                  "description" : "v4 tokens for the user",
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string",
+                    "example" : "aIXoMqtVWV6u1eY3glXy22FMowjg3Gmw",
+                    "readOnly" : true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      },
+      "post" : {
+        "summary" : "Create a new v4 API user",
+        "description" : "Creates a new v4 API user based on Shipwire basic authentication.",
+        "operationId" : "AuthTokenController@create",
+        "tags" : [ "Auth Tokens" ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "token" : {
+                  "description" : "v4 token created for the user",
+                  "type" : "string",
+                  "example" : "aIXoMqtVWV6u1eY3glXy22FMowjg3Gmw",
+                  "readOnly" : true
+                },
+                "createdAt" : {
+                  "description" : "Date/Time the user was created",
+                  "type" : "string",
+                  "example" : "2017-12-21 02:55:18",
+                  "readOnly" : true
+                },
+                "updatedAt" : {
+                  "description" : "Date/Time the user was updated",
+                  "type" : "string",
+                  "example" : "2018-01-03 01:53:46",
+                  "readOnly" : true
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity"
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        } ]
+      }
+    },
+    "/api/v4/warehouse" : {
+      "get" : {
+        "tags" : [ "Warehouse" ],
+        "summary" : "Get a list of warehouses",
+        "description" : "Get a list of warehouses with optional filters.",
+        "operationId" : "WarehouseController@index",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "offset",
+          "description" : "Number of records to skip",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "limit",
+          "description" : "Max number of records to return",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "include",
+          "in" : "query",
+          "description" : "A comma separated list of sub-properties for the warehouse to include in the response.\n\nExample: ‘include=containers.*’ will return the main warehouse properties and all the container properties, but will not include the warehouse address properties.\n",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "address", "containers", "containers.dimensions", "containers.values", "containers.\\*" ]
+          }
+        }, {
+          "name" : "shipwireId",
+          "in" : "query",
+          "description" : "Filter by warehouse shipwire ids, supports comma separated list.",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "externalId",
+          "in" : "query",
+          "description" : "Filter by warehouse external ids, supports comma separated list.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "description" : "Filter by warehouse names, supports comma separated list.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "shipwireVendorId",
+          "in" : "query",
+          "description" : "Filter by associated vendor's Shipwire id, supports comma separated list.",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "vendorExternalId",
+          "in" : "query",
+          "description" : "Filter by associated vendor's external id, supports comma separated list.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "country",
+          "in" : "query",
+          "description" : "Filter by country, supports comma separated list.",
+          "required" : false,
+          "type" : "string",
+          "x-lumen-mapped-to" : "address.country"
+        }, {
+          "name" : "generatesLabels",
+          "in" : "query",
+          "description" : "Filter by warehouses that require label generation.",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "description" : "Filter by type ('SHIPWIRE', 'SHIPWIRE_ANYWHERE').",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "includeArchived",
+          "in" : "query",
+          "description" : "Include archived warehouses in response.",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "updatedAfter",
+          "in" : "query",
+          "description" : "Return warehouses updated after the supplied UTC timestamp.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "updatedBefore",
+          "in" : "query",
+          "description" : "Return warehouses updated before the supplied UTC timestamp.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/WarehouseIndexResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Warehouse" ],
+        "summary" : "Create a warehouse",
+        "description" : "This can only be done by the logged in user.",
+        "operationId" : "WarehouseController@create",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "include",
+          "in" : "query",
+          "description" : "A comma separated list of sub-properties for the warehouse to include in the response.\n\nExample: ‘include=containers.*’ will return the main warehouse properties and all the container properties, but will not include the warehouse address properties.\n",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "address", "containers", "containers.dimensions", "containers.values", "containers.\\*" ]
+          }
+        }, {
+          "name" : "allOrNothing",
+          "in" : "query",
+          "description" : "For batches, identifies whether to only persist objects in the batch if none of the objects have errors (true) or whether to partially save the batch when possible (false).",
+          "type" : "boolean",
+          "required" : false,
+          "default" : false
+        }, {
+          "name" : "doNotPersistOnWarnings",
+          "in" : "query",
+          "description" : "Identifies whether to not perist objects that have warnings (true) or whether to persist them as long as they do not have errors (false).",
+          "type" : "boolean",
+          "required" : false,
+          "default" : false
+        }, {
+          "name" : "body",
+          "in" : "body",
+          "description" : "Created warehouse object",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Warehouse"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/WarehouseSaveResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      }
+    },
+    "/api/v4/warehouse/{warehouseId}" : {
+      "get" : {
+        "tags" : [ "Warehouse" ],
+        "summary" : "Get a warehouse by id",
+        "description" : "Allows retrieving a warehouse by either the v4 id or the shipwireId",
+        "operationId" : "WarehouseController@get",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "warehouseId",
+          "in" : "path",
+          "description" : "The v4 id or the shipwireId of the warehouse to be fetched.",
+          "required" : true,
+          "type" : "string",
+          "x-lumen-mapped-to" : "_id"
+        }, {
+          "name" : "include",
+          "in" : "query",
+          "description" : "A comma separated list of sub-properties for the warehouse to include in the response.\n\nExample: ‘include=containers.*’ will return the main warehouse properties and all the container properties, but will not include the warehouse address properties.\n",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "address", "containers", "containers.dimensions", "containers.values", "containers.\\*" ]
+          }
+        }, {
+          "name" : "includeArchived",
+          "in" : "query",
+          "description" : "Include archived warehouses in response.",
+          "required" : false,
+          "type" : "boolean"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/WarehouseGetResponse"
+            }
+          },
+          "404" : {
+            "description" : "Warehouse not found"
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Warehouse" ],
+        "summary" : "Update a warehouse by id",
+        "description" : "Allows updating a warehouse by either the v4 id or the shipwireId",
+        "operationId" : "WarehouseController@update",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "warehouseId",
+          "in" : "path",
+          "description" : "The v4 id or the shipwireId of the warehouse to be updated.",
+          "required" : true,
+          "type" : "string",
+          "x-lumen-mapped-to" : "_id"
+        }, {
+          "name" : "include",
+          "in" : "query",
+          "description" : "A comma separated list of sub-properties for the warehouse to include in the response.\n\nExample: ‘include=containers.*’ will return the main warehouse properties and all the container properties, but will not include the warehouse address properties.\n",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "address", "containers", "containers.dimensions", "containers.values", "containers.\\*" ]
+          }
+        }, {
+          "name" : "allOrNothing",
+          "in" : "query",
+          "description" : "For batches, identifies whether to only persist objects in the batch if none of the objects have errors (true) or whether to partially save the batch when possible (false).",
+          "type" : "boolean",
+          "required" : false,
+          "default" : false
+        }, {
+          "name" : "doNotPersistOnWarnings",
+          "in" : "query",
+          "description" : "Identifies whether to not perist objects that have warnings (true) or whether to persist them as long as they do not have errors (false).",
+          "type" : "boolean",
+          "required" : false,
+          "default" : false
+        }, {
+          "name" : "body",
+          "in" : "body",
+          "description" : "Update warehouse object",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Warehouse"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/WarehouseSaveResponse"
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity"
+          },
+          "404" : {
+            "description" : "Warehouse not found"
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Warehouse" ],
+        "summary" : "Delete a warehouse by id",
+        "description" : "Allows deleting a warehouse by either the v4 id or the shipwireId",
+        "operationId" : "WarehouseController@delete",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "warehouseId",
+          "in" : "path",
+          "description" : "The v4 id or the shipwireId of the warehouse to be deleted.",
+          "required" : true,
+          "type" : "string",
+          "x-lumen-mapped-to" : "_id"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/DeleteResponse"
+            }
+          },
+          "404" : {
+            "description" : "Warehouse not found"
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      }
+    },
+    "/api/v4/warehouse/e/{externalId}" : {
+      "get" : {
+        "tags" : [ "Warehouse" ],
+        "summary" : "Get a warehouse by external id",
+        "description" : "Allows retrieving a warehouse by the merchant external id",
+        "operationId" : "WarehouseController@getByExternalId",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "externalId",
+          "in" : "path",
+          "description" : "The merchant external id of the warehouse to be fetched.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "include",
+          "in" : "query",
+          "description" : "A comma separated list of sub-properties for the warehouse to include in the response.\n\nExample: ‘include=containers.*’ will return the main warehouse properties and all the container properties, but will not include the warehouse address properties.\n",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "address", "containers", "containers.dimensions", "containers.values", "containers.\\*" ]
+          }
+        }, {
+          "name" : "includeArchived",
+          "in" : "query",
+          "description" : "Include archived warehouses in response.",
+          "required" : false,
+          "type" : "boolean"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/WarehouseGetResponse"
+            }
+          },
+          "404" : {
+            "description" : "Warehouse not found"
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Warehouse" ],
+        "summary" : "Update a warehouse by external id",
+        "description" : "Allows updating a warehouse by the merchant external id",
+        "operationId" : "WarehouseController@updateByExternalId",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "externalId",
+          "in" : "path",
+          "description" : "The merchant external id of the warehouse to be updated.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "include",
+          "in" : "query",
+          "description" : "A comma separated list of sub-properties for the warehouse to include in the response.\n\nExample: ‘include=containers.*’ will return the main warehouse properties and all the container properties, but will not include the warehouse address properties.\n",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "address", "containers", "containers.dimensions", "containers.values", "containers.\\*" ]
+          }
+        }, {
+          "name" : "allOrNothing",
+          "in" : "query",
+          "description" : "For batches, identifies whether to only persist objects in the batch if none of the objects have errors (true) or whether to partially save the batch when possible (false).",
+          "type" : "boolean",
+          "required" : false,
+          "default" : false
+        }, {
+          "name" : "doNotPersistOnWarnings",
+          "in" : "query",
+          "description" : "Identifies whether to not perist objects that have warnings (true) or whether to persist them as long as they do not have errors (false).",
+          "type" : "boolean",
+          "required" : false,
+          "default" : false
+        }, {
+          "name" : "body",
+          "in" : "body",
+          "description" : "Update warehouse object",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Warehouse"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/WarehouseSaveResponse"
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity"
+          },
+          "404" : {
+            "description" : "Warehouse not found"
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Warehouse" ],
+        "summary" : "Delete a warehouse by external id",
+        "description" : "Allows deleting a warehouse by the merchant external id",
+        "operationId" : "WarehouseController@deleteByExternalId",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "externalId",
+          "in" : "path",
+          "description" : "The merchant external id of the warehouse to be deleted.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/DeleteResponse"
+            }
+          },
+          "404" : {
+            "description" : "Warehouse not found"
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      }
+    },
+    "/api/v4/warehouse/{warehouseId}/containers" : {
+      "get" : {
+        "tags" : [ "Warehouse Containers" ],
+        "summary" : "Get warehouse containers by id",
+        "description" : "Allows retrieving the containers for a warehouse by the warehouse v4 id or shipwireId",
+        "operationId" : "WarehouseController@subResourceIndexById@containers",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "warehouseId",
+          "in" : "path",
+          "description" : "The v4 id or the shipwireId of the warehouse for containers to be fetched.",
+          "required" : true,
+          "type" : "string",
+          "x-lumen-mapped-to" : "_id"
+        }, {
+          "name" : "include",
+          "in" : "query",
+          "description" : "A comma separated list of sub-properties for the containers to include in the response.\n\nExample: ‘include=*’ will return all the container properties.\n",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "address", "dimensions", "values" ]
+          }
+        }, {
+          "name" : "includeArchived",
+          "in" : "query",
+          "description" : "Include archived warehouses in response.",
+          "required" : false,
+          "type" : "boolean"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ContainerGetResponse"
+            }
+          },
+          "404" : {
+            "description" : "Warehouse not found"
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      }
+    },
+    "/api/v4/warehouse/e/{externalId}/containers" : {
+      "get" : {
+        "tags" : [ "Warehouse Containers" ],
+        "summary" : "Get warehouse containers by external id",
+        "description" : "Allows retrieving the containers for a warehouse by the warehouse external id",
+        "operationId" : "WarehouseController@subResourceIndexByExternalId@containers",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "externalId",
+          "in" : "path",
+          "description" : "The merchant external id of the warehouse for containers to be fetched.",
+          "required" : true,
+          "type" : "string",
+          "x-lumen-mapped-to" : "externalId"
+        }, {
+          "name" : "include",
+          "in" : "query",
+          "description" : "A comma separated list of sub-properties for the containers to include in the response.\n\nExample: ‘include=*’ will return all the container properties.\n",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "address", "dimensions", "values" ]
+          }
+        }, {
+          "name" : "includeArchived",
+          "in" : "query",
+          "description" : "Include archived warehouses in response.",
+          "required" : false,
+          "type" : "boolean"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ContainerGetResponse"
+            }
+          },
+          "404" : {
+            "description" : "Warehouse not found"
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      }
+    },
+    "/api/v4/container" : {
+      "get" : {
+        "tags" : [ "Container" ],
+        "summary" : "Get a list of containers",
+        "description" : "Get a list of containers with optional filters.",
+        "operationId" : "ContainerController@index",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "offset",
+          "description" : "Number of records to skip",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "limit",
+          "description" : "Max number of records to return",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "include",
+          "in" : "query",
+          "description" : "A comma separated list of sub-properties for the container to include in the response.\n\nExample: ‘include=*’ will return all the container properties.\n",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "address", "dimensions", "values" ]
+          }
+        }, {
+          "name" : "includeArchived",
+          "in" : "query",
+          "description" : "Include archived warehouses in response.",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "isActive",
+          "in" : "query",
+          "description" : "Returns containers that are active or not. Valid options are 1 or 0.",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "warehouseId",
+          "in" : "query",
+          "description" : "Filter by warehouse ids, supports comma separated list.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "shipwireWarehouseId",
+          "in" : "query",
+          "description" : "Filter by shipwire warehouse ids, supports comma separated list.",
+          "required" : false,
+          "type" : "integer",
+          "x-lumen-mapped-to" : "warehouse.shipwireId"
+        }, {
+          "name" : "warehouseExternalId",
+          "in" : "query",
+          "description" : "Filter by warehouse external ids, supports comma separated list.",
+          "required" : false,
+          "type" : "string",
+          "x-lumen-mapped-to" : "warehouse.externalId"
+        }, {
+          "name" : "updatedAfter",
+          "in" : "query",
+          "description" : "Return containers updated after the supplied UTC timestamp.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "updatedBefore",
+          "in" : "query",
+          "description" : "Return containers updated before the supplied UTC timestamp.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ContainerIndexResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Container" ],
+        "summary" : "Create a container",
+        "description" : "This can only be done by the logged in user.",
+        "operationId" : "ContainerController@create",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "include",
+          "in" : "query",
+          "description" : "A comma separated list of sub-properties for the container to include in the response.\n\nExample: ‘include=*’ will return all the container properties.\n",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "address", "dimensions", "values" ]
+          }
+        }, {
+          "name" : "allOrNothing",
+          "in" : "query",
+          "description" : "For batches, identifies whether to only persist objects in the batch if none of the objects have errors (true) or whether to partially save the batch when possible (false).",
+          "type" : "boolean",
+          "required" : false,
+          "default" : false
+        }, {
+          "name" : "doNotPersistOnWarnings",
+          "in" : "query",
+          "description" : "Identifies whether to not perist objects that have warnings (true) or whether to persist them as long as they do not have errors (false).",
+          "type" : "boolean",
+          "required" : false,
+          "default" : false
+        }, {
+          "name" : "body",
+          "in" : "body",
+          "description" : "Created container object",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Container"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ContainerSaveResponse"
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity"
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      }
+    },
+    "/api/v4/container/{containerId}" : {
+      "get" : {
+        "tags" : [ "Container" ],
+        "summary" : "Get a container by id",
+        "description" : "Allows retrieving a container by either the v4 id or the shipwireId",
+        "operationId" : "ContainerController@get",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "containerId",
+          "in" : "path",
+          "description" : "The v4 id or the shipwireId of the container to be fetched.",
+          "required" : true,
+          "type" : "string",
+          "x-lumen-mapped-to" : "_id"
+        }, {
+          "name" : "include",
+          "in" : "query",
+          "description" : "A comma separated list of sub-properties for the container to include in the response.\n\nExample: ‘include=*’ will return all the container properties.\n",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "address", "dimensions", "values" ]
+          }
+        }, {
+          "name" : "includeArchived",
+          "in" : "query",
+          "description" : "Include archived warehouses in response.",
+          "required" : false,
+          "type" : "boolean"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ContainerGetResponse"
+            }
+          },
+          "404" : {
+            "description" : "Container not found"
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Container" ],
+        "summary" : "Update a container by id",
+        "description" : "Allows updating a container by either the v4 id or the shipwireId",
+        "operationId" : "ContainerController@update",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "containerId",
+          "in" : "path",
+          "description" : "The v4 id or the shipwireId of the container to be updated.",
+          "required" : true,
+          "type" : "string",
+          "x-lumen-mapped-to" : "_id"
+        }, {
+          "name" : "include",
+          "in" : "query",
+          "description" : "A comma separated list of sub-properties for the container to include in the response.\n\nExample: ‘include=*’ will return all the container properties.\n",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "address", "dimensions", "values" ]
+          }
+        }, {
+          "name" : "allOrNothing",
+          "in" : "query",
+          "description" : "For batches, identifies whether to only persist objects in the batch if none of the objects have errors (true) or whether to partially save the batch when possible (false).",
+          "type" : "boolean",
+          "required" : false,
+          "default" : false
+        }, {
+          "name" : "doNotPersistOnWarnings",
+          "in" : "query",
+          "description" : "Identifies whether to not perist objects that have warnings (true) or whether to persist them as long as they do not have errors (false).",
+          "type" : "boolean",
+          "required" : false,
+          "default" : false
+        }, {
+          "name" : "body",
+          "in" : "body",
+          "description" : "Update container object",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Container"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ContainerSaveResponse"
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity"
+          },
+          "404" : {
+            "description" : "Container not found"
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Container" ],
+        "summary" : "Delete a container by id",
+        "description" : "Allows deleting a container by either the v4 id or the shipwireId",
+        "operationId" : "ContainerController@delete",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "containerId",
+          "in" : "path",
+          "description" : "The v4 id or the shipwireId of the container to be deleted.",
+          "required" : true,
+          "type" : "string",
+          "x-lumen-mapped-to" : "_id"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/DeleteResponse"
+            }
+          },
+          "404" : {
+            "description" : "Container not found"
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      }
+    },
+    "/api/v4/container/e/{externalId}" : {
+      "get" : {
+        "tags" : [ "Container" ],
+        "summary" : "Get a container by external id",
+        "description" : "Allows retrieving a container by the merchant external id",
+        "operationId" : "ContainerController@getByExternalId",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "externalId",
+          "in" : "path",
+          "description" : "The merchant external id of the container to be fetched.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "include",
+          "in" : "query",
+          "description" : "A comma separated list of sub-properties for the container to include in the response.\n\nExample: ‘include=*’ will return all the container properties.\n",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "address", "dimensions", "values" ]
+          }
+        }, {
+          "name" : "includeArchived",
+          "in" : "query",
+          "description" : "Include archived warehouses in response.",
+          "required" : false,
+          "type" : "boolean"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ContainerGetResponse"
+            }
+          },
+          "404" : {
+            "description" : "Container not found"
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Container" ],
+        "summary" : "Update a container by external id",
+        "description" : "Allows updating a container by the merchant external id",
+        "operationId" : "ContainerController@updateByExternalId",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "externalId",
+          "in" : "path",
+          "description" : "The merchant external id of the container to be updated.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "include",
+          "in" : "query",
+          "description" : "A comma separated list of sub-properties for the container to include in the response.\n\nExample: ‘include=*’ will return all the container properties.\n",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "address", "dimensions", "values" ]
+          }
+        }, {
+          "name" : "allOrNothing",
+          "in" : "query",
+          "description" : "For batches, identifies whether to only persist objects in the batch if none of the objects have errors (true) or whether to partially save the batch when possible (false).",
+          "type" : "boolean",
+          "required" : false,
+          "default" : false
+        }, {
+          "name" : "doNotPersistOnWarnings",
+          "in" : "query",
+          "description" : "Identifies whether to not perist objects that have warnings (true) or whether to persist them as long as they do not have errors (false).",
+          "type" : "boolean",
+          "required" : false,
+          "default" : false
+        }, {
+          "name" : "body",
+          "in" : "body",
+          "description" : "Update container object",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Container"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ContainerSaveResponse"
+            }
+          },
+          "422" : {
+            "description" : "Unprocessable Entity"
+          },
+          "404" : {
+            "description" : "Container not found"
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Container" ],
+        "summary" : "Delete a container by external id",
+        "description" : "Allows deleting a container by the merchant external id",
+        "operationId" : "ContainerController@deleteByExternalId",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "externalId",
+          "in" : "path",
+          "description" : "The merchant external id of the container to be deleted.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/DeleteResponse"
+            }
+          },
+          "404" : {
+            "description" : "Container not found"
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      }
+    },
+    "/api/v4/product" : {
+      "get" : {
+        "description" : "Get an itemized list of products.",
+        "summary" : "Get a list of products",
+        "tags" : [ "Product" ],
+        "operationId" : "ProductController@index",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "offset",
+          "description" : "Number of records to skip",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "limit",
+          "description" : "Max number of records to return",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "includeArchived",
+          "description" : "Include archived products in response.",
+          "in" : "query",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "include",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "alternateNames", "alternateDescriptions", "masterCase", "enqueuedDimensions", "flags", "dimensions", "technicalData", "innerPack", "pallet", "values", "kitContent", "inclusionRules", "extendedAttributes" ]
+          },
+          "description" : "A comma separated list of sub-properties for the products to include in the response.\n\nExample: ‘include=*’ will return all the product properties.\n"
+        }, {
+          "name" : "text",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Filter products by text search using the \"description\" and \"sku\" properties.\nIncludes \"alternateNames\" and \"alternateDescriptions\".  Also searches the\n\"description\" and \"sku\" of any associated \"innerPack\", \"masterCase\" and \"pallet\".\n"
+        }, {
+          "name" : "sku",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "description" : "Filter products by matching their \"sku\" property. -comma separated list."
+        }, {
+          "name" : "classification",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "baseProduct", "kit", "virtualKit", "marketingInsert" ]
+          },
+          "description" : "Filter products by their classification."
+        }, {
+          "name" : "status",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "notinuse", "instock", "outofstock" ]
+          },
+          "description" : "Filter products by their status -comma separated list."
+        }, {
+          "name" : "productId",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Filter products by their ID -comma separated list."
+        }, {
+          "name" : "externalId",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Filters products by their externalId -comma seperated list"
+        }, {
+          "name" : "shipwireVendorId",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Filters products by the vendor's Shipwire id -comma seperated list"
+        }, {
+          "name" : "vendorExternalId",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "Filters products by vendorEXternalId -comma seperated list"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/ProductIndexResponse"
+            }
+          }
+        }
+      },
+      "put" : {
+        "description" : "Modify products of any classification.",
+        "summary" : "Update a list of products",
+        "tags" : [ "Product" ],
+        "operationId" : "ProductController@updateList",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "include",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "alternateNames", "alternateDescriptions", "masterCase", "enqueuedDimensions", "flags", "dimensions", "technicalData", "innerPack", "pallet", "values", "kitContent", "inclusionRules", "extendedAttributes" ]
+          },
+          "description" : "A comma separated list of sub-properties for the products to include in the response.\n\nExample: ‘include=*’ will return all the product properties.\n"
+        }, {
+          "name" : "body",
+          "in" : "body",
+          "required" : true,
+          "description" : "Modify products of any classification.",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/Product"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/ProductSaveResponse"
+            }
+          }
+        }
+      },
+      "post" : {
+        "description" : "Create new products of any classification.",
+        "summary" : "Create one or more containers",
+        "tags" : [ "Product" ],
+        "operationId" : "ProductController@create",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "include",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "alternateNames", "alternateDescriptions", "masterCase", "enqueuedDimensions", "flags", "dimensions", "technicalData", "innerPack", "pallet", "values", "kitContent", "inclusionRules", "extendedAttributes" ]
+          },
+          "description" : "A comma separated list of sub-properties for the products to include in the response.\n\nExample: ‘include=*’ will return all the product properties.\n"
+        }, {
+          "name" : "body",
+          "in" : "body",
+          "required" : true,
+          "description" : "Create new products of any classification.",
+          "schema" : {
+            "$ref" : "#/definitions/Product"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/ProductSaveResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/v4/product/{productId}" : {
+      "get" : {
+        "description" : "Get information about a product.",
+        "summary" : "Get a product by id",
+        "tags" : [ "Product" ],
+        "operationId" : "ProductController@get",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "productId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "description" : "The products's ID.",
+          "x-lumen-mapped-to" : "_id"
+        }, {
+          "name" : "include",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "alternateNames", "alternateDescriptions", "masterCase", "enqueuedDimensions", "flags", "dimensions", "technicalData", "innerPack", "pallet", "values", "kitContent", "inclusionRules", "extendedAttributes" ]
+          },
+          "description" : "A comma separated list of sub-properties for the products to include in the response.\n\nExample: ‘include=*’ will return all the product properties.\n"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/ProductGetResponse"
+            }
+          }
+        }
+      },
+      "put" : {
+        "description" : "Update a product.",
+        "summary" : "Update a product by id",
+        "tags" : [ "Product" ],
+        "operationId" : "ProductController@update",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "productId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "description" : "The products's ID.",
+          "x-lumen-mapped-to" : "_id"
+        }, {
+          "name" : "include",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "alternateNames", "alternateDescriptions", "masterCase", "enqueuedDimensions", "flags", "dimensions", "technicalData", "innerPack", "pallet", "values", "kitContent", "inclusionRules", "extendedAttributes" ]
+          },
+          "description" : "A comma separated list of sub-properties for the products to include in the response.\n\nExample: ‘include=*’ will return all the product properties.\n"
+        }, {
+          "name" : "body",
+          "in" : "body",
+          "required" : true,
+          "description" : "",
+          "schema" : {
+            "$ref" : "#/definitions/Product"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/ProductSaveResponse"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Product" ],
+        "summary" : "Delete a product by id",
+        "description" : "Allows deleting a product by either the v4 id or the shipwireId",
+        "operationId" : "ProductController@delete",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "productId",
+          "in" : "path",
+          "description" : "The v4 id or the shipwireId of the product to be deleted.",
+          "required" : true,
+          "type" : "string",
+          "x-lumen-mapped-to" : "_id"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/DeleteResponse"
+            }
+          },
+          "404" : {
+            "description" : "Product not found"
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      }
+    },
+    "/api/v4/product/e/{externalId}" : {
+      "get" : {
+        "description" : "Get information about a product.",
+        "summary" : "Get a product by external id",
+        "tags" : [ "Product" ],
+        "operationId" : "ProductController@getByExternalId",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "externalId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "description" : "The product's external ID."
+        }, {
+          "name" : "include",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "alternateNames", "alternateDescriptions", "masterCase", "enqueuedDimensions", "flags", "dimensions", "technicalData", "innerPack", "pallet", "values", "kitContent", "inclusionRules", "extendedAttributes" ]
+          },
+          "description" : "A comma separated list of sub-properties for the products to include in the response.\n\nExample: ‘include=*’ will return all the product properties.\n"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/ProductGetResponse"
+            }
+          }
+        }
+      },
+      "put" : {
+        "description" : "Update a product by external ID.",
+        "summary" : "Update a product by external id",
+        "tags" : [ "Product" ],
+        "operationId" : "ProductController@updateByExternalId",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "externalId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "description" : "The product's external ID."
+        }, {
+          "name" : "include",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "\\*", "alternateNames", "alternateDescriptions", "masterCase", "enqueuedDimensions", "flags", "dimensions", "technicalData", "innerPack", "pallet", "values", "kitContent", "inclusionRules", "extendedAttributes" ]
+          },
+          "description" : "A comma separated list of sub-properties for the products to include in the response.\n\nExample: ‘include=*’ will return all the product properties.\n"
+        }, {
+          "name" : "body",
+          "in" : "body",
+          "required" : true,
+          "description" : "",
+          "schema" : {
+            "$ref" : "#/definitions/Product"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/ProductSaveResponse"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Product" ],
+        "summary" : "Delete a product by external id",
+        "description" : "Allows deleting a product by the merchant external id",
+        "operationId" : "ProductController@deleteByExternalId",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "externalId",
+          "in" : "path",
+          "description" : "The merchant external id of the product to be deleted.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/DeleteResponse"
+            }
+          },
+          "404" : {
+            "description" : "Product not found"
+          }
+        },
+        "security" : [ {
+          "apiKeyQuery" : [ ]
+        }, {
+          "apiKeyHeader" : [ ]
+        } ]
+      }
+    }
+  },
+  "definitions" : {
+    "WarehouseAddress" : {
+      "description" : "The address of a warehouse",
+      "type" : "object",
+      "required" : [ "address1", "city", "state", "postalCode", "country", "name", "email", "phone" ],
+      "properties" : {
+        "address1" : {
+          "description" : "Warehouse address line 1",
+          "type" : "string",
+          "example" : "1409 S Lilac Ave"
+        },
+        "address2" : {
+          "description" : "Warehouse address line 2",
+          "type" : "string",
+          "example" : "Suite 260"
+        },
+        "address3" : {
+          "description" : "Warehouse address line 3",
+          "type" : "string",
+          "example" : "c/o Lilac systems"
+        },
+        "city" : {
+          "description" : "City",
+          "type" : "string",
+          "example" : "Bloomington"
+        },
+        "state" : {
+          "description" : "State",
+          "type" : "string",
+          "example" : "CA"
+        },
+        "postalCode" : {
+          "description" : "Postal code",
+          "type" : "string",
+          "example" : 92316
+        },
+        "country" : {
+          "description" : "Country",
+          "type" : "string",
+          "example" : "US"
+        },
+        "continent" : {
+          "description" : "Continent",
+          "type" : "string",
+          "example" : "NORTH_AMERICA"
+        },
+        "name" : {
+          "description" : "Company or person name",
+          "type" : "string",
+          "example" : "NGL Bloomington"
+        },
+        "email" : {
+          "description" : "Email address",
+          "type" : "string",
+          "example" : "foo@bar.com"
+        },
+        "phone" : {
+          "description" : "Phone number",
+          "type" : "string",
+          "example" : "650-561-4800"
+        },
+        "fax" : {
+          "description" : "Fax number",
+          "type" : "string",
+          "example" : "650-561-4801"
+        }
+      }
+    },
+    "ContainerDimensions" : {
+      "description" : "The dimensions of a container or box",
+      "type" : "object",
+      "properties" : {
+        "length" : {
+          "description" : "Container length",
+          "type" : "number",
+          "example" : 6.0
+        },
+        "lengthUnit" : {
+          "description" : "Container length unit",
+          "type" : "string",
+          "format" : "enum",
+          "enum" : [ "IN", "CM" ],
+          "default" : "IN"
+        },
+        "width" : {
+          "description" : "Container width",
+          "type" : "number",
+          "example" : 6.0
+        },
+        "widthUnit" : {
+          "description" : "Container width unit",
+          "type" : "string",
+          "format" : "enum",
+          "enum" : [ "IN", "CM" ],
+          "default" : "IN"
+        },
+        "height" : {
+          "description" : "Container height",
+          "type" : "number",
+          "example" : 6.0
+        },
+        "heightUnit" : {
+          "description" : "Container height unit",
+          "type" : "string",
+          "format" : "enum",
+          "enum" : [ "IN", "CM" ],
+          "default" : "IN"
+        },
+        "weight" : {
+          "description" : "Container weight",
+          "type" : "number",
+          "example" : 0.26
+        },
+        "weightUnit" : {
+          "description" : "Container weight unit",
+          "type" : "string",
+          "format" : "enum",
+          "enum" : [ "LB", "KG" ],
+          "default" : "LB"
+        },
+        "maxWeight" : {
+          "description" : "Container max weight",
+          "type" : "number",
+          "example" : 40.0
+        },
+        "maxWeightUnit" : {
+          "description" : "Container max weight unit",
+          "type" : "string",
+          "format" : "enum",
+          "enum" : [ "LB", "KG" ],
+          "default" : "LB"
+        }
+      }
+    },
+    "ContainerValues" : {
+      "description" : "Cost/Retail values of a container or box",
+      "type" : "object",
+      "properties" : {
+        "costValue" : {
+          "description" : "Container cost value",
+          "type" : "number",
+          "example" : 1.25
+        },
+        "costValueCurrency" : {
+          "description" : "Container cost currency",
+          "type" : "string",
+          "default" : "USD"
+        },
+        "retailValue" : {
+          "description" : "Container retail value",
+          "type" : "number",
+          "example" : 2.5
+        },
+        "retailValueCurrency" : {
+          "description" : "Container retail currency",
+          "type" : "string",
+          "default" : "USD"
+        }
+      }
+    },
+    "Container" : {
+      "description" : "Shipping container or box within Shipwire Anywhere warehouses and dropship locations",
+      "type" : "object",
+      "x-lumen-embedded" : false,
+      "required" : [ "name", "type" ],
+      "properties" : {
+        "_id" : {
+          "description" : "V4 id",
+          "type" : "string",
+          "readOnly" : true,
+          "example" : "5a1cbccd292e6f002e348e32"
+        },
+        "shipwireId" : {
+          "description" : "Shipwire warehouse id",
+          "type" : "integer",
+          "readOnly" : true,
+          "x-lumen-internal" : true,
+          "example" : 654321
+        },
+        "externalId" : {
+          "description" : "Container description",
+          "type" : "string",
+          "example" : "XFG878"
+        },
+        "name" : {
+          "description" : "Container name",
+          "type" : "string",
+          "example" : "Small Box"
+        },
+        "type" : {
+          "description" : "Container type",
+          "type" : "string",
+          "example" : "box"
+        },
+        "warehouseId" : {
+          "description" : "V4 warehouse id",
+          "type" : "string",
+          "example" : "5a0a52656f03fd00151e00f3"
+        },
+        "shipwireWarehouseId" : {
+          "description" : "Shipwire warehouse id for container",
+          "type" : "integer",
+          "example" : 3811
+        },
+        "warehouseExternalId" : {
+          "description" : "Merchant external warehouse id for container",
+          "type" : "string"
+        },
+        "basis" : {
+          "description" : "Carrier-specific container cost basis to model dim weight etc",
+          "type" : "number",
+          "example" : 5005.0
+        },
+        "serviceSpecificCarrierCode" : {
+          "description" : "Service specific carrier code",
+          "type" : "string",
+          "example" : "FDX FT"
+        },
+        "dimensions" : {
+          "$ref" : "#/definitions/ContainerDimensions"
+        },
+        "values" : {
+          "$ref" : "#/definitions/ContainerValues"
+        },
+        "createdAt" : {
+          "description" : "Date/Time the record was created",
+          "type" : "string",
+          "readOnly" : true,
+          "example" : "2017-11-08 03:33:48"
+        },
+        "createdBy" : {
+          "description" : "User id of the user who created the record",
+          "type" : "integer",
+          "readOnly" : true,
+          "example" : 654321
+        },
+        "updatedAt" : {
+          "description" : "Date/Time the record was last updated",
+          "type" : "string",
+          "readOnly" : true,
+          "example" : "2017-11-08 03:33:48"
+        },
+        "updatedBy" : {
+          "description" : "User id of the user who last updated the record",
+          "type" : "integer",
+          "readOnly" : true,
+          "example" : 654321
+        },
+        "archivedAt" : {
+          "description" : "Container was archived on this date",
+          "type" : "string",
+          "default" : null,
+          "x-lumen-internal" : true
+        }
+      }
+    },
+    "Warehouse" : {
+      "type" : "object",
+      "description" : "A Shipwire Anywhere warehouse or dropship location",
+      "x-lumen-embedded" : false,
+      "required" : [ "name", "labelFormat", "address" ],
+      "properties" : {
+        "_id" : {
+          "description" : "V4 id",
+          "type" : "string",
+          "readOnly" : true,
+          "example" : "5a1cbccd292e6f002e348e32",
+          "minLength" : 5
+        },
+        "shipwireId" : {
+          "description" : "Shipwire warehouse id",
+          "type" : "integer",
+          "readOnly" : true,
+          "x-lumen-internal" : true,
+          "example" : 654321
+        },
+        "externalId" : {
+          "description" : "Merchant warehouse id",
+          "type" : "string",
+          "example" : "H65379"
+        },
+        "name" : {
+          "description" : "Warehouse name",
+          "type" : "string",
+          "example" : "Middlefield"
+        },
+        "code" : {
+          "description" : "Warehouse code",
+          "type" : "string",
+          "example" : "MDF"
+        },
+        "shipwireVendorId" : {
+          "description" : "Shipwire vendor id",
+          "type" : "integer",
+          "example" : 396
+        },
+        "vendorExternalId" : {
+          "description" : "Merchant vendor id",
+          "type" : "string",
+          "example" : "VEN209"
+        },
+        "latitude" : {
+          "description" : "Warehouse location latitude",
+          "type" : "number",
+          "example" : 34.075
+        },
+        "longitude" : {
+          "description" : "Warehouse location's longitude",
+          "type" : "number",
+          "example" : -117.378
+        },
+        "isRoutable" : {
+          "description" : "Warehouse routable flag",
+          "type" : "boolean",
+          "default" : false
+        },
+        "generatesLabels" : {
+          "description" : "Generate labels for this warehouse",
+          "type" : "boolean",
+          "default" : false,
+          "example" : false
+        },
+        "combineShippingDocuments" : {
+          "description" : "Combine shipping documents",
+          "type" : "boolean",
+          "default" : false
+        },
+        "labelFormat" : {
+          "description" : "Warehouse label format",
+          "type" : "string",
+          "example" : "8.5x11"
+        },
+        "type" : {
+          "description" : "Warehouse type",
+          "type" : "string",
+          "example" : "SHIPWIRE ANYWHERE",
+          "readOnly" : true,
+          "x-lumen-internal" : true
+        },
+        "returnWarehouseId" : {
+          "description" : "Warehouse id for returns",
+          "type" : "string"
+        },
+        "returnShipwireWarehouseId" : {
+          "description" : "Warehouse shipwire id for returns",
+          "type" : "integer"
+        },
+        "returnWarehouseExternalId" : {
+          "description" : "Merchant warehouse id for returns",
+          "type" : "string"
+        },
+        "seedWithTypicalContainers" : {
+          "description" : "Seed warehouse with typical containers",
+          "type" : "boolean",
+          "default" : false
+        },
+        "physicalWarehouseId" : {
+          "description" : "Shipwire physical warehouse id",
+          "type" : "integer",
+          "example" : 22
+        },
+        "address" : {
+          "$ref" : "#/definitions/WarehouseAddress"
+        },
+        "containers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Container"
+          }
+        },
+        "createdAt" : {
+          "description" : "Date/Time the record was created",
+          "type" : "string",
+          "readOnly" : true,
+          "example" : "2017-11-08 03:33:48"
+        },
+        "createdBy" : {
+          "description" : "User id of the user who created the record",
+          "type" : "integer",
+          "readOnly" : true,
+          "example" : 654321
+        },
+        "updatedAt" : {
+          "description" : "Date/Time the record was last updated",
+          "type" : "string",
+          "readOnly" : true,
+          "example" : "2017-11-08 03:33:48"
+        },
+        "updatedBy" : {
+          "description" : "User id of the user who last updated the record",
+          "type" : "integer",
+          "readOnly" : true,
+          "example" : 654321
+        },
+        "archivedAt" : {
+          "description" : "Warehouse was archived on this date",
+          "type" : "string",
+          "default" : null,
+          "x-lumen-internal" : true
+        }
+      }
+    },
+    "ContainerSaveResponse" : {
+      "description" : "Shipping container response",
+      "type" : "object",
+      "x-lumen-ignore" : true,
+      "properties" : {
+        "total" : {
+          "description" : "Total results",
+          "type" : "integer",
+          "example" : 1
+        },
+        "offset" : {
+          "description" : "Result offset",
+          "type" : "integer",
+          "example" : 0
+        },
+        "limit" : {
+          "description" : "Result limit",
+          "type" : "integer",
+          "example" : 1
+        },
+        "items" : {
+          "description" : "Result items",
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Container"
+          }
+        },
+        "errors" : {
+          "description" : "Status code",
+          "type" : "object"
+        },
+        "warnings" : {
+          "description" : "Status code",
+          "type" : "object"
+        }
+      }
+    },
+    "ContainerGetResponse" : {
+      "description" : "Shipping container response",
+      "type" : "object",
+      "x-lumen-ignore" : true,
+      "properties" : {
+        "total" : {
+          "description" : "Total results",
+          "type" : "integer",
+          "example" : 1
+        },
+        "offset" : {
+          "description" : "Result offset",
+          "type" : "integer",
+          "example" : 0
+        },
+        "limit" : {
+          "description" : "Result limit",
+          "type" : "integer",
+          "example" : 1
+        },
+        "items" : {
+          "description" : "Result items",
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Container"
+          }
+        }
+      }
+    },
+    "ContainerIndexResponse" : {
+      "description" : "Shipping container response",
+      "type" : "object",
+      "x-lumen-ignore" : true,
+      "properties" : {
+        "total" : {
+          "description" : "Total results",
+          "type" : "integer",
+          "example" : 1
+        },
+        "offset" : {
+          "description" : "Result offset",
+          "type" : "integer",
+          "example" : 0
+        },
+        "limit" : {
+          "description" : "Result limit",
+          "type" : "integer",
+          "example" : 20
+        },
+        "items" : {
+          "description" : "Result items",
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Container"
+          }
+        }
+      }
+    },
+    "WarehouseSaveResponse" : {
+      "description" : "A Shipwire Anywhere warehouse response",
+      "type" : "object",
+      "x-lumen-ignore" : true,
+      "properties" : {
+        "total" : {
+          "description" : "Total results",
+          "type" : "integer",
+          "example" : 1
+        },
+        "offset" : {
+          "description" : "Result offset",
+          "type" : "integer",
+          "example" : 0
+        },
+        "limit" : {
+          "description" : "Result limit",
+          "type" : "integer",
+          "example" : 1
+        },
+        "items" : {
+          "description" : "Result items",
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Warehouse"
+          }
+        },
+        "errors" : {
+          "description" : "Status code",
+          "type" : "object"
+        },
+        "warnings" : {
+          "description" : "Status code",
+          "type" : "object"
+        }
+      }
+    },
+    "WarehouseGetResponse" : {
+      "description" : "A Shipwire Anywhere warehouse response",
+      "type" : "object",
+      "x-lumen-ignore" : true,
+      "properties" : {
+        "total" : {
+          "description" : "Total results",
+          "type" : "integer",
+          "example" : 1
+        },
+        "offset" : {
+          "description" : "Result offset",
+          "type" : "integer",
+          "example" : 0
+        },
+        "limit" : {
+          "description" : "Result limit",
+          "type" : "integer",
+          "example" : 1
+        },
+        "items" : {
+          "description" : "Result items",
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Warehouse"
+          }
+        }
+      }
+    },
+    "WarehouseIndexResponse" : {
+      "description" : "A Shipwire Anywhere warehouse response",
+      "type" : "object",
+      "x-lumen-ignore" : true,
+      "properties" : {
+        "total" : {
+          "description" : "Total results",
+          "type" : "integer",
+          "example" : 1
+        },
+        "offset" : {
+          "description" : "Result offset",
+          "type" : "integer",
+          "example" : 0
+        },
+        "limit" : {
+          "description" : "Result limit",
+          "type" : "integer",
+          "example" : 20
+        },
+        "items" : {
+          "description" : "Result items",
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Warehouse"
+          }
+        }
+      }
+    },
+    "DeleteResponse" : {
+      "description" : "The response after deleting an object",
+      "type" : "object",
+      "x-lumen-ignore" : true,
+      "properties" : {
+        "total" : {
+          "description" : "Total results",
+          "type" : "integer",
+          "example" : 1
+        },
+        "offset" : {
+          "description" : "Result offset",
+          "type" : "integer",
+          "example" : 0
+        },
+        "limit" : {
+          "description" : "Result limit",
+          "type" : "integer",
+          "example" : 1
+        },
+        "code" : {
+          "description" : "Identifies if the object was permanently DELETED or ARCHIVED",
+          "type" : "string",
+          "example" : "DELETED"
+        },
+        "items" : {
+          "description" : "Result items",
+          "example" : null
+        }
+      }
+    },
+    "Product" : {
+      "title" : "Product",
+      "description" : "Product definition",
+      "discriminator" : "classification",
+      "x-lumen-namespace" : "Product",
+      "type" : "object",
+      "properties" : {
+        "_id" : {
+          "description" : "V4 id",
+          "type" : "string",
+          "readOnly" : true,
+          "example" : "5a1cbccd292e6f002e348e32"
+        },
+        "shipwireId" : {
+          "description" : "Shipwire product id",
+          "type" : "integer",
+          "readOnly" : true,
+          "x-lumen-internal" : true,
+          "example" : 654321
+        },
+        "externalId" : {
+          "description" : "External reference ID of the product",
+          "example" : "EXTERNAL-CASE",
+          "type" : "string",
+          "minLength" : 2,
+          "maxLength" : 32
+        },
+        "sku" : {
+          "description" : "SKU Name for product",
+          "example" : "sportsWatch",
+          "type" : "string"
+        },
+        "classification" : {
+          "description" : "Type of product",
+          "example" : "baseProduct",
+          "type" : "string",
+          "format" : "enum",
+          "enum" : [ "baseProduct", "marketingInsert", "kit", "virtualKit" ]
+        },
+        "description" : {
+          "description" : "Product Description",
+          "example" : "The best sports watch. Ever.",
+          "type" : "string",
+          "minLength" : 1,
+          "maxLength" : 50
+        },
+        "status" : {
+          "description" : "SKU Name for product",
+          "readOnly" : true,
+          "x-lumen-internal" : true,
+          "example" : "notinuse",
+          "type" : "string",
+          "format" : "enum",
+          "enum" : [ "notinuse", "inuse", "outofstock" ]
+        },
+        "createdAt" : {
+          "description" : "Date/Time the record was created",
+          "type" : "string",
+          "readOnly" : true,
+          "example" : "2017-11-08 03:33:48"
+        },
+        "createdBy" : {
+          "description" : "User id of the user who created the record",
+          "type" : "integer",
+          "readOnly" : true,
+          "example" : 654321
+        },
+        "updatedAt" : {
+          "description" : "Date/Time the record was last updated",
+          "type" : "string",
+          "readOnly" : true,
+          "example" : "2017-11-08 03:33:48"
+        },
+        "updatedBy" : {
+          "description" : "User id of the user who last updated the record",
+          "type" : "integer",
+          "readOnly" : true,
+          "example" : 654321
+        },
+        "archivedAt" : {
+          "description" : "Product was archived on this date",
+          "type" : "string",
+          "default" : null,
+          "x-lumen-internal" : true
+        }
+      },
+      "required" : [ "sku", "classification", "description" ]
+    },
+    "ProductDetails" : {
+      "title" : "Details",
+      "description" : "Product details",
+      "x-lumen-ignore" : true,
+      "type" : "object",
+      "properties" : {
+        "hsCode" : {
+          "description" : "HS Code of the product",
+          "example" : 100612,
+          "type" : "string"
+        },
+        "htsCode" : {
+          "description" : "HTS Code of the product",
+          "example" : 6.3079075E7,
+          "type" : "string",
+          "minLength" : 6,
+          "maxLength" : 10
+        },
+        "eccn" : {
+          "description" : "Export Control Classification Number(ECCN) of the product",
+          "example" : 654321,
+          "type" : "string",
+          "minLength" : 5,
+          "maxLength" : 11
+        },
+        "countryOfOrigin" : {
+          "description" : "Please mention the country code where the product belongs to",
+          "example" : "US",
+          "type" : "string"
+        },
+        "batteryConfiguration" : {
+          "description" : "Battery Configuration",
+          "example" : "ISBATTERY",
+          "type" : "string",
+          "format" : "enum",
+          "enum" : [ "ISBATTERY", "HASLOOSEBATTERY", "HASBATTERY", "NOBATTERY" ]
+        }
+      }
+    },
+    "ProductAlternateName" : {
+      "title" : "Alternate Names",
+      "description" : "Alternative names of the product",
+      "x-lumen-namespace" : "Product",
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "example" : "SuperSportsWatch"
+        }
+      }
+    },
+    "ProductAlternateDescription" : {
+      "title" : "Alternate Descriptions",
+      "description" : "Alternative descriptions of the product",
+      "x-lumen-namespace" : "Product",
+      "type" : "object",
+      "properties" : {
+        "description" : {
+          "type" : "string",
+          "example" : "A great sports watch!"
+        },
+        "localizationCode" : {
+          "type" : "string",
+          "example" : "en_US"
+        }
+      }
+    },
+    "ProductValues" : {
+      "title" : "Values",
+      "description" : "Product Values",
+      "x-lumen-namespace" : "Product",
+      "type" : "object",
+      "properties" : {
+        "costValue" : {
+          "description" : "Cost value of the product",
+          "example" : 1.25,
+          "type" : "number",
+          "format" : "float",
+          "minimum" : 0.1,
+          "maximum" : 1000000,
+          "pattern" : "/^\\d*?(\\.{0,1}\\d{0,2})$/"
+        },
+        "wholesaleValue" : {
+          "description" : "Wholesale value of the product",
+          "example" : 2.37,
+          "type" : "number",
+          "format" : "float",
+          "minimum" : 0.1,
+          "maximum" : 1000000,
+          "pattern" : "/^\\d*?(\\.{0,1}\\d{0,2})$/"
+        },
+        "retailValue" : {
+          "description" : "Retail value of the product",
+          "example" : 3.89,
+          "type" : "number",
+          "format" : "float",
+          "minimum" : 0.1,
+          "maximum" : 1000000,
+          "pattern" : "/^\\d*?(\\.{0,1}\\d{0,2})$/"
+        },
+        "costValueCurrency" : {
+          "description" : "Cost value currency",
+          "example" : "USD",
+          "type" : "string"
+        },
+        "wholesaleValueCurrency" : {
+          "description" : "Wholesale value currency",
+          "example" : "USD",
+          "type" : "string"
+        },
+        "retailValueCurrency" : {
+          "description" : "Retail value currency",
+          "example" : "USD",
+          "type" : "string"
+        }
+      }
+    },
+    "ProductDimensions" : {
+      "title" : "Product Dimensions",
+      "description" : "Product Dimensions",
+      "x-lumen-namespace" : "Product",
+      "type" : "object",
+      "properties" : {
+        "length" : {
+          "description" : "Product length",
+          "type" : "number",
+          "format" : "float",
+          "example" : 4.25
+        },
+        "lengthUnit" : {
+          "description" : "Product length unit",
+          "type" : "string",
+          "format" : "enum",
+          "enum" : [ "IN", "CM" ],
+          "default" : "IN"
+        },
+        "width" : {
+          "description" : "Product width",
+          "type" : "number",
+          "format" : "float",
+          "example" : 2.25
+        },
+        "widthUnit" : {
+          "description" : "Product width unit",
+          "type" : "string",
+          "format" : "enum",
+          "enum" : [ "IN", "CM" ],
+          "default" : "IN"
+        },
+        "height" : {
+          "description" : "Product height",
+          "type" : "number",
+          "format" : "float",
+          "example" : 1.5
+        },
+        "heightUnit" : {
+          "description" : "Product height unit",
+          "type" : "string",
+          "format" : "enum",
+          "enum" : [ "IN", "CM" ],
+          "default" : "IN"
+        },
+        "weight" : {
+          "description" : "Product weight",
+          "type" : "number",
+          "format" : "float",
+          "example" : 3.75
+        },
+        "weightUnit" : {
+          "description" : "Product weight unit",
+          "type" : "string",
+          "format" : "enum",
+          "enum" : [ "LB", "KG" ],
+          "default" : "LB"
+        }
+      }
+    },
+    "ProductTechnicalData" : {
+      "title" : "Technical Data",
+      "description" : "Product Technical Data",
+      "x-lumen-namespace" : "Product",
+      "type" : "object",
+      "properties" : {
+        "battery" : {
+          "$ref" : "#/definitions/ProductBatteryTechnicalData"
+        }
+      }
+    },
+    "ProductBatteryTechnicalData" : {
+      "title" : "Technical Battery Data",
+      "description" : "Product Technical Battery Data",
+      "x-lumen-namespace" : "Product",
+      "type" : "object",
+      "properties" : {
+        "type" : {
+          "description" : "Battery Type",
+          "example" : "LI-ION",
+          "type" : "string",
+          "format" : "enum",
+          "enum" : [ "LI-ION", "LI-POLYMER", "NICAD", "LEADACID", "ALKALINE", "LI-METAL" ]
+        },
+        "batteryWeight" : {
+          "description" : "Battery Weight",
+          "example" : 5.0,
+          "type" : "number",
+          "format" : "float",
+          "minimum" : 0.001,
+          "maximum" : 1000
+        },
+        "numberOfBatteries" : {
+          "description" : "Number of batteries allowed",
+          "example" : 5,
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "capacity" : {
+          "description" : "Battery Capacity",
+          "example" : 3.0,
+          "type" : "number"
+        },
+        "numberOfCells" : {
+          "description" : "Number of tery Cells",
+          "example" : 2,
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "capacityUnit" : {
+          "description" : "Battery capacity unit",
+          "example" : "WATTHOUR",
+          "type" : "string",
+          "format" : "enum",
+          "enum" : [ "WATTHOUR", "TERAWATTHOUR", "PETAWATTHOUR" ]
+        }
+      }
+    },
+    "ProductExtendedAttribute" : {
+      "title" : "Extended Attributes",
+      "description" : "Product extended attributes",
+      "x-lumen-namespace" : "Product",
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "description" : "Extended attribute name",
+          "type" : "string",
+          "example" : "marketing_code"
+        },
+        "value" : {
+          "description" : "Extended attribute value",
+          "type" : "string",
+          "example" : "HK47B"
+        },
+        "type" : {
+          "description" : "Extended attribute type",
+          "type" : "string",
+          "format" : "enum",
+          "enum" : [ "string", "int", "float" ],
+          "example" : "string"
+        }
+      }
+    },
+    "ProductFlagsMinimal" : {
+      "title" : "Flags Minimal",
+      "description" : "Product Flags Minimal",
+      "x-lumen-namespace" : "Product",
+      "type" : "object",
+      "properties" : {
+        "isArchivable" : {
+          "description" : "Flag to indicate if the product is archivable",
+          "type" : "boolean",
+          "default" : false,
+          "readOnly" : true,
+          "x-lumen-internal" : true
+        },
+        "isDeletable" : {
+          "description" : "Flag to indicate if the product is deletable",
+          "type" : "boolean",
+          "default" : false,
+          "readOnly" : true,
+          "x-lumen-internal" : true
+        },
+        "hasEditRestrictions" : {
+          "description" : "Flag to indicate if the product has edit restrictions",
+          "type" : "boolean",
+          "default" : false,
+          "readOnly" : true,
+          "x-lumen-internal" : true
+        }
+      }
+    },
+    "ProductFlags" : {
+      "title" : "Flags",
+      "description" : "Product Flags",
+      "x-lumen-namespace" : "Product",
+      "type" : "object",
+      "allOf" : [ {
+        "properties" : {
+          "isPackagedReadyToShip" : {
+            "description" : "Flag to indicate packaged is ready to ship",
+            "type" : "boolean",
+            "default" : false
+          },
+          "isFragile" : {
+            "description" : "Flag to indicate if the product is fragile",
+            "type" : "boolean",
+            "default" : false
+          },
+          "isDangerous" : {
+            "description" : "Flag to indicate if the product is dangerous",
+            "type" : "boolean",
+            "default" : false
+          },
+          "isPerishable" : {
+            "description" : "Flag to indicate if the product is perishable",
+            "type" : "boolean",
+            "default" : false
+          },
+          "isMedia" : {
+            "description" : "Flag to indicate if the product is Media",
+            "type" : "boolean",
+            "default" : false
+          },
+          "isAdult" : {
+            "description" : "Flag to indicate if the product is adult one",
+            "type" : "boolean",
+            "default" : false
+          },
+          "isLiquid" : {
+            "description" : "Flag to indicate if the product is liquid",
+            "type" : "boolean",
+            "default" : false
+          },
+          "hasLithium" : {
+            "description" : "Flag to indicate if the product is a lithium battery, has a lithium battery in the package, or has a lithium battery installed in the product.",
+            "type" : "boolean",
+            "default" : false,
+            "readOnly" : true,
+            "x-lumen-internal" : true
+          },
+          "hasLithiumOnly" : {
+            "description" : "Flag to indicate if the product is a lithium battery.  If true, hasLithium should also be true.",
+            "type" : "boolean",
+            "default" : false,
+            "readOnly" : true,
+            "x-lumen-internal" : true
+          }
+        }
+      }, {
+        "$ref" : "#/definitions/ProductFlagsMinimal"
+      } ]
+    },
+    "ProductPackDetailFlags" : {
+      "title" : "Pack Detail Flags",
+      "description" : "Product Pack Detail Flags",
+      "x-lumen-namespace" : "Product",
+      "type" : "object",
+      "properties" : {
+        "isPackagedReadyToShip" : {
+          "description" : "Flag to indicate packaged is ready to ship",
+          "type" : "boolean",
+          "example" : false,
+          "default" : false
+        }
+      }
+    },
+    "ProductMarketingInsertFlags" : {
+      "title" : "Marketing Insert Flags",
+      "description" : "Product Marketing Insert Flags",
+      "x-lumen-namespace" : "Product",
+      "type" : "object",
+      "allOf" : [ {
+        "properties" : {
+          "shouldNotFold" : {
+            "description" : "Fold flag",
+            "type" : "boolean",
+            "example" : false
+          }
+        }
+      }, {
+        "$ref" : "#/definitions/ProductFlagsMinimal"
+      } ]
+    },
+    "ProductPackDetailsMinimal" : {
+      "title" : "Minimal Packing Details",
+      "description" : "Product Minimal Packing Details",
+      "x-lumen-namespace" : "Product",
+      "type" : "object",
+      "properties" : {
+        "shipwireId" : {
+          "description" : "Shipwire product id",
+          "type" : "integer",
+          "readOnly" : true,
+          "x-lumen-internal" : true,
+          "example" : 654321
+        },
+        "externalId" : {
+          "description" : "ExternalID of the package",
+          "example" : "narp2",
+          "type" : "string",
+          "minLength" : 1,
+          "maxLength" : 32
+        },
+        "sku" : {
+          "description" : "Product SKU",
+          "example" : "SKU1234",
+          "type" : "string"
+        },
+        "description" : {
+          "description" : "Package Description",
+          "type" : "string",
+          "example" : "Multiple sports watches."
+        },
+        "individualItemsPerCase" : {
+          "description" : "Individual Items per case",
+          "example" : 2,
+          "type" : "integer",
+          "format" : "int32",
+          "minimum" : 1,
+          "maximum" : 1000000
+        },
+        "dimensions" : {
+          "$ref" : "#/definitions/ProductDimensions"
+        },
+        "enqueuedDimensions" : {
+          "title" : "EnQueued Product Dimensions",
+          "description" : "Allows submitting updated product dimensions when the product dimensions are no longer editable.",
+          "$ref" : "#/definitions/ProductDimensions"
+        }
+      },
+      "required" : [ "sku", "description" ]
+    },
+    "ProductPackDetails" : {
+      "title" : "Packing Details",
+      "description" : "Product Packing Details",
+      "x-lumen-namespace" : "Product",
+      "type" : "object",
+      "allOf" : [ {
+        "$ref" : "#/definitions/ProductPackDetailsMinimal"
+      }, {
+        "properties" : {
+          "values" : {
+            "$ref" : "#/definitions/ProductValues"
+          },
+          "flags" : {
+            "$ref" : "#/definitions/ProductPackDetailFlags"
+          }
+        }
+      } ]
+    },
+    "ProductKitContentItem" : {
+      "title" : "Kit Content Item",
+      "description" : "Product Kit Content Item",
+      "x-lumen-namespace" : "Product",
+      "type" : "object",
+      "properties" : {
+        "productId" : {
+          "description" : "V4 product id",
+          "type" : "string",
+          "example" : "5a1cbccd292e6f002e348e32"
+        },
+        "shipwireProductId" : {
+          "description" : "Shipwire product id",
+          "type" : "integer",
+          "example" : 654321
+        },
+        "externalId" : {
+          "description" : "Product External ID",
+          "type" : "string",
+          "example" : "MYKITITEM"
+        },
+        "quantity" : {
+          "description" : "Product Quantity",
+          "example" : 2,
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "ProductBase" : {
+      "title" : "Base Product",
+      "description" : "Base Product",
+      "x-lumen-embedded" : false,
+      "x-lumen-namespace" : "Product",
+      "type" : "object",
+      "allOf" : [ {
+        "$ref" : "#/definitions/Product"
+      }, {
+        "$ref" : "#/definitions/ProductDetails"
+      }, {
+        "properties" : {
+          "category" : {
+            "description" : "Product Category",
+            "example" : "TOYS_SPORTS_HOBBIES",
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "TOYS_SPORTS_HOBBIES", "APPAREL", "AUTOMOTIVE", "BOOKS_&_ENTERTAINMENT", "COMPUTER_ELECTRONICS", "FOOD_&_BEVERAGE", "FURNITURE_&_APPLIANCES", "HEALTH_&_PERSONAL_CARE", "HOME_&_GARDEN", "OTHER" ]
+          },
+          "shipwireVendorId" : {
+            "description" : "ID of Vendor it is mapped to",
+            "example" : 34,
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "vendorExternalId" : {
+            "description" : "External ID of Vendor it is mapped to",
+            "example" : "veid34",
+            "type" : "string"
+          },
+          "alternateNames" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/ProductAlternateName"
+            }
+          },
+          "alternateDescriptions" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/ProductAlternateDescription"
+            }
+          },
+          "values" : {
+            "$ref" : "#/definitions/ProductValues"
+          },
+          "dimensions" : {
+            "$ref" : "#/definitions/ProductDimensions"
+          },
+          "technicalData" : {
+            "$ref" : "#/definitions/ProductTechnicalData"
+          },
+          "flags" : {
+            "$ref" : "#/definitions/ProductFlags"
+          },
+          "innerPack" : {
+            "$ref" : "#/definitions/ProductPackDetails"
+          },
+          "masterCase" : {
+            "$ref" : "#/definitions/ProductPackDetails"
+          },
+          "pallet" : {
+            "$ref" : "#/definitions/ProductPackDetails"
+          },
+          "extendedAttributes" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/ProductExtendedAttribute"
+            }
+          }
+        },
+        "required" : [ "sku", "classification", "description", "category", "batteryConfiguration" ]
+      } ]
+    },
+    "ProductKit" : {
+      "title" : "Kit",
+      "description" : "Product Kit",
+      "x-lumen-embedded" : false,
+      "x-lumen-namespace" : "Product",
+      "type" : "object",
+      "allOf" : [ {
+        "$ref" : "#/definitions/Product"
+      }, {
+        "$ref" : "#/definitions/ProductDetails"
+      }, {
+        "properties" : {
+          "values" : {
+            "$ref" : "#/definitions/ProductValues"
+          },
+          "alternateNames" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/ProductAlternateName"
+            }
+          },
+          "alternateDescriptions" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/ProductAlternateDescription"
+            }
+          },
+          "kitContent" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/ProductKitContentItem"
+            }
+          },
+          "dimensions" : {
+            "$ref" : "#/definitions/ProductDimensions"
+          },
+          "technicalData" : {
+            "$ref" : "#/definitions/ProductTechnicalData"
+          },
+          "flags" : {
+            "$ref" : "#/definitions/ProductFlags"
+          },
+          "innerPack" : {
+            "$ref" : "#/definitions/ProductPackDetails"
+          },
+          "masterCase" : {
+            "$ref" : "#/definitions/ProductPackDetails"
+          },
+          "pallet" : {
+            "$ref" : "#/definitions/ProductPackDetails"
+          },
+          "extendedAttributes" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/ProductExtendedAttribute"
+            }
+          }
+        }
+      } ],
+      "required" : [ "sku", "classification", "description", "batteryConfiguration", "kitContent" ]
+    },
+    "ProductVirtualKit" : {
+      "title" : "Virtual Kit",
+      "description" : "Product Virtual Kit",
+      "x-lumen-embedded" : false,
+      "x-lumen-namespace" : "Product",
+      "type" : "object",
+      "allOf" : [ {
+        "$ref" : "#/definitions/Product"
+      }, {
+        "properties" : {
+          "alternateDescriptions" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/ProductAlternateDescription"
+            }
+          },
+          "kitContent" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/ProductKitContentItem"
+            }
+          },
+          "flags" : {
+            "$ref" : "#/definitions/ProductFlagsMinimal"
+          }
+        }
+      } ],
+      "required" : [ "sku", "classification", "description", "kitContent" ]
+    },
+    "ProductMarketingInsert" : {
+      "title" : "Marketing Insert",
+      "description" : "Product Marketing Insert",
+      "x-lumen-embedded" : false,
+      "x-lumen-namespace" : "Product",
+      "type" : "object",
+      "allOf" : [ {
+        "$ref" : "#/definitions/Product"
+      }, {
+        "properties" : {
+          "externalId" : {
+            "description" : "External reference ID of the product",
+            "example" : "narp",
+            "type" : "string",
+            "minLength" : 2,
+            "maxLength" : 32
+          },
+          "inclusionRuleType" : {
+            "description" : "Type of Inclusion rule",
+            "example" : "CUSTOM",
+            "type" : "string"
+          },
+          "alternateNames" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/ProductAlternateName"
+            }
+          },
+          "alternateDescriptions" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/ProductAlternateDescription"
+            }
+          },
+          "dimensions" : {
+            "$ref" : "#/definitions/ProductDimensions"
+          },
+          "flags" : {
+            "$ref" : "#/definitions/ProductMarketingInsertFlags"
+          },
+          "inclusionRules" : {
+            "$ref" : "#/definitions/InsertInclusionRules"
+          },
+          "masterCase" : {
+            "$ref" : "#/definitions/ProductPackDetailsMinimal"
+          },
+          "extendedAttributes" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/ProductExtendedAttribute"
+            }
+          }
+        }
+      } ],
+      "required" : [ "sku", "classification", "description", "dimensions" ]
+    },
+    "InsertInclusionRules" : {
+      "title" : "Inclusion Rules",
+      "description" : "Product Marketing Insert Inclusion Rules",
+      "x-lumen-namespace" : "Product",
+      "type" : "object",
+      "properties" : {
+        "insertAfterDate" : {
+          "description" : "Insert After the specified date and time",
+          "example" : "2015-02-15T18:04:26.0000000+00:00",
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "insertBeforeDate" : {
+          "description" : "Insert Before the specified date and time",
+          "example" : "2035-02-15T18:04:26.0000000+00:00",
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "insertWhenWorthValue" : {
+          "description" : "Automatically add marketing insert when this value is reached on the base product",
+          "example" : 5,
+          "type" : "number",
+          "format" : "float",
+          "minimum" : 0.1,
+          "maximum" : 1000000
+        },
+        "insertWhenQuantity" : {
+          "description" : "Automatically add marketing insert when this count is reached on the base product",
+          "example" : 5,
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "insertWhenWorthValueCurrency" : {
+          "description" : "Automatically add marketing insert when the cost is reached (based on the currency) related to the base product",
+          "example" : "USD",
+          "type" : "string"
+        }
+      }
+    },
+    "ProductSaveResponse" : {
+      "description" : "Product response",
+      "type" : "object",
+      "x-lumen-ignore" : true,
+      "properties" : {
+        "total" : {
+          "description" : "Total results",
+          "type" : "integer",
+          "example" : 1
+        },
+        "offset" : {
+          "description" : "Result offset",
+          "type" : "integer",
+          "example" : 0
+        },
+        "limit" : {
+          "description" : "Result limit",
+          "type" : "integer",
+          "example" : 1
+        },
+        "items" : {
+          "description" : "Result items",
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Product"
+          }
+        },
+        "errors" : {
+          "description" : "Status code",
+          "type" : "object"
+        },
+        "warnings" : {
+          "description" : "Status code",
+          "type" : "object"
+        }
+      }
+    },
+    "ProductGetResponse" : {
+      "description" : "Product response",
+      "type" : "object",
+      "x-lumen-ignore" : true,
+      "properties" : {
+        "total" : {
+          "description" : "Total results",
+          "type" : "integer",
+          "example" : 1
+        },
+        "offset" : {
+          "description" : "Result offset",
+          "type" : "integer",
+          "example" : 0
+        },
+        "limit" : {
+          "description" : "Result limit",
+          "type" : "integer",
+          "example" : 1
+        },
+        "items" : {
+          "description" : "Result items",
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Product"
+          }
+        }
+      }
+    },
+    "ProductIndexResponse" : {
+      "description" : "Product response",
+      "type" : "object",
+      "x-lumen-ignore" : true,
+      "properties" : {
+        "total" : {
+          "description" : "Total results",
+          "type" : "integer",
+          "example" : 1
+        },
+        "offset" : {
+          "description" : "Result offset",
+          "type" : "integer",
+          "example" : 0
+        },
+        "limit" : {
+          "description" : "Result limit",
+          "type" : "integer",
+          "example" : 20
+        },
+        "items" : {
+          "description" : "Result items",
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Product"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "apiKeyQuery" : {
+      "type" : "apiKey",
+      "name" : "apiKey",
+      "in" : "query"
+    },
+    "apiKeyHeader" : {
+      "type" : "apiKey",
+      "name" : "x-shipwire-api-key",
+      "in" : "header"
+    },
+    "basicAuth" : {
+      "type" : "basic"
+    }
+  },
+  "externalDocs" : {
+    "description" : "Find out more about my website",
+    "url" : "http://www.shipwire.com/w/developers"
+  },
+  "basePath" : "/",
+  "schemes" : [ "https", "http" ]
+}
