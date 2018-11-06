@@ -1,0 +1,4028 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "1.0.42",
+    "title" : "Sample Implicit Flow OAuth2 Project",
+    "description" : "This is an example of using OAuth2 Implicit Flow in a specification to describe security to your API."
+  },
+  "securityDefinitions" : {
+    "implicit" : {
+      "type" : "oauth2",
+      "authorizationUrl" : "http://example.com/oauth/auth",
+      "flow" : "implicit",
+      "scopes" : {
+        "write" : "allows modifying resources",
+        "read" : "allows reading resources"
+      }
+    }
+  },
+  "security" : [ {
+    "implicit" : [ "read", "write" ]
+  } ],
+  "paths" : {
+    "/clients/{client_id}/dashboard" : {
+      "get" : {
+        "summary" : "Obtain basic information about the client, including information about what products have been populated. | Use in WF: K1, K8",
+        "tags" : [ "Client" ],
+        "operationId" : "get_clients_dashboard",
+        "parameters" : [ {
+          "name" : "client_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/client_detail"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/clients/{client_id}/notifications" : {
+      "get" : {
+        "summary" : "Returns the client notification list. | Use in WF: Global menu",
+        "tags" : [ "Client" ],
+        "operationId" : "get_clients_notifications",
+        "parameters" : [ {
+          "name" : "client_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/notification_response"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/clients/{client_id}/new_product" : {
+      "post" : {
+        "summary" : "Request new product, including attachment. | Use in WF: K1",
+        "tags" : [ "Client" ],
+        "operationId" : "post_client_new_product",
+        "parameters" : [ {
+          "name" : "client_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/new_product"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/clients/{client_id}/client_products" : {
+      "get" : {
+        "summary" : "Returns the client products list. | Use in WF: ",
+        "tags" : [ "Client" ],
+        "operationId" : "get_clients_products",
+        "parameters" : [ {
+          "name" : "client_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/products_response"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/clients/{client_id}" : {
+      "put" : {
+        "summary" : "Change the basic parameters on the client - see settings.. | Use in WF: K8",
+        "tags" : [ "Client" ],
+        "operationId" : "put_client_notification",
+        "parameters" : [ {
+          "name" : "client_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/client_notification_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/clients/{client_id}/contacts" : {
+      "get" : {
+        "summary" : "Returns the client contacts. | Use in WF: K8",
+        "tags" : [ "Client" ],
+        "operationId" : "get_clients_contacts",
+        "parameters" : [ {
+          "name" : "client_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/contacts_response"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/clients/{client_id}/surveys" : {
+      "get" : {
+        "summary" : "Returns the client surveys. | Use in WF: none",
+        "tags" : [ "Client" ],
+        "operationId" : "get_clients_surveys",
+        "parameters" : [ {
+          "name" : "client_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/surveys_response"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/clients/{client_id}/request" : {
+      "post" : {
+        "summary" : "Sending change request, changing various types including attachment. This is a general request that is internally sent by email, complements the company identification, and is sent as a text to the mail, for example, for \"Address change request\", \"Request for change\" change of the data \". | Use in WF: K8",
+        "tags" : [ "Client" ],
+        "operationId" : "post_client_request",
+        "parameters" : [ {
+          "name" : "client_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/request_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/google_maps/autocomplete" : {
+      "get" : {
+        "summary" : "Returns the autocomplete result from google maps. | Use in WF: ",
+        "tags" : [ "Google Maps" ],
+        "operationId" : "get_google_maps_autocomplete_results",
+        "parameters" : [ {
+          "name" : "search_text",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/google_autocomplete_response"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/google_maps/place" : {
+      "get" : {
+        "summary" : "Returns the place result from google maps. | Use in WF: ",
+        "tags" : [ "Google Maps" ],
+        "operationId" : "get_google_maps_place_result",
+        "parameters" : [ {
+          "name" : "place_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/google_detailed_result"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/products" : {
+      "get" : {
+        "summary" : "Simple get for product list like CADHOC, UNI, .... | Use in WF: K1 (filter: neq client. client_products from /clients/{client_id}/dashboard)",
+        "tags" : [ "Product" ],
+        "operationId" : "get_products",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/product_item"
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/business_places" : {
+      "get" : {
+        "summary" : "List of business locations, including classic filtering, can be filtered by the client.  | Use in WF: K8",
+        "tags" : [ "Business place" ],
+        "operationId" : "get_business_places",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/search_pagination"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/business_places_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/cost_centers" : {
+      "get" : {
+        "summary" : "List of cost centers, including classic filtering, can be filtered by the client.  | Use in WF: ",
+        "tags" : [ "Cost center" ],
+        "operationId" : "get_cost_centers",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/search_pagination"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/cost_centers_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Save the cost center. | Use in WF: ",
+        "tags" : [ "Cost center" ],
+        "operationId" : "put_cost center",
+        "parameters" : [ {
+          "name" : "cost_center_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/cost_center"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/result_save"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Delete cost center. | Use in WF: ",
+        "tags" : [ "Cost center" ],
+        "operationId" : "delete_cost center",
+        "parameters" : [ {
+          "name" : "cost_center_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/empty_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/client_groups" : {
+      "get" : {
+        "summary" : "The client group list, including classic filtering, can be filtered according to the client.  | Use in WF: K3 (filer: client_id)",
+        "tags" : [ "Client group" ],
+        "operationId" : "get_client_groups",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/search_pagination"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/client_groups_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/orders" : {
+      "get" : {
+        "summary" : "The order list can be filtered using the general filter.  | Use in WF: K2 (filer: client_id)",
+        "tags" : [ "Order" ],
+        "operationId" : "get_orders",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/orders_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/orders/{order_id}" : {
+      "get" : {
+        "summary" : "Detail of the order. | Use in WF: K2.5, (K2.1,K2.2,K2.3,K2.4 – edit)",
+        "tags" : [ "Order" ],
+        "operationId" : "get_order",
+        "parameters" : [ {
+          "name" : "order_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/order_detail"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Save the order. | Use in WF: K2.5, (K2.1,K2.2,K2.3,K2.4)",
+        "tags" : [ "Order" ],
+        "operationId" : "put_order",
+        "parameters" : [ {
+          "name" : "order_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/order_detail"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/result_save"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Delete order. | Use in WF: K2",
+        "tags" : [ "Order" ],
+        "operationId" : "delete_order",
+        "parameters" : [ {
+          "name" : "order_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/empty_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/orders/{order_id}/products/{product_id}/import" : {
+      "post" : {
+        "summary" : "Import the order from the template. | Use in WF: K2.5, (K2.2,K2.3,K2.4)",
+        "tags" : [ "Order" ],
+        "operationId" : "post_order_from_import",
+        "parameters" : [ {
+          "name" : "order_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "product_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/file"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/orders/state" : {
+      "post" : {
+        "summary" : "Change order status. | Use in WF: K2.2,K2.3,K2.4",
+        "tags" : [ "Order" ],
+        "operationId" : "post_order_status",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/orders_state_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/orders/{order_id}/reset" : {
+      "post" : {
+        "summary" : "Reset order. | Use in WF: K2.1,K2.2,K2.3,K2.4",
+        "tags" : [ "Order" ],
+        "parameters" : [ {
+          "name" : "order_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/empty_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/clients/{client_id}/order/{product_id}/last" : {
+      "get" : {
+        "summary" : "Loading last order data. | Use in WF: K2.1,K2.2,K2.3,K2.4",
+        "tags" : [ "Client" ],
+        "operationId" : "get_last_order",
+        "parameters" : [ {
+          "name" : "client_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "product_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/order_detail"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/clients/{client_id}/addresses" : {
+      "get" : {
+        "summary" : "Get client addresses. | Use in WF: ",
+        "tags" : [ "Client" ],
+        "operationId" : "get_client_addresses",
+        "parameters" : [ {
+          "name" : "client_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/subjekt_address_response"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/clients/{client_id}/categories" : {
+      "get" : {
+        "summary" : "Get client's categories. | Use in WF: ",
+        "tags" : [ "Client" ],
+        "operationId" : "get_client_categories",
+        "parameters" : [ {
+          "name" : "client_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/categories_response"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/orders/{order_id}/pdf" : {
+      "post" : {
+        "summary" : "PDF orders can be used for printing. | Use in WF: K2.1,K2.2,K2.3,K2.4,K2.5",
+        "tags" : [ "Order" ],
+        "operationId" : "get_order_pdf",
+        "parameters" : [ {
+          "name" : "order_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "file_type",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/file"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/orders/{order_id}/summary" : {
+      "get" : {
+        "summary" : "Summary of order. | Use in WF: K2.3.1,K2.4.1,K2.1.1",
+        "tags" : [ "Order" ],
+        "operationId" : "get_order_summary",
+        "parameters" : [ {
+          "name" : "order_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/order_summary"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/orders/{order_id}/status" : {
+      "get" : {
+        "summary" : "The status of the order when it was ordered, sent, and including an invoice link. | Use in WF: K2.5",
+        "tags" : [ "Order" ],
+        "operationId" : "get_order_statu",
+        "parameters" : [ {
+          "name" : "order_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/order_status"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/orders/{order_id}/confirmation" : {
+      "post" : {
+        "summary" : "save user. | Use in WF: K2.3.1,K2.4.1,K2.1.1",
+        "tags" : [ "Order" ],
+        "operationId" : "put_order_confirmation",
+        "parameters" : [ {
+          "name" : "order_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/order_confirmation"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/orders/export" : {
+      "post" : {
+        "summary" : "Export to PDF or excel, file_type: pdf, xls. | Use in WF: ",
+        "tags" : [ "Order" ],
+        "operationId" : "post_orders_to_file_type",
+        "parameters" : [ {
+          "name" : "file_type",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/file"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/templates/order/{product_id}" : {
+      "get" : {
+        "summary" : "Download template for order (xls template). | Use in WF: K2.1,K2.2,K2.3,K2.4",
+        "tags" : [ "Template" ],
+        "operationId" : "get_template_order_product",
+        "parameters" : [ {
+          "name" : "product_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/file"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/templates/order/{product_id}/users" : {
+      "get" : {
+        "summary" : "Download templates for order (xls template) including people. | Use in WF: K2.3",
+        "tags" : [ "Template" ],
+        "operationId" : "get_template_order_product_users",
+        "parameters" : [ {
+          "name" : "product_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "client_id",
+          "in" : "query",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/file"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users" : {
+      "get" : {
+        "summary" : "List of people with classic filtering with the ability to filter.  | Use in WF: K3 (filer: client_id)",
+        "tags" : [ "User" ],
+        "operationId" : "get_users",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/search_pagination"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/users_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/export" : {
+      "post" : {
+        "summary" : "Export to PDF or excel, file_type: pdf, xls. | Use in WF: K3 (filer: client_id)",
+        "tags" : [ "User" ],
+        "operationId" : "post_users_to_file_type",
+        "parameters" : [ {
+          "name" : "file_type",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/file"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}" : {
+      "get" : {
+        "summary" : "Detail of the client.  | Use in WF: K3, AU4.2",
+        "tags" : [ "User" ],
+        "operationId" : "get_user",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/user_detail"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Save the user. | Use in WF: K3, AU4.2, AU4.6",
+        "tags" : [ "User" ],
+        "operationId" : "put_user",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/user_detail"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Delete user. | Use in WF: K3",
+        "tags" : [ "User" ],
+        "operationId" : "delete_user",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/empty_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/import" : {
+      "post" : {
+        "summary" : "Import people from the template. | Use in WF: K3",
+        "tags" : [ "User" ],
+        "operationId" : "post_users_import",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/file"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/organization_units" : {
+      "get" : {
+        "summary" : "A list of organizational units, including classic filtering, can be filtered by the client.  | Use in WF: (none)",
+        "tags" : [ "Organisation units" ],
+        "operationId" : "get_organization_units",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/organization_units_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/organization_units/{organization_unit_id}/users" : {
+      "get" : {
+        "summary" : "List of people in the organizational unit.  | Use in WF: (none)",
+        "tags" : [ "Organisation units" ],
+        "operationId" : "get_organization_unit_users",
+        "parameters" : [ {
+          "name" : "organization_unit_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/organization_units_users_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/organization_units/{organization_unit_id}" : {
+      "get" : {
+        "summary" : "Detail of organizational unit.  | Use in WF: (none)",
+        "tags" : [ "Organisation units" ],
+        "operationId" : "get_organization_unit",
+        "parameters" : [ {
+          "name" : "organization_unit_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/organization_unit"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Save the organization unit. | Use in WF: (none)",
+        "tags" : [ "Organization units" ],
+        "operationId" : "put_organization_unit",
+        "parameters" : [ {
+          "name" : "organization_unit_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/organization_unit"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Delete organisation unit. | Use in WF: (none)",
+        "tags" : [ "Organization units" ],
+        "operationId" : "delete_organization_unit",
+        "parameters" : [ {
+          "name" : "organization_unit_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/empty_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/jubilees" : {
+      "get" : {
+        "summary" : "A list of jubilee, including filtering.  | Use in WF: (none)",
+        "tags" : [ "Jubilee" ],
+        "operationId" : "get_jubilees",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/jubilees_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/jubilees/import" : {
+      "post" : {
+        "summary" : "Import of jubilees.  | Use in WF: (none)",
+        "tags" : [ "Jubilee" ],
+        "operationId" : "post_jubilees_import",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/file"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/jubilees/{jubilee_id}" : {
+      "get" : {
+        "summary" : "Detail of jubilee.  | Use in WF: (none)",
+        "tags" : [ "Jubilee" ],
+        "operationId" : "get_jubilee",
+        "parameters" : [ {
+          "name" : "jubilee_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/jubilee"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Save the jubilee. | Use in WF: (none)",
+        "tags" : [ "Jubilee" ],
+        "operationId" : "put_jubilee",
+        "parameters" : [ {
+          "name" : "jubilee_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/jubilee"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Delete jubilee. | Use in WF: (none)",
+        "tags" : [ "Jubilee" ],
+        "operationId" : "delete_jubilee",
+        "parameters" : [ {
+          "name" : "jubilee_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/empty_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/cards" : {
+      "get" : {
+        "summary" : "A list of cards including clasic filtering.  | Use in WF: (none)",
+        "tags" : [ "Card" ],
+        "operationId" : "get_cards",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/cards_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/cards/export" : {
+      "post" : {
+        "summary" : "Export of cards to pdf or xls.  | Use in WF: (none)",
+        "tags" : [ "Card" ],
+        "operationId" : "post_cards_export",
+        "parameters" : [ {
+          "name" : "file_type",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/file"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/cards/active/bulk" : {
+      "post" : {
+        "summary" : "Bulk activation of cards.  | Use in WF: (none)",
+        "tags" : [ "Card" ],
+        "operationId" : "post_cards_active",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/import_param"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/cards/block/bulk" : {
+      "post" : {
+        "summary" : "Bulk blocking of cards.  | Use in WF: (none)",
+        "tags" : [ "Card" ],
+        "operationId" : "post_cards_block",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/import_param"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/cards/compensation/bulk" : {
+      "post" : {
+        "summary" : "Bulk compensation of cards.  | Use in WF: (none)",
+        "tags" : [ "Card" ],
+        "operationId" : "post_cards_compensation",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/import_param"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/invoices/{invoice_id}/pdf" : {
+      "post" : {
+        "summary" : "Get PDF Invoice.  | Use in WF: (K5 filter: client_id=xxx)",
+        "tags" : [ "Invoice" ],
+        "operationId" : "post_invoice_pdf",
+        "parameters" : [ {
+          "name" : "invoice_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/file"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/invoices" : {
+      "get" : {
+        "summary" : "A list of invoices including filtering.  | Use in WF: (K5 filter: client_id=xxx)",
+        "tags" : [ "Invoice" ],
+        "operationId" : "get_invoices",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/invoices_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/invoices/export" : {
+      "post" : {
+        "summary" : "Export to PDF or excel, file_type: pdf, xls. | Use in WF:  (filer: client_id)",
+        "tags" : [ "Invoice" ],
+        "operationId" : "post_invoices_to_file_type",
+        "parameters" : [ {
+          "name" : "file_type",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/file"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/documents" : {
+      "get" : {
+        "summary" : "A list of documents including filtering.  | Use in WF: K6 (filter: client_id=xxx)",
+        "tags" : [ "Document" ],
+        "operationId" : "get_documents",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/documents_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/documents/{document_id}/download" : {
+      "get" : {
+        "summary" : "Get PDF Invoice.  | Use in WF: (K6 filter: client_id=xxx)",
+        "tags" : [ "Document" ],
+        "operationId" : "get_document_download",
+        "parameters" : [ {
+          "name" : "document_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/file"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/documents/upload" : {
+      "post" : {
+        "summary" : "Upload document.  | Use in WF: (K6 filter: client_id=xxx)",
+        "tags" : [ "Document" ],
+        "operationId" : "post_documents_upload",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/documents_upload"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/my_rewards" : {
+      "get" : {
+        "summary" : "A list of my rewards module data.  | Use in WF: (K7 filter: client_id=xxx)",
+        "tags" : [ "My rewards" ],
+        "operationId" : "get_my_rewards",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/my_rewards_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/my_rewards/import" : {
+      "post" : {
+        "summary" : "Import data for my rewards module.  | Use in WF: (K7 filter: client_id=xxx)",
+        "tags" : [ "My rewards" ],
+        "operationId" : "post_my_rewards_import",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/file"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/surveys" : {
+      "get" : {
+        "summary" : "A list of surveys.  | Use in WF: (none)",
+        "tags" : [ "Survey" ],
+        "operationId" : "get_surveys",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/surveys_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/surveys/{survey_id}/summary/export" : {
+      "get" : {
+        "summary" : "Export survey result into PDF or XLS. | Use in WF: (none)",
+        "tags" : [ "Survey" ],
+        "operationId" : "get_surveys_summary_pdf",
+        "parameters" : [ {
+          "name" : "survey_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "format",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/file"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/surveys/{survey_id}/users" : {
+      "get" : {
+        "summary" : "A list of users of survey.  | Use in WF: (none)",
+        "tags" : [ "Survey" ],
+        "operationId" : "get_surveys_users",
+        "parameters" : [ {
+          "name" : "survey_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/surveys_users_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/surveys/{survey_id}" : {
+      "get" : {
+        "summary" : "Detail of survey.  | Use in WF: (none)",
+        "tags" : [ "Survey" ],
+        "operationId" : "get_survey",
+        "parameters" : [ {
+          "name" : "survey_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/survey"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Save survey. | Use in WF: (none)",
+        "tags" : [ "Survey" ],
+        "operationId" : "put_survey",
+        "parameters" : [ {
+          "name" : "survey_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/survey"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Delete survey. | Use in WF: (none)",
+        "tags" : [ "Survey" ],
+        "operationId" : "delete_survey",
+        "parameters" : [ {
+          "name" : "survey_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/empty_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/benefits" : {
+      "get" : {
+        "summary" : "A list of benefits, including filtering.  | Use in WF: (none)",
+        "tags" : [ "Benefit" ],
+        "operationId" : "get_benefits",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/benefits_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/benefits/{benefit_id}" : {
+      "get" : {
+        "summary" : "Detail of benefit.  | Use in WF: (none)",
+        "tags" : [ "Benefit" ],
+        "operationId" : "get_benefit",
+        "parameters" : [ {
+          "name" : "benefit_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/benefit_detail"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Save the benefit. | Use in WF: (none)",
+        "tags" : [ "Benefit" ],
+        "operationId" : "put_benefit",
+        "parameters" : [ {
+          "name" : "benefit_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/benefit"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Delete benefit. | Use in WF: (none)",
+        "tags" : [ "Benefit" ],
+        "operationId" : "delete_benefit",
+        "parameters" : [ {
+          "name" : "benefit_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/empty_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/benefits/{benefit_id}/image" : {
+      "put" : {
+        "summary" : "Save image for benefit. | Use in WF: (none)",
+        "tags" : [ "Benefit" ],
+        "operationId" : "put_benefit_image",
+        "parameters" : [ {
+          "name" : "benefit_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/file"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Delete image of the benefit. | Use in WF: (none)",
+        "tags" : [ "Benefit" ],
+        "operationId" : "delete_benefit_image",
+        "parameters" : [ {
+          "name" : "benefit_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/empty_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/images/{image_id}" : {
+      "get" : {
+        "summary" : "Get image. | Use in WF: ",
+        "tags" : [ "Image" ],
+        "operationId" : "get_image",
+        "parameters" : [ {
+          "name" : "image_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "width",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "crop",
+          "in" : "query",
+          "required" : false,
+          "type" : "boolean"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/file"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/auth/login" : {
+      "post" : {
+        "summary" : "Login to system.  | Use in WF: K8",
+        "tags" : [ "Auth" ],
+        "operationId" : "post_auth_login",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/login_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/login_result"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "pagination" : {
+      "properties" : {
+        "object_count" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 10
+        },
+        "page" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        },
+        "per_page" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 10
+        }
+      }
+    },
+    "search_pagination" : {
+      "properties" : {
+        "search" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/filter_search"
+          }
+        },
+        "page" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        },
+        "per_page" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 10
+        },
+        "order_by" : {
+          "type" : "string",
+          "example" : "name"
+        },
+        "ordering" : {
+          "type" : "string",
+          "example" : "asc"
+        }
+      }
+    },
+    "filter_search" : {
+      "type" : "object",
+      "properties" : {
+        "property_name" : {
+          "type" : "string",
+          "description" : "Identification of property (column) to search within",
+          "example" : "street"
+        },
+        "filter_type" : {
+          "type" : "string",
+          "example" : "neq"
+        },
+        "value" : {
+          "type" : "string",
+          "description" : "Searched value",
+          "example" : "test"
+        }
+      }
+    },
+    "empty_body" : {
+      "properties" : {
+        "body" : {
+          "type" : "string",
+          "format" : "byte"
+        }
+      }
+    },
+    "file" : {
+      "required" : [ "file_name", "byte_data" ],
+      "properties" : {
+        "file_name" : {
+          "type" : "string",
+          "example" : "test.pdf"
+        },
+        "byte_data" : {
+          "type" : "string",
+          "format" : "byte",
+          "description" : "BASE64",
+          "example" : "116cfgnbfg616fgnsXb56"
+        },
+        "file_length" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1235
+        },
+        "dictionary_path" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "import_param" : {
+      "required" : [ "ids" ],
+      "properties" : {
+        "ids" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 1
+          }
+        }
+      }
+    },
+    "products_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/client_product"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "client_product" : {
+      "required" : [ "product", "logo_on_coupons", "logo_on_envelope", "allow_split", "personalisation", "free_coupons" ],
+      "properties" : {
+        "product" : {
+          "$ref" : "#/definitions/product_item"
+        },
+        "text_on_coupons" : {
+          "type" : "string",
+          "example" : "Description..."
+        },
+        "logo_on_coupons" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "text_on_envelope" : {
+          "type" : "string",
+          "example" : "Description..."
+        },
+        "logo_on_envelope" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "allow_split" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "personalisation" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "free_coupons" : {
+          "type" : "boolean",
+          "example" : true
+        }
+      }
+    },
+    "client_detail" : {
+      "required" : [ "client_id", "name", "identification_number", "cash_allowed" ],
+      "properties" : {
+        "client_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Klient 1"
+        },
+        "identification_number" : {
+          "type" : "string",
+          "example" : "9517534682",
+          "description" : "IČO"
+        },
+        "vat_identification" : {
+          "type" : "string",
+          "example" : "123456789"
+        },
+        "send_notification_of_changes" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "client_products" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/client_product"
+          }
+        }
+      }
+    },
+    "notification" : {
+      "required" : [ "notification_id", "type_name", "date" ],
+      "properties" : {
+        "notification_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "type_name" : {
+          "type" : "string",
+          "example" : "Novinka",
+          "description" : "if it is news, order, ..."
+        },
+        "date" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Description..."
+        },
+        "image_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        }
+      }
+    },
+    "notification_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/notification"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "new_product" : {
+      "required" : [ "identification_number", "client_name", "delivery_address", "number_of_employees", "product_id" ],
+      "properties" : {
+        "identification_number" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123,
+          "description" : "IČO"
+        },
+        "client_name" : {
+          "type" : "string",
+          "example" : "Klient 1"
+        },
+        "delivery_address" : {
+          "type" : "string",
+          "example" : "Nádražní 10, Praha, 110 00"
+        },
+        "phone" : {
+          "type" : "string",
+          "format" : "tel",
+          "example" : "+420 777 777 777"
+        },
+        "contact_person" : {
+          "type" : "string",
+          "example" : "Jan Novák"
+        },
+        "number_of_employees" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 12
+        },
+        "product_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Description..."
+        },
+        "file_data" : {
+          "$ref" : "#/definitions/file"
+        }
+      }
+    },
+    "client_notification_body" : {
+      "required" : [ "send_notification_of_changes" ],
+      "properties" : {
+        "send_notification_of_changes" : {
+          "type" : "boolean",
+          "example" : true
+        }
+      }
+    },
+    "contact" : {
+      "required" : [ "name", "surname" ],
+      "properties" : {
+        "contact_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Jan"
+        },
+        "surname" : {
+          "type" : "string",
+          "example" : "Novák"
+        },
+        "work_position" : {
+          "type" : "string",
+          "example" : "???"
+        },
+        "email" : {
+          "type" : "string",
+          "format" : "email",
+          "example" : "novak@email.cz"
+        },
+        "phone" : {
+          "type" : "string",
+          "format" : "tel",
+          "example" : "+420 777 777 777"
+        },
+        "work_function" : {
+          "type" : "string",
+          "example" : "???"
+        },
+        "parameter" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1,
+          "description" : "1 - Mail for billing; 2 - Mail contact; 3 - Mail management; 4 - Common mail of MK and MF; 5 - Mail to Everything; 6 - Mail for billing and management"
+        }
+      }
+    },
+    "contacts_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/contact"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "request_body" : {
+      "required" : [ "type", "data" ],
+      "properties" : {
+        "type" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123,
+          "description" : "1 - Request for change of address, 2 - Request to add address, 3 - Request for change of data, 4 - Request to add delivery point, 5 - Request for contact person"
+        },
+        "data" : {
+          "type" : "string",
+          "example" : "???",
+          "description" : "Application parameters, serialized map, where the key is the name of the parameter and value is a value, for example: {\"Street number\": \"Street 12\", \"City\": \"Prague\", ...}."
+        },
+        "file_data" : {
+          "$ref" : "#/definitions/file"
+        }
+      }
+    },
+    "password" : {
+      "required" : [ "password_old", "password_new" ],
+      "properties" : {
+        "password_old" : {
+          "type" : "string",
+          "example" : "ux5FGhztel&_df46"
+        },
+        "password_new" : {
+          "type" : "string",
+          "example" : "FGhux56&66_dfu465"
+        }
+      }
+    },
+    "product_item" : {
+      "required" : [ "product_id", "name" ],
+      "properties" : {
+        "product_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Produkt 1"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Description..."
+        },
+        "description_detailed" : {
+          "type" : "string",
+          "example" : "Description..."
+        },
+        "image_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "order" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        }
+      }
+    },
+    "address" : {
+      "required" : [ "town", "street", "zip_code" ],
+      "properties" : {
+        "town" : {
+          "type" : "string",
+          "example" : "Benešov"
+        },
+        "street" : {
+          "type" : "string",
+          "example" : "Nádražní 2000"
+        },
+        "zip_code" : {
+          "type" : "string",
+          "example" : "25601"
+        }
+      }
+    },
+    "business_place_data" : {
+      "required" : [ "business_place_id", "client_id", "kod", "name" ],
+      "properties" : {
+        "business_place_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "client_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "kod" : {
+          "type" : "string",
+          "example" : "Kód 1"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Místo 1"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Description..."
+        },
+        "image_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "products" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/product_item"
+          }
+        },
+        "address" : {
+          "$ref" : "#/definitions/address"
+        }
+      }
+    },
+    "business_places_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/business_place_data"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "client_group_data" : {
+      "required" : [ "client_groups_id", "client_id", "name" ],
+      "properties" : {
+        "client_group_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "client_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Místo 1"
+        }
+      }
+    },
+    "client_groups_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/client_group_data"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "order_data" : {
+      "required" : [ "order_id", "client_id", "number", "date", "nominal_value", "commissions_and_fees", "vat", "total", "state" ],
+      "properties" : {
+        "order_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "number" : {
+          "type" : "string",
+          "example" : "Číslo 1"
+        },
+        "client_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "date" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "product" : {
+          "$ref" : "#/definitions/product_item"
+        },
+        "nominal_value" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "commissions_and_fees" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 10.5
+        },
+        "vat" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 10.05
+        },
+        "total" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 121.05
+        },
+        "state" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123,
+          "description" : "0 - In progress; 1 - Confirmed; 2 - Sent to processing; 5 - Ready for execution; 6 - Resolved; 7 - Canceled; 8 - Despatched; 9 - Canceled; 10 - Error"
+        }
+      }
+    },
+    "orders_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/order_data"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "nominal_value_item" : {
+      "required" : [ "nominal_value_id", "value", "quantity" ],
+      "properties" : {
+        "nominal_value_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "value" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "quantity" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 10
+        }
+      }
+    },
+    "book_item" : {
+      "required" : [ "book_item_id", "count" ],
+      "properties" : {
+        "book_item_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "count" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 10
+        },
+        "nominal_values" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/nominal_value_item"
+          }
+        }
+      }
+    },
+    "order_item" : {
+      "required" : [ "order_item_id", "business_place_id", "holder_id", "name", "surname", "cart_order", "count", "account_type_id" ],
+      "properties" : {
+        "order_item_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "business_place_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "holder_id" : {
+          "type" : "string",
+          "example" : "123"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Jan"
+        },
+        "surname" : {
+          "type" : "string",
+          "example" : "Novák"
+        },
+        "cart_order" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "note" : {
+          "type" : "string",
+          "example" : "Poznámka"
+        },
+        "count" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 10
+        },
+        "account_type_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "book_items" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/book_item"
+          }
+        },
+        "address" : {
+          "$ref" : "#/definitions/address"
+        },
+        "email" : {
+          "type" : "string",
+          "format" : "email",
+          "example" : "novak@email.cz"
+        },
+        "phone" : {
+          "type" : "string",
+          "format" : "tel",
+          "example" : "+420 777 777 777"
+        },
+        "account_name" : {
+          "type" : "string",
+          "example" : "Account1"
+        }
+      }
+    },
+    "order_detail" : {
+      "required" : [ "order_id", "number", "creation_date", "product_id", "state", "valid_from", "valid_to", "free_coupons" ],
+      "properties" : {
+        "order_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "number" : {
+          "type" : "string",
+          "example" : "Číslo 1"
+        },
+        "creation_date" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "product_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "state" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123,
+          "description" : "1 - divisive, 2 - ordered, 3 - sent, 4 - settled, 5 - canceled"
+        },
+        "valid_from" : {
+          "type" : "string",
+          "format" : "timestamp",
+          "example" : "2009-06-15T13:45:30.6170000"
+        },
+        "valid_to" : {
+          "type" : "string",
+          "format" : "timestamp",
+          "example" : "2010-03-15T13:45:30.6170000"
+        },
+        "categories" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 1
+          }
+        },
+        "order_items" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/order_item"
+          }
+        },
+        "free_coupons" : {
+          "type" : "boolean",
+          "example" : true
+        }
+      }
+    },
+    "result_save" : {
+      "required" : [ "id" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        }
+      }
+    },
+    "orders_state_body" : {
+      "required" : [ "state" ],
+      "properties" : {
+        "state" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "ids" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 1
+          }
+        }
+      }
+    },
+    "fee_item" : {
+      "required" : [ "name", "value" ],
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "example" : "Číslo 1"
+        },
+        "value" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 10.5
+        }
+      }
+    },
+    "order_summary" : {
+      "required" : [ "number", "total_nominal_value", "tax_base", "tax", "total", "number_of_items", "number_of_coupons" ],
+      "properties" : {
+        "number" : {
+          "type" : "string",
+          "example" : "Číslo 1"
+        },
+        "total_nominal_value" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "tax_base" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 10.5
+        },
+        "tax" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 10.5
+        },
+        "total" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "number_of_items" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 10
+        },
+        "number_of_coupons" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 10
+        },
+        "number_of_books" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 10
+        },
+        "fees" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/fee_item"
+          }
+        }
+      }
+    },
+    "order_status" : {
+      "required" : [ "order_date", "order_user" ],
+      "properties" : {
+        "order_date" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "order_user" : {
+          "type" : "string",
+          "example" : "Osoba 1"
+        },
+        "dispatch_date" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "url_invoice" : {
+          "type" : "string",
+          "example" : "www.xxx.cz"
+        },
+        "vl_codes" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "example" : "777"
+          }
+        }
+      }
+    },
+    "order_confirmation" : {
+      "required" : [ "order_number", "order_user" ],
+      "properties" : {
+        "order_number" : {
+          "type" : "string",
+          "example" : "Číslo 1"
+        },
+        "order_user" : {
+          "type" : "string",
+          "example" : "Osoba 1"
+        },
+        "company_name" : {
+          "type" : "string",
+          "example" : "Firma 1"
+        },
+        "email" : {
+          "type" : "string",
+          "format" : "email",
+          "example" : "novak@email.cz"
+        },
+        "phone" : {
+          "type" : "string",
+          "format" : "tel",
+          "example" : "+420 777 777 777"
+        }
+      }
+    },
+    "user_resp_data" : {
+      "required" : [ "user_id", "number", "client_id", "name", "surname", "internal_code", "login", "generate_cart", "blocked", "dont_import_credit", "alive_licence", "valid_date_from", "valid_date_to" ],
+      "properties" : {
+        "user_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "number" : {
+          "type" : "string",
+          "example" : "123"
+        },
+        "client_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 3
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Jan"
+        },
+        "surname" : {
+          "type" : "string",
+          "example" : "Novák"
+        },
+        "email" : {
+          "type" : "string",
+          "format" : "email",
+          "example" : "novak@email.cz"
+        },
+        "phone" : {
+          "type" : "string",
+          "format" : "tel",
+          "example" : "+420 777 777 777"
+        },
+        "organization_unit_name" : {
+          "type" : "string",
+          "example" : "Org 1"
+        },
+        "bussiness_place_name" : {
+          "type" : "string",
+          "example" : "Pozice 1"
+        }
+      }
+    },
+    "users_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/user_resp_data"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "user_detail" : {
+      "required" : [ "user_id", "organization_unit", "business_place_id", "number", "surname", "name", "alive_licence", "birthdate", "valid_date_from", "valid_date_to", "user_name", "role", "blocked", "import_prohibited", "send_marketing_information1", "send_marketing_information2", "send_information_about_accounts_changes_by_email", "send_information_about_accounts_changes_by_sms", "language", "is_work_email_default" ],
+      "properties" : {
+        "user_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "organization_unit" : {
+          "$ref" : "#/definitions/organization_unit"
+        },
+        "business_place_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "number" : {
+          "type" : "string",
+          "example" : "123"
+        },
+        "partner_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        },
+        "client_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 3
+        },
+        "title_before" : {
+          "type" : "string",
+          "example" : "Ing."
+        },
+        "surname" : {
+          "type" : "string",
+          "example" : "Novák"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Jan"
+        },
+        "title_after" : {
+          "type" : "string",
+          "example" : "Csc."
+        },
+        "private_email" : {
+          "type" : "string",
+          "format" : "email",
+          "example" : "novak@email.cz"
+        },
+        "work_email" : {
+          "type" : "string",
+          "format" : "email",
+          "example" : "novak@email.cz"
+        },
+        "phone" : {
+          "type" : "string",
+          "format" : "tel",
+          "example" : "+420 777 777 777"
+        },
+        "alive_licence" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "birthdate" : {
+          "type" : "string",
+          "format" : "date",
+          "example" : "2018-02-06"
+        },
+        "employment_begin" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "employment_end" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "valid_date_from" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "valid_date_to" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "address" : {
+          "$ref" : "#/definitions/address"
+        },
+        "user_name" : {
+          "type" : "string",
+          "example" : "jan.novak"
+        },
+        "role" : {
+          "type" : "string",
+          "example" : "user"
+        },
+        "blocked" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "import_prohibited" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "send_marketing_information1" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "send_marketing_information2" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "send_information_about_accounts_changes_by_email" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "send_information_about_accounts_changes_by_sms" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "note" : {
+          "type" : "string",
+          "example" : "Poznámka"
+        },
+        "language" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1,
+          "description" : "1 - CZ, 2-EN"
+        },
+        "puk" : {
+          "type" : "string",
+          "example" : "21826"
+        },
+        "percent_transfer" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 1.5
+        },
+        "is_work_email_default" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "mobile" : {
+          "type" : "string",
+          "format" : "tel",
+          "example" : "+420 777 777 777"
+        },
+        "cost_center_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "probationary_period" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06"
+        }
+      }
+    },
+    "organization_unit" : {
+      "required" : [ "organization_unit_id", "client_id", "name" ],
+      "properties" : {
+        "organization_unit_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "client_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "parent" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Místo 1"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Description..."
+        },
+        "order" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        }
+      }
+    },
+    "organization_units_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/organization_unit"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "organization_unit_user" : {
+      "required" : [ "user_id", "name", "surname" ],
+      "properties" : {
+        "user_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Jan"
+        },
+        "surname" : {
+          "type" : "string",
+          "example" : "Novák"
+        },
+        "work_email" : {
+          "type" : "string",
+          "format" : "email",
+          "example" : "novak@email.cz"
+        },
+        "phone" : {
+          "type" : "string",
+          "format" : "tel",
+          "example" : "+420 777 777 777"
+        }
+      }
+    },
+    "organization_units_users_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/organization_unit_user"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "jubilee" : {
+      "required" : [ "jubilee_id", "name", "surname" ],
+      "properties" : {
+        "jubilee_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "client_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "year" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 2018
+        },
+        "claim_live" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "claim_work" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "order" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        }
+      }
+    },
+    "jubilees_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/jubilee"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "card" : {
+      "required" : [ "card_id", "number_short", "user_id", "valid_from", "type", "state" ],
+      "properties" : {
+        "card_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "valid_from" : {
+          "type" : "string",
+          "format" : "timestamp",
+          "example" : "2009-06-15T13:45:30.6170000"
+        },
+        "valid_to" : {
+          "type" : "string",
+          "format" : "timestamp",
+          "example" : "2010-03-15T13:45:30.6170000"
+        },
+        "type" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1,
+          "description" : "1 = Benefit; 2 = E-Meal vouchers; 3 = Cash card; 4 = Benefit + E-Meal card; 5 = Alive"
+        },
+        "state" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1,
+          "description" : "1 = Active; 2 = Blocked"
+        },
+        "number_short" : {
+          "type" : "string",
+          "example" : "0800"
+        },
+        "user_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "user" : {
+          "$ref" : "#/definitions/user_simple"
+        }
+      }
+    },
+    "cards_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/card"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "invoice" : {
+      "required" : [ "invoice_id", "client_id", "invoice_number", "date", "nominal_value", "price", "state" ],
+      "properties" : {
+        "invoice_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "client_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "invoice_number" : {
+          "type" : "string",
+          "example" : "123456789"
+        },
+        "date" : {
+          "type" : "string",
+          "format" : "timestamp",
+          "example" : "2009-06-15T13:45:30.6170000"
+        },
+        "nominal_value" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "price" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "state" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1,
+          "description" : "1 - created, 2 - dispatched, 3 - paid, 4 - canceled"
+        }
+      }
+    },
+    "invoices_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/invoice"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "document" : {
+      "required" : [ "document_id", "client_id", "name", "parent", "is_directory", "creation_date" ],
+      "properties" : {
+        "document_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "client_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "DocumentName1"
+        },
+        "parent_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        },
+        "is_directory" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "creation_date" : {
+          "type" : "string",
+          "format" : "timestamp",
+          "example" : "2009-06-15T13:45:30.6170000"
+        }
+      }
+    },
+    "documents_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/document"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "documents_upload" : {
+      "required" : [ "client_id", "parent", "type", "file" ],
+      "properties" : {
+        "client_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "parent" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        },
+        "type" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        },
+        "file" : {
+          "$ref" : "#/definitions/file"
+        }
+      }
+    },
+    "my_reward_user" : {
+      "required" : [ "user_id", "number", "surname", "name" ],
+      "properties" : {
+        "user_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "number" : {
+          "type" : "string",
+          "example" : "123"
+        },
+        "surname" : {
+          "type" : "string",
+          "example" : "Novák"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Jan"
+        }
+      }
+    },
+    "my_reward" : {
+      "required" : [ "my_reward_id", "client_id", "name", "parent", "creation_date" ],
+      "properties" : {
+        "my_reward_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "client_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "user" : {
+          "$ref" : "#/definitions/my_reward_user"
+        },
+        "code" : {
+          "type" : "string",
+          "example" : "XYZ123456"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "XYZ"
+        },
+        "value_employee" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "value_employer" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "claim" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "creation_date" : {
+          "type" : "string",
+          "format" : "timestamp",
+          "example" : "2009-06-15T13:45:30.6170000"
+        }
+      }
+    },
+    "my_rewards_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/my_reward"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "survey_user" : {
+      "required" : [ "user_id", "surname", "name" ],
+      "properties" : {
+        "user_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "surname" : {
+          "type" : "string",
+          "example" : "Novák"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Jan"
+        }
+      }
+    },
+    "surveys_users_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/survey_user"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "survey_question_answer" : {
+      "required" : [ "survey_question_answer_id", "survey_question_id", "text", "order" ],
+      "properties" : {
+        "survey_question_answer_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "survey_question_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "text" : {
+          "type" : "string",
+          "example" : "ABCD...XYZ"
+        },
+        "order" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 2
+        }
+      }
+    },
+    "survey_question" : {
+      "required" : [ "survey_question_id", "survey_id", "name", "type", "required", "order", "max", "min", "survey_question_answers" ],
+      "properties" : {
+        "survey_question_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "survey_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "XYZ"
+        },
+        "type" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1,
+          "description" : "1 - More possible answers, 2 - Number, 3 - Open question, 4 - Scale"
+        },
+        "required" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "order" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 2
+        },
+        "max" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 3
+        },
+        "min" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        },
+        "survey_question_answers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/survey_question_answer"
+          }
+        }
+      }
+    },
+    "survey" : {
+      "required" : [ "survey_id", "name", "valid_from", "valid_to", "client_id", "survey_questions" ],
+      "properties" : {
+        "survey_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "XYZ"
+        },
+        "valid_from" : {
+          "type" : "string",
+          "format" : "timestamp",
+          "example" : "2009-06-15T13:45:30.6170000"
+        },
+        "valid_to" : {
+          "type" : "string",
+          "format" : "timestamp",
+          "example" : "2010-03-15T13:45:30.6170000"
+        },
+        "client_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Description..."
+        },
+        "survey_question" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/survey_question"
+          }
+        }
+      }
+    },
+    "survey_item" : {
+      "required" : [ "survey_id", "name", "valid_from", "valid_to", "client_id" ],
+      "properties" : {
+        "survey_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "XYZ"
+        },
+        "valid_from" : {
+          "type" : "string",
+          "format" : "timestamp",
+          "example" : "2009-06-15T13:45:30.6170000"
+        },
+        "valid_to" : {
+          "type" : "string",
+          "format" : "timestamp",
+          "example" : "2010-03-15T13:45:30.6170000"
+        },
+        "client_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Description..."
+        }
+      }
+    },
+    "surveys_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/survey_item"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "subject" : {
+      "required" : [ "subject_id", "name" ],
+      "properties" : {
+        "subject_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "XYZ"
+        }
+      }
+    },
+    "image" : {
+      "required" : [ "image_id", "name" ],
+      "properties" : {
+        "image_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "XYZ"
+        }
+      }
+    },
+    "benefit_detail" : {
+      "required" : [ "benefit_id", "name", "type", "state", "client_owner", "valid_from", "valid_to", "subject" ],
+      "properties" : {
+        "benefit_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "XYZ"
+        },
+        "type" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        },
+        "state" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        },
+        "client_owner" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "valid_from" : {
+          "type" : "string",
+          "format" : "timestamp",
+          "example" : "2009-06-15T13:45:30.6170000"
+        },
+        "valid_to" : {
+          "type" : "string",
+          "format" : "timestamp",
+          "example" : "2010-03-15T13:45:30.6170000"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Description..."
+        },
+        "description_short" : {
+          "type" : "string",
+          "example" : "Description..."
+        },
+        "subject" : {
+          "$ref" : "#/definitions/subject"
+        },
+        "images" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/image"
+          }
+        }
+      }
+    },
+    "benefit" : {
+      "required" : [ "benefit_id", "name", "type", "state", "client_owner", "valid_from", "valid_to", "subject_id" ],
+      "properties" : {
+        "benefit_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "XYZ"
+        },
+        "type" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        },
+        "state" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        },
+        "client_owner" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "valid_from" : {
+          "type" : "string",
+          "format" : "timestamp",
+          "example" : "2009-06-15T13:45:30.6170000"
+        },
+        "valid_to" : {
+          "type" : "string",
+          "format" : "timestamp",
+          "example" : "2010-03-15T13:45:30.6170000"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Description..."
+        },
+        "description_short" : {
+          "type" : "string",
+          "example" : "Description..."
+        },
+        "subject_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        }
+      }
+    },
+    "benefits_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/benefit_detail"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "login_body" : {
+      "required" : [ "login", "password" ],
+      "properties" : {
+        "login" : {
+          "type" : "string",
+          "example" : "Uzivatel"
+        },
+        "password" : {
+          "type" : "string",
+          "example" : "*********"
+        }
+      }
+    },
+    "login_result" : {
+      "required" : [ "token", "type" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "token" : {
+          "type" : "string",
+          "example" : "fgFGnhzivbfsdBsfat452e1l"
+        },
+        "type" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1,
+          "description" : "1 - user, 2 - client, 3 - partner, 4 - branch"
+        }
+      }
+    },
+    "subjekt_address_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/subjekt_address"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "subjekt_address" : {
+      "required" : [ "billing", "contact", "headquarters" ],
+      "allOf" : [ {
+        "$ref" : "#/definitions/address"
+      }, {
+        "properties" : {
+          "billing" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "contact" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "headquarters" : {
+            "type" : "boolean",
+            "example" : true
+          }
+        }
+      } ]
+    },
+    "user_simple" : {
+      "required" : [ "user_id", "organization_unit_id", "business_place_id", "number", "surname", "name" ],
+      "properties" : {
+        "user_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "organization_unit_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "business_place_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "number" : {
+          "type" : "string",
+          "example" : "123"
+        },
+        "title_before" : {
+          "type" : "string",
+          "example" : "Ing."
+        },
+        "surname" : {
+          "type" : "string",
+          "example" : "Novák"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Jan"
+        },
+        "title_after" : {
+          "type" : "string",
+          "example" : "Csc."
+        },
+        "client_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        }
+      }
+    },
+    "cost_centers_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/cost_center"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "cost_center" : {
+      "required" : [ "cost_center_id", "place_id", "name", "code" ],
+      "properties" : {
+        "cost_center_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "client_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "CostCenter1"
+        },
+        "code" : {
+          "type" : "string",
+          "example" : "CC123"
+        }
+      }
+    },
+    "google_autocomplete_response" : {
+      "required" : [ "predictions" ],
+      "properties" : {
+        "predictions" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/google_autocomplete_item"
+          }
+        }
+      }
+    },
+    "google_autocomplete_item" : {
+      "required" : [ "description", "place_id" ],
+      "properties" : {
+        "description" : {
+          "type" : "string",
+          "example" : "Popis..."
+        },
+        "place_id" : {
+          "type" : "string",
+          "example" : "123456789"
+        }
+      }
+    },
+    "google_detailed_response" : {
+      "required" : [ "result" ],
+      "properties" : {
+        "result" : {
+          "$ref" : "#/definitions/google_detailed_result"
+        }
+      }
+    },
+    "google_detailed_result" : {
+      "required" : [ "address_components", "geometry" ],
+      "properties" : {
+        "address_components" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/address_component"
+          }
+        },
+        "geometry" : {
+          "$ref" : "#/definitions/geometry"
+        }
+      }
+    },
+    "geometry" : {
+      "required" : [ "location" ],
+      "properties" : {
+        "location" : {
+          "$ref" : "#/definitions/location"
+        }
+      }
+    },
+    "location" : {
+      "required" : [ "lat", "lng" ],
+      "properties" : {
+        "lat" : {
+          "type" : "string",
+          "example" : "23.2345"
+        },
+        "lng" : {
+          "type" : "string",
+          "example" : "23.2345"
+        }
+      }
+    },
+    "address_component" : {
+      "required" : [ "types", "short_name" ],
+      "properties" : {
+        "types" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "example" : "political"
+          }
+        },
+        "short_name" : {
+          "type" : "string",
+          "example" : "Prague"
+        }
+      }
+    },
+    "category" : {
+      "required" : [ "category_id", "name" ],
+      "properties" : {
+        "category_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "parent_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Název Z"
+        }
+      }
+    },
+    "categories_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/category"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/Petr_Vesely/UP_Digital_Client/1.0.0",
+  "schemes" : [ "https" ]
+}
