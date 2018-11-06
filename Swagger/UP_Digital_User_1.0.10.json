@@ -1,0 +1,3317 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "1.0.10",
+    "title" : "Sample Implicit Flow OAuth2 Project",
+    "description" : "This is an example of using OAuth2 Implicit Flow in a specification to describe security to your API."
+  },
+  "securityDefinitions" : {
+    "password" : {
+      "type" : "oauth2",
+      "tokenUrl" : "http://example.com/oauth/token",
+      "flow" : "password",
+      "scopes" : {
+        "write" : "allows modifying resources",
+        "read" : "allows reading resources"
+      }
+    }
+  },
+  "security" : [ {
+    "password" : [ "read", "write" ]
+  } ],
+  "tags" : [ {
+    "name" : "User",
+    "description" : "UP Digital - User"
+  } ],
+  "paths" : {
+    "/users/{user_id}/dashboard" : {
+      "get" : {
+        "summary" : "Returns user detail for dashboard, basic information, name, surname, atc. | Use in WF: U1, AU2",
+        "tags" : [ "User" ],
+        "operationId" : "get_users_dashboard",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/user_dashboard"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/notifications" : {
+      "get" : {
+        "summary" : "Returns the user notification list. (dynamic filter) | Use in WF: Global menu",
+        "tags" : [ "Notification" ],
+        "operationId" : "get_notifications",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/notification"
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/accounts" : {
+      "get" : {
+        "summary" : "Returns the user account list. | Use in WF: U1, U2, AU2, AU3.1, AU4.1, AU4.1.1, AU4.1.2, AU4.1.3",
+        "tags" : [ "User" ],
+        "operationId" : "get_users_accounts",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/account"
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/confirm_cash" : {
+      "post" : {
+        "summary" : "Confirmation of a cash account that may have a cash account. | Use in WF: U1",
+        "tags" : [ "User" ],
+        "operationId" : "put_confirm_cash",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/result"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/meal_card_transfer" : {
+      "post" : {
+        "summary" : "Setting the user's voucher as much as he wants to convert the voucher percentage. | Use in WF: U2",
+        "tags" : [ "User" ],
+        "operationId" : "post_meal_card_transfer",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "card_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/meal_card_transfer_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/transfer_request" : {
+      "post" : {
+        "summary" : "Request to transfer cash to an account. | Use in WF: U1",
+        "tags" : [ "User" ],
+        "operationId" : "put_transfer_request",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/transfer_request_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/cards" : {
+      "get" : {
+        "summary" : "Returns the user notification list. | none",
+        "tags" : [ "User" ],
+        "operationId" : "get_cards",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/card"
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/cards/{card_id}/block" : {
+      "post" : {
+        "summary" : "Card blocation.  | Use in WF: U1, U2",
+        "tags" : [ "Card" ],
+        "operationId" : "put_card_blocation",
+        "parameters" : [ {
+          "name" : "card_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/result"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/transactions" : {
+      "get" : {
+        "summary" : "An overview of all user transactions for all accounts. (dynamic filter) | Use in WF: U4, AU6",
+        "tags" : [ "User" ],
+        "operationId" : "get_users_transactions",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/user_transaction_response"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/transactions/export" : {
+      "post" : {
+        "summary" : "Export to PDF. (dynamic filter) | Use in WF: U4",
+        "tags" : [ "User" ],
+        "operationId" : "post_users_transactions_export",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "format",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/file"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/pre_orders" : {
+      "get" : {
+        "summary" : "An overview of all pre-orders. (dynamic filter) | Use in WF: none",
+        "tags" : [ "Pre-order" ],
+        "operationId" : "get_pre_orders",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/pre_order"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/pre_orders/{pre_order_id}" : {
+      "post" : {
+        "summary" : "Pre-order detail. | Use in WF: none",
+        "tags" : [ "Pre-order" ],
+        "operationId" : "post_pre_order",
+        "parameters" : [ {
+          "name" : "pre_order_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/pre_order"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/pre_orders/{pre_order_id} (PUT)" : {
+      "put" : {
+        "summary" : "Update or create a pre-order. | Use in WF: none",
+        "tags" : [ "Pre-order" ],
+        "operationId" : "put_pre_order",
+        "parameters" : [ {
+          "name" : "pre_order_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/pre_order"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "items" : {
+                "$ref" : "#/definitions/result_save"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/pre_orders/{pre_order_id} (DELETE)" : {
+      "delete" : {
+        "summary" : "Delete pre-order. | Use in WF: none",
+        "tags" : [ "Pre-order" ],
+        "operationId" : "delete_pre_order",
+        "parameters" : [ {
+          "name" : "pre_order_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/result"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/partners/favourite" : {
+      "get" : {
+        "summary" : "An overview of favorite partners. | Use in WF: none",
+        "tags" : [ "User" ],
+        "operationId" : "get_user_favourite_partners",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/partner"
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/partners/full_search" : {
+      "get" : {
+        "summary" : "Full text search of partners. | Use in WF: U1, U7, AU2, AU5, AU5.1",
+        "tags" : [ "Partner" ],
+        "operationId" : "get_partners_full_text_search",
+        "parameters" : [ {
+          "name" : "text",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "category_id",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "example: category_id=1&category_id=2"
+        }, {
+          "name" : "gps_latitude",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "gps_longitude",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "distance",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/partner_search_detail_response"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/partners/quick_search" : {
+      "get" : {
+        "summary" : "Quick text search of partners. | Use in WF: Global menu",
+        "tags" : [ "Partner" ],
+        "operationId" : "get_partners_quick_text_search",
+        "parameters" : [ {
+          "name" : "text",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/partner_search_detail_response"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/products" : {
+      "get" : {
+        "summary" : "List of products. (dynamic filter) | Use in WF: U1, U7 [codelist]",
+        "tags" : [ "Product" ],
+        "operationId" : "get_products",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/product"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/categories" : {
+      "get" : {
+        "summary" : "List of categories. (dynamic filter) | Use in WF: U1, U7 [codelist]",
+        "tags" : [ "Category" ],
+        "operationId" : "get_categories",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/category"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/modules" : {
+      "get" : {
+        "summary" : "A list of modules that are accessible to user. | Use in WF: U6",
+        "tags" : [ "User" ],
+        "operationId" : "get_users_modules",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/module"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/news" : {
+      "get" : {
+        "summary" : "A list of news for user. | Use in WF: U1",
+        "tags" : [ "User" ],
+        "operationId" : "get_users_news",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/user_news_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/news/{news_id}" : {
+      "get" : {
+        "summary" : "A detail of news. | Use in WF: U1",
+        "tags" : [ "User" ],
+        "operationId" : "get_users_news_by_id",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "news_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/news"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/actions" : {
+      "get" : {
+        "summary" : "A list of events and discounts for user. | Use in WF: U5",
+        "tags" : [ "User" ],
+        "operationId" : "get_users_actions",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/action_detail"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/news" : {
+      "get" : {
+        "summary" : "An overview of all news. (dynamic filter) | Use in WF: U5",
+        "tags" : [ "New" ],
+        "operationId" : "get_news",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/news_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}" : {
+      "put" : {
+        "summary" : "User actualisation. | Use in WF: U3",
+        "tags" : [ "User" ],
+        "operationId" : "put_user",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/user"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "items" : {
+                "$ref" : "#/definitions/result_save"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/reset_password" : {
+      "post" : {
+        "summary" : "Changing user logins and password with confirmation. | Use in WF: U3, AU1.3",
+        "tags" : [ "User" ],
+        "operationId" : "put_clogin_password",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/login_password"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/cards/{card_id}/pin" : {
+      "post" : {
+        "summary" : "Changing the user PIN is used specifically for cafeterias. | Use in WF: U3, AU1.4",
+        "tags" : [ "User" ],
+        "operationId" : "post_user_card_pin",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "card_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/pin"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/cards/{card_id}/pin" : {
+      "post" : {
+        "summary" : "Change the PIN on the card. | Use in WF: U2",
+        "tags" : [ "Card" ],
+        "operationId" : "put_card_pin",
+        "parameters" : [ {
+          "name" : "card_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/pin"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/puk" : {
+      "post" : {
+        "summary" : "Changing the user's security password. | Use in WF: U3, AU4.5",
+        "tags" : [ "User" ],
+        "operationId" : "put_user_puk",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/puk"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/messages" : {
+      "put" : {
+        "summary" : "Insert message with volatile attachment. (dynamic filter) | Use in WF: Global",
+        "tags" : [ "Message" ],
+        "operationId" : "put_messages_info",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/message"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "items" : {
+                "$ref" : "#/definitions/result_save"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/surveys" : {
+      "get" : {
+        "summary" : "Overview of user surveys. Survey has to be valid (valid from - valid to). The list by user. If the user has filled in the survey, is no longer displayed. | Use in WF: (none)",
+        "tags" : [ "User" ],
+        "operationId" : "get_user_surveys",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/survey_item"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/surveys/{survey_id}" : {
+      "put" : {
+        "summary" : "Filling the poll by the user. | Use in WF: (none)",
+        "tags" : [ "User" ],
+        "operationId" : "put_user_survey",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "survey_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/survey_detail"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "items" : {
+                "$ref" : "#/definitions/result_save"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/my_reward/pdf" : {
+      "get" : {
+        "summary" : "Returns pdf of my rewards. | Use in WF: (none)",
+        "tags" : [ "User" ],
+        "operationId" : "get_user_my_reward_pdf",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/file"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/organization_units" : {
+      "get" : {
+        "summary" : "An overview of the organizational structure can also be filtered by clientId. (dynamic filter) | Use in WF: (none, filter: client_id)",
+        "tags" : [ "Organization-unit" ],
+        "operationId" : "get_organization_units",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/organization_unit_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/organization_units/{organization_unit_id}/users" : {
+      "get" : {
+        "summary" : "A list of people assigned to the organizational unit. | Use in WF: (none, filter: client_id)",
+        "tags" : [ "Organization-unit" ],
+        "operationId" : "get_organization_units_users",
+        "parameters" : [ {
+          "name" : "organization_unit_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/organization_unit_user"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/cashback_partners" : {
+      "get" : {
+        "summary" : "Partner overview for cashback, standard filtering. (dynamic filter) | Use in WF: (none)",
+        "tags" : [ "Cashback-partner" ],
+        "operationId" : "get_cashback_partners",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/cashbacks_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/auctions" : {
+      "get" : {
+        "summary" : "Overview of auctions with standard filtering, for example, by clientId. | Use in WF: (none, filter: for_all == true OR for_clients.contains(client_id))",
+        "tags" : [ "Auction" ],
+        "operationId" : "get_auctions",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/auction_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/auctions/{auction_id}" : {
+      "get" : {
+        "summary" : "Detail of auction. | Use in WF: (none)",
+        "tags" : [ "Auction" ],
+        "operationId" : "get_auction",
+        "parameters" : [ {
+          "name" : "auction_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/auction_detail"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/auctions/{auction_id}/bidding" : {
+      "get" : {
+        "summary" : "A list of bids for the auction, sorted by the latest bid of the largest. | Use in WF: (none)",
+        "tags" : [ "Auction" ],
+        "operationId" : "get_auction_bidding",
+        "parameters" : [ {
+          "name" : "auction_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/bidding_item"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/auctions/{auction_id}/bidding  (POST)" : {
+      "post" : {
+        "summary" : "Bid over the auction. | Use in WF: (none)",
+        "tags" : [ "Auction" ],
+        "operationId" : "post_auction_bidding",
+        "parameters" : [ {
+          "name" : "auction_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/bidding_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/benefits" : {
+      "get" : {
+        "summary" : "Overview of benefits. (dynamic filter) | Use in WF: U6.1 (filter: client_id = value)",
+        "tags" : [ "Benefit" ],
+        "operationId" : "get_benefits",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/benefits_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/benefits/{benefit_id}" : {
+      "get" : {
+        "summary" : "Detail of benefit. | Use in WF: (none)",
+        "tags" : [ "Benefit" ],
+        "operationId" : "get_benefit",
+        "parameters" : [ {
+          "name" : "benefit_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/benefit"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/benefits/{benefit_id}  (PUT)" : {
+      "put" : {
+        "summary" : "Order of internal benefit. | Use in WF: (none)",
+        "tags" : [ "Benefit" ],
+        "operationId" : "put_benefit",
+        "parameters" : [ {
+          "name" : "benefit_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/benefit_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/baskets" : {
+      "get" : {
+        "summary" : "Basket list, filter by class i filter by userId. The basket also has the status of being opened or sent. (dynamic filter) | Use in WF: U7.3 (filter: user_id = value AND state = 1)",
+        "tags" : [ "Basket" ],
+        "operationId" : "get_baskets",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/baskets_response"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/baskets/{basket_id}/basket_items" : {
+      "get" : {
+        "summary" : "List of items in the basket. | Use in WF: U7.3 (filter: state == 1)",
+        "tags" : [ "Basket" ],
+        "operationId" : "get_basket_items",
+        "parameters" : [ {
+          "name" : "basket_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/basket_item"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/baskets/{basket_id}/confirmation" : {
+      "put" : {
+        "summary" : "Confirmation of the basket. | Use in WF: U7.3",
+        "tags" : [ "Basket" ],
+        "operationId" : "put_basket_confirmation",
+        "parameters" : [ {
+          "name" : "basket_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/result"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/baskets/{basket_id}" : {
+      "delete" : {
+        "summary" : "Clear the basket. | Use in WF: U7.3",
+        "tags" : [ "Basket" ],
+        "operationId" : "delete_basket",
+        "parameters" : [ {
+          "name" : "basket_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/result"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/basket_items/{basket_item_id}" : {
+      "put" : {
+        "summary" : "Change item in basket (quantity). | Use in WF: U7.3",
+        "tags" : [ "Basket-item" ],
+        "operationId" : "put_basket_item_quantity",
+        "parameters" : [ {
+          "name" : "basket_item_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/quantity_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/basket_items/{basket_item_id}  (DELETE)" : {
+      "delete" : {
+        "summary" : "Remove item from the basket. | Use in WF: U7.3",
+        "tags" : [ "Basket-item" ],
+        "operationId" : "delete_basket_item",
+        "parameters" : [ {
+          "name" : "basket_item_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/result"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/partners/{partner_id}" : {
+      "get" : {
+        "summary" : "Detail of the partner. | Use in WF: U7.3, AU5.1.1, AU5.2.1",
+        "tags" : [ "Partner" ],
+        "operationId" : "get_partner",
+        "parameters" : [ {
+          "name" : "partner_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/partner_detail"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/partners/{partner_id}/benefits" : {
+      "get" : {
+        "summary" : "List of partners benefits. | Use in WF: U7.3 (filter: state == 1)",
+        "tags" : [ "Partner" ],
+        "operationId" : "get_partner_benefits",
+        "parameters" : [ {
+          "name" : "partner_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/benefit"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/benefits/{benefit_id}/order" : {
+      "post" : {
+        "summary" : "List of partners benefit. | Use in WF: U7.2, AU3.1, AU3.2",
+        "tags" : [ "Benefit" ],
+        "operationId" : "post_benefit_order",
+        "parameters" : [ {
+          "name" : "benefit_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/benefit_order_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/non_contractual_billings/{non_contractual_billing_id} (GET)" : {
+      "get" : {
+        "summary" : "Get data of non-contractual billing. | Use in WF: none",
+        "tags" : [ "non-contractual-billings" ],
+        "operationId" : "get_non_contractual_billings",
+        "parameters" : [ {
+          "name" : "non_contractual_billing_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/non_contractual_billings"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/non_contractual_billings/{non_contractual_billing_id} (PUT)" : {
+      "put" : {
+        "summary" : "Insert of non-contractual billing. | Use in WF: none",
+        "tags" : [ "non-contractual-billings" ],
+        "operationId" : "put_non_contractual_billings",
+        "parameters" : [ {
+          "name" : "non_contractual_billing_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "body",
+          "in" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/non_contractual_billings_detail"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/non_contractual_billings/{non_contractual_billing_id}/confirmation" : {
+      "put" : {
+        "summary" : "Confirmaton of non-contractual billing. | Use in WF: none",
+        "tags" : [ "non-contractual-billings" ],
+        "operationId" : "put_non_contractual_billings_confirmation",
+        "parameters" : [ {
+          "name" : "non_contractual_billing_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/non_contractual_billings/{non_contractual_billing_id}/cancel" : {
+      "put" : {
+        "summary" : "Cancel confirmmaton of non-contractual billing. | Use in WF: none",
+        "tags" : [ "non-contractual-billings" ],
+        "operationId" : "put_non_contractual_billings_cancel",
+        "parameters" : [ {
+          "name" : "non_contractual_billing_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/partners/validation" : {
+      "post" : {
+        "summary" : "Validation of the Companys ID number against ARES, Justice, ... | Use in WF: U4.1",
+        "tags" : [ "Partner" ],
+        "operationId" : "post_partner_validation",
+        "parameters" : [ {
+          "name" : "registration_identification",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/partner_validation"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/categories/csp" : {
+      "get" : {
+        "summary" : "CSP codes of categories. | Use in WF: ",
+        "tags" : [ "Category" ],
+        "operationId" : "get_categories_csp",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/csp"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/users/{user_id}/partners/{partner_id}/products/{product_id}/available_amount" : {
+      "get" : {
+        "summary" : "Obtaining a possible amount for drawing on a specific product with a particular partner. | Use in WF: ",
+        "tags" : [ "User" ],
+        "operationId" : "get_users_partners_products_available_amount",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "partner_id",
+          "in" : "path",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "name" : "product_id",
+          "in" : "path",
+          "type" : "integer",
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "type" : "integer",
+              "example" : 1500
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "pagination" : {
+      "properties" : {
+        "object_count" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 10
+        },
+        "page" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        },
+        "per_page" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 10
+        }
+      }
+    },
+    "result" : {
+      "type" : "object",
+      "properties" : {
+        "result" : {
+          "type" : "integer"
+        },
+        "message" : {
+          "type" : "string"
+        }
+      }
+    },
+    "result_save" : {
+      "type" : "object",
+      "allOf" : [ {
+        "$ref" : "#/definitions/result"
+      }, {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer"
+          }
+        }
+      } ]
+    },
+    "file" : {
+      "required" : [ "file_name", "byte_data" ],
+      "properties" : {
+        "file_name" : {
+          "type" : "string",
+          "example" : "test.pdf"
+        },
+        "byte_data" : {
+          "type" : "string",
+          "format" : "byte",
+          "description" : "BASE64",
+          "example" : "116cfgnbfg616fgnsXb56"
+        }
+      }
+    },
+    "user_dashboard" : {
+      "required" : [ "user_id", "user_name", "user_surname", "cash_allowed" ],
+      "properties" : {
+        "user_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "user_name" : {
+          "type" : "string",
+          "example" : "Jan"
+        },
+        "user_surname" : {
+          "type" : "string",
+          "example" : "Novak"
+        },
+        "user_salutation" : {
+          "type" : "string",
+          "example" : "lenoch"
+        },
+        "cash_allowed" : {
+          "type" : "boolean",
+          "example" : false
+        }
+      }
+    },
+    "notification" : {
+      "required" : [ "notification_id", "date" ],
+      "properties" : {
+        "notification_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "date" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Popis..."
+        }
+      }
+    },
+    "transaction_short" : {
+      "required" : [ "transaction_number", "date" ],
+      "properties" : {
+        "transaction_number" : {
+          "type" : "string",
+          "example" : "1236789"
+        },
+        "date" : {
+          "type" : "string",
+          "format" : "timestamp",
+          "example" : "2009-06-15T13:45:30.6170000"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Popis..."
+        },
+        "amount" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "account_validity_to" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2009-06-15 13:45"
+        }
+      }
+    },
+    "account" : {
+      "required" : [ "account_id", "current_balance", "name", "point_account" ],
+      "properties" : {
+        "account_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "current_balance" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "ESTRAVENKA - 3000"
+        },
+        "point_account" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "cards" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/card"
+          }
+        },
+        "last_charge" : {
+          "$ref" : "#/definitions/transaction_short"
+        },
+        "last_drawdown" : {
+          "$ref" : "#/definitions/transaction_short"
+        }
+      }
+    },
+    "card" : {
+      "required" : [ "card_id", "valid_from", "valid_to", "type" ],
+      "properties" : {
+        "card_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "valid_from" : {
+          "type" : "string",
+          "format" : "timestamp",
+          "example" : "2009-06-15T13:45:30.6170000"
+        },
+        "valid_to" : {
+          "type" : "string",
+          "format" : "timestamp",
+          "example" : "2010-03-15T13:45:30.6170000"
+        },
+        "type" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1,
+          "description" : "1 = Benefit; 2 = E-Meal vouchers; 3 = Cash card; 4 = Benefit + E-Meal card; 5 = Alive"
+        }
+      }
+    },
+    "meal_card_transfer_body" : {
+      "required" : [ "percent" ],
+      "properties" : {
+        "percent" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 123.5
+        }
+      }
+    },
+    "transfer_request_body" : {
+      "required" : [ "amount", "account_number", "bank_code" ],
+      "properties" : {
+        "amount" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 123.5
+        },
+        "account_number" : {
+          "type" : "string",
+          "example" : "111-1478523690"
+        },
+        "bank_code" : {
+          "type" : "string",
+          "example" : "0800"
+        }
+      }
+    },
+    "transaction_data" : {
+      "required" : [ "transaction_number", "date", "amount", "status", "product_id", "type" ],
+      "properties" : {
+        "transaction_number" : {
+          "type" : "string",
+          "example" : "986408"
+        },
+        "date" : {
+          "type" : "string",
+          "format" : "timestamp",
+          "example" : "2009-06-15T13:45:30.6170000"
+        },
+        "partner_name" : {
+          "type" : "string",
+          "example" : "Partner 123"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Popisek"
+        },
+        "amount" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 123.5
+        },
+        "status" : {
+          "type" : "integer",
+          "example" : 1,
+          "description" : "1 = Reservation; 2 = Completed; 3 = Not applied; 4 = Cancel"
+        },
+        "product_id" : {
+          "type" : "integer",
+          "example" : 1,
+          "description" : "1 = Cafeterie; 2 = E-Meal card; 3 = Cash"
+        },
+        "type" : {
+          "type" : "integer",
+          "example" : 1,
+          "description" : "1 = Buying a Benefit; 2 = Import points; 3 = Cash; 4 = Non-Conventional Authorization; 5 = Points conversion; 6 = Postage"
+        }
+      }
+    },
+    "user_transaction_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/transaction_data"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "product" : {
+      "required" : [ "product_id", "name" ],
+      "properties" : {
+        "product_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Název XYZ"
+        }
+      }
+    },
+    "category" : {
+      "required" : [ "category_id", "name" ],
+      "properties" : {
+        "category_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "parent_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Název Z"
+        }
+      }
+    },
+    "module" : {
+      "required" : [ "module_id", "name" ],
+      "properties" : {
+        "module_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Název X"
+        }
+      }
+    },
+    "news" : {
+      "required" : [ "news_id", "date", "name" ],
+      "properties" : {
+        "news_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "date" : {
+          "type" : "string",
+          "format" : "timestamp",
+          "example" : "2010-03-15T13:45:30.6170000"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Název X"
+        },
+        "note" : {
+          "type" : "string",
+          "example" : "text..."
+        }
+      }
+    },
+    "login_password" : {
+      "required" : [ "login", "password_old", "password_new" ],
+      "properties" : {
+        "login" : {
+          "type" : "string",
+          "example" : "uzivatel"
+        },
+        "password_old" : {
+          "type" : "string",
+          "example" : "ux5FGhztel&_df46"
+        },
+        "password_new" : {
+          "type" : "string",
+          "example" : "FGhux56&66_dfu465"
+        }
+      }
+    },
+    "pin" : {
+      "required" : [ "pin_old", "pin_new" ],
+      "properties" : {
+        "pin_old" : {
+          "type" : "string",
+          "example" : "8546"
+        },
+        "pin_new" : {
+          "type" : "string",
+          "example" : "9573"
+        }
+      }
+    },
+    "puk" : {
+      "required" : [ "puk" ],
+      "properties" : {
+        "puk" : {
+          "type" : "string",
+          "example" : "6463"
+        }
+      }
+    },
+    "pre_order" : {
+      "required" : [ "pre_order_id", "user_id", "internal_benefit_id", "name", "year" ],
+      "properties" : {
+        "pre_order_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "user_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1234
+        },
+        "internal_benefit_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 23
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Název XYZ"
+        },
+        "year" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 2018
+        },
+        "months" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "required" : [ "id", "name" ],
+            "properties" : {
+              "key" : {
+                "type" : "integer",
+                "format" : "int32",
+                "example" : 1
+              },
+              "value" : {
+                "$ref" : "#/definitions/month_value"
+              }
+            }
+          }
+        }
+      }
+    },
+    "month_value" : {
+      "required" : [ "value", "value_min", "value_max", "checked" ],
+      "properties" : {
+        "value" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 123.5
+        },
+        "value_min" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 123.5
+        },
+        "value_max" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 123.5
+        },
+        "checked" : {
+          "type" : "boolean",
+          "example" : false
+        }
+      }
+    },
+    "partner" : {
+      "required" : [ "partner_id", "name" ],
+      "properties" : {
+        "partner_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Název X"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Popis..."
+        },
+        "image_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 23
+        }
+      }
+    },
+    "partner_search_detail" : {
+      "required" : [ "partner_id", "name" ],
+      "properties" : {
+        "partner_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Název X"
+        },
+        "image_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 23
+        },
+        "location" : {
+          "$ref" : "#/definitions/location"
+        },
+        "address" : {
+          "$ref" : "#/definitions/address"
+        },
+        "categories" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/category"
+          }
+        },
+        "products" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/product_item"
+          }
+        }
+      }
+    },
+    "action_detail" : {
+      "required" : [ "action_id", "name" ],
+      "properties" : {
+        "action_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Název X"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Popis..."
+        },
+        "image_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 23
+        }
+      }
+    },
+    "message" : {
+      "required" : [ "user_id", "text" ],
+      "properties" : {
+        "user_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "text" : {
+          "type" : "string",
+          "example" : "text ..."
+        },
+        "type" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1,
+          "description" : "1 - info, 2 - problem"
+        },
+        "file" : {
+          "$ref" : "#/definitions/file"
+        }
+      }
+    },
+    "news_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/news_item"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "news_item" : {
+      "required" : [ "news_id", "name" ],
+      "properties" : {
+        "news_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "client_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 23
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Nazev X"
+        },
+        "date_from" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "date_to" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Popis..."
+        },
+        "image_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 23
+        }
+      }
+    },
+    "user" : {
+      "required" : [ "user_id", "name", "surname", "internal_code", "login", "role_id", "generate_cart", "blocked", "dont_import_credit", "alive_licence", "valid_date_from", "valid_date_to" ],
+      "properties" : {
+        "user_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Jan"
+        },
+        "surname" : {
+          "type" : "string",
+          "example" : "Novák"
+        },
+        "internal_code" : {
+          "type" : "string",
+          "example" : "123456"
+        },
+        "work_email" : {
+          "type" : "string",
+          "format" : "email",
+          "example" : "novak@email.cz"
+        },
+        "private_email" : {
+          "type" : "string",
+          "format" : "email",
+          "example" : "novak@email.cz"
+        },
+        "phone" : {
+          "type" : "string",
+          "format" : "tel",
+          "example" : "+420 777 777 777"
+        },
+        "birthdate" : {
+          "type" : "string",
+          "format" : "date",
+          "example" : "2018-02-06"
+        },
+        "login" : {
+          "type" : "string",
+          "example" : "JanNovak"
+        },
+        "address" : {
+          "$ref" : "#/definitions/address"
+        },
+        "bussines_place_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 23
+        },
+        "role_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 3
+        },
+        "organization_unit_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 23
+        },
+        "generate_cart" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "blocked" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "dont_import_credit" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "alive_licence" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "valid_date_from" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "valid_date_to" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "employment_begin" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "employment_end" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        }
+      }
+    },
+    "survey_item" : {
+      "required" : [ "survey_id", "name", "valid_from", "valid_to" ],
+      "properties" : {
+        "survey_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Nazev X"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Popis..."
+        },
+        "valid_from" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "valid_to" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        }
+      }
+    },
+    "question_item" : {
+      "required" : [ "question_id", "answer_values" ],
+      "properties" : {
+        "question_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "answer_values" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "example" : "X"
+          }
+        }
+      }
+    },
+    "survey_detail" : {
+      "required" : [ "survey_id", "answer_values" ],
+      "properties" : {
+        "survey_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "answer_values" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/question_item"
+          }
+        }
+      }
+    },
+    "organization_unit" : {
+      "required" : [ "organization_unit_id", "name", "client_id" ],
+      "properties" : {
+        "organization_unit_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Nazev X"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Popis..."
+        },
+        "client_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        }
+      }
+    },
+    "organization_unit_user" : {
+      "required" : [ "user_id", "surname", "name", "phone" ],
+      "properties" : {
+        "user_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Jan"
+        },
+        "surname" : {
+          "type" : "string",
+          "example" : "Novák"
+        },
+        "phone" : {
+          "type" : "string",
+          "format" : "tel",
+          "example" : "+420 777 777 777"
+        }
+      }
+    },
+    "organization_unit_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/organization_unit"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "cashback" : {
+      "required" : [ "cashback_id", "name", "provision_min", "provision_max" ],
+      "properties" : {
+        "cashback_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Nazev X"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Popis..."
+        },
+        "provision_min" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "provision_max" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "image_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "link" : {
+          "type" : "string",
+          "example" : "www.xyz.cz"
+        }
+      }
+    },
+    "cashbacks_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/cashback"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "auction_item" : {
+      "required" : [ "auction_id", "name", "for_all" ],
+      "properties" : {
+        "auction_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Nazev X"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Popis..."
+        },
+        "image_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "for_all" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "for_clients" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 123
+          }
+        }
+      }
+    },
+    "auction_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/auction_item"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "auction_detail" : {
+      "required" : [ "auction_id", "name", "valid_from", "valid_to", "start_value" ],
+      "properties" : {
+        "auction_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Nazev X"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Popis..."
+        },
+        "image_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "valid_from" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "valid_to" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "start_value" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        }
+      }
+    },
+    "bidding_item" : {
+      "required" : [ "bidding_id", "name", "surname", "date", "bidding" ],
+      "properties" : {
+        "bidding_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Jan"
+        },
+        "surname" : {
+          "type" : "string",
+          "example" : "Novák"
+        },
+        "date" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "bidding" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        }
+      }
+    },
+    "bidding_body" : {
+      "required" : [ "user_id", "value" ],
+      "properties" : {
+        "user_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "value" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        }
+      }
+    },
+    "benefit_item" : {
+      "required" : [ "benefit_id", "name", "partner_id" ],
+      "properties" : {
+        "benefit_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Nazev X"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Popis..."
+        },
+        "image_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 23
+        },
+        "partner_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 23
+        }
+      }
+    },
+    "benefits_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/benefit_item"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "benefit_body" : {
+      "required" : [ "benefit_id", "price", "quantity" ],
+      "properties" : {
+        "benefit_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "price" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "quantity" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 2
+        }
+      }
+    },
+    "basket" : {
+      "required" : [ "basket_id", "user_id", "amount", "number_of_items", "state" ],
+      "properties" : {
+        "basket_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "user_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 23
+        },
+        "amount" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "number_of_items" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 2
+        },
+        "state" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1,
+          "description" : "1 = Developed; 2 = Posted; 3 = Canceled"
+        }
+      }
+    },
+    "baskets_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/basket"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "basket_item" : {
+      "required" : [ "basket_item_id", "basket_id", "benefit", "amount", "quantity", "state" ],
+      "properties" : {
+        "basket_item_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "basket_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "benefit" : {
+          "$ref" : "#/definitions/benefit"
+        },
+        "amount" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "quantity" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 2
+        },
+        "state" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1,
+          "description" : "1 = Included in the basket; 3 = Canceled"
+        }
+      }
+    },
+    "quantity_body" : {
+      "required" : [ "user_id", "price", "quantity" ],
+      "properties" : {
+        "user_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "price" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "quantity" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 2
+        }
+      }
+    },
+    "benefit" : {
+      "required" : [ "benefit_id", "name", "type", "partner_id" ],
+      "properties" : {
+        "benefit_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "partner_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 23
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Nazev X"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Popis..."
+        },
+        "type" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1,
+          "description" : "1 = Order from cafeterie; 2 = Contact"
+        },
+        "branches" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/branch"
+          }
+        },
+        "benefit_price_items" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/benefit_price_item"
+          }
+        }
+      }
+    },
+    "branch" : {
+      "required" : [ "branch_id", "name" ],
+      "properties" : {
+        "branch_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Nazev X"
+        }
+      }
+    },
+    "benefit_price_item" : {
+      "required" : [ "benefit_price_item_id", "name", "amount", "quantity", "amount_fixed", "quantity_fixed" ],
+      "properties" : {
+        "benefit_price_item_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 23
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Nazev X"
+        },
+        "amount" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "quantity" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 2
+        },
+        "amount_fixed" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "quantity_fixed" : {
+          "type" : "boolean",
+          "example" : false
+        }
+      }
+    },
+    "benefit_order_body" : {
+      "required" : [ "user_id", "branch_id", "benefit_item_id", "amount", "quantity" ],
+      "properties" : {
+        "user_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "branch_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "benefit_item_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 23
+        },
+        "amount" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "quantity" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 2
+        }
+      }
+    },
+    "address" : {
+      "required" : [ "town", "street", "zip_code" ],
+      "properties" : {
+        "town" : {
+          "type" : "string",
+          "example" : "Benešov"
+        },
+        "street" : {
+          "type" : "string",
+          "example" : "Nádražní 2000"
+        },
+        "zip_code" : {
+          "type" : "string",
+          "example" : "25601"
+        }
+      }
+    },
+    "address_gps" : {
+      "required" : [ "gps_latitude", "gps_longitude" ],
+      "allOf" : [ {
+        "$ref" : "#/definitions/address"
+      }, {
+        "properties" : {
+          "gps_latitude" : {
+            "type" : "string",
+            "example" : "23.2345"
+          },
+          "gps_longitude" : {
+            "type" : "string",
+            "example" : "23.2345"
+          }
+        }
+      } ]
+    },
+    "partner_validation" : {
+      "required" : [ "name", "registration_identification", "vat_identification", "address" ],
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "example" : "Nazev X"
+        },
+        "registration_identification" : {
+          "type" : "string"
+        },
+        "vat_identification" : {
+          "type" : "string"
+        },
+        "address" : {
+          "$ref" : "#/definitions/address"
+        }
+      }
+    },
+    "location" : {
+      "required" : [ "gps_latitude", "gps_longitude" ],
+      "properties" : {
+        "gps_latitude" : {
+          "type" : "string",
+          "example" : "23.2345"
+        },
+        "gps_longitude" : {
+          "type" : "string",
+          "example" : "23.2345"
+        }
+      }
+    },
+    "product_item" : {
+      "required" : [ "product_id", "name" ],
+      "properties" : {
+        "product_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123,
+          "description" : " 1 = monday; 2 = tuesday"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Nazev X"
+        },
+        "image_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 23
+        }
+      }
+    },
+    "opening_period" : {
+      "required" : [ "day", "time_from", "time_to" ],
+      "properties" : {
+        "opening_periods" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "time_from" : {
+          "type" : "string",
+          "description" : "HH:mm",
+          "example" : "12:35"
+        },
+        "time_to" : {
+          "type" : "string",
+          "description" : "HH:mm",
+          "example" : "12:35"
+        }
+      }
+    },
+    "equipment" : {
+      "required" : [ "wifi", "garden", "accepting_meal_ticket", "accepting_e_meal_card" ],
+      "properties" : {
+        "wifi" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "garden" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "accepting_meal_ticket" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "accepting_e_meal_card" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "accepting_credit_cards" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/credit_card"
+          }
+        }
+      }
+    },
+    "credit_card" : {
+      "required" : [ "credit_card_id", "name" ],
+      "properties" : {
+        "credit_card_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Nazev X"
+        }
+      }
+    },
+    "service" : {
+      "required" : [ "terrace", "reservation_online", "barrier_free", "private_events" ],
+      "properties" : {
+        "terrace" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "reservation_online" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "barrier_free" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "private_events" : {
+          "type" : "boolean",
+          "example" : false
+        }
+      }
+    },
+    "availability" : {
+      "required" : [ "parking", "children", "pets", "capacity" ],
+      "properties" : {
+        "parking" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "children" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "pets" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "capacity" : {
+          "type" : "string",
+          "example" : "2 salónky po 30 židlích"
+        }
+      }
+    },
+    "partner_detail" : {
+      "required" : [ "partner_id", "name" ],
+      "properties" : {
+        "partner_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Nazev X"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Popis..."
+        },
+        "phone" : {
+          "type" : "string",
+          "format" : "tel",
+          "example" : "+420 777 777 777"
+        },
+        "email" : {
+          "type" : "string",
+          "format" : "email",
+          "example" : "novak@email.cz"
+        },
+        "web" : {
+          "type" : "string",
+          "example" : "www.xyz.cz"
+        },
+        "location" : {
+          "$ref" : "#/definitions/location"
+        },
+        "products" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/product_item"
+          }
+        },
+        "categories" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/category"
+          }
+        },
+        "opening_periods" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/opening_period"
+          }
+        },
+        "equipment" : {
+          "$ref" : "#/definitions/equipment"
+        },
+        "services" : {
+          "$ref" : "#/definitions/service"
+        },
+        "availability" : {
+          "$ref" : "#/definitions/availability"
+        },
+        "link_to_donappetit" : {
+          "type" : "string",
+          "example" : "www.xyz.cz"
+        },
+        "images" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 123
+          }
+        },
+        "social_networks" : {
+          "$ref" : "#/definitions/social_network"
+        },
+        "address" : {
+          "$ref" : "#/definitions/address_gps"
+        }
+      }
+    },
+    "user_news_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/news"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "partner_search_detail_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/partner_search_detail"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "non_contractual_billings" : {
+      "required" : [ "non_contractual_billing_id", "date", "partner_name", "transaction_number", "amount", "state" ],
+      "properties" : {
+        "non_contractual_billing_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "date" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "partner_name" : {
+          "type" : "string",
+          "example" : "XYZ"
+        },
+        "transaction_number" : {
+          "type" : "string",
+          "example" : "123456789"
+        },
+        "amount" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "state" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 2,
+          "description" : "1 - Received, 2 - Confirmed, 3 - Refused, 4 - Accepted, 5 - Paid"
+        }
+      }
+    },
+    "non_contractual_billings_detail" : {
+      "required" : [ "registration_number", "city", "street", "partner_account_number", "variable_symbol", "partner_name", "amount", "card_number", "user_name", "client_name" ],
+      "properties" : {
+        "registration_number" : {
+          "type" : "string",
+          "example" : "123456789"
+        },
+        "city" : {
+          "type" : "string",
+          "example" : "Benešov"
+        },
+        "street" : {
+          "type" : "string",
+          "example" : "Na Bezděkově"
+        },
+        "partner_account_number" : {
+          "type" : "string",
+          "example" : "123456789"
+        },
+        "variable_symbol" : {
+          "type" : "string",
+          "example" : "1234"
+        },
+        "partner_name" : {
+          "type" : "string",
+          "example" : "XYZ"
+        },
+        "amount" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "due_date" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "note" : {
+          "type" : "string",
+          "example" : "Poznámka..."
+        },
+        "phone" : {
+          "type" : "string",
+          "format" : "tel",
+          "example" : "+420 777 777 777"
+        },
+        "email" : {
+          "type" : "string",
+          "format" : "email",
+          "example" : "novak@email.cz"
+        },
+        "card_number" : {
+          "type" : "string",
+          "example" : "123456789"
+        },
+        "user_name" : {
+          "type" : "string",
+          "example" : "JanNovak"
+        },
+        "client_name" : {
+          "type" : "string",
+          "example" : "Jan Novák"
+        }
+      }
+    },
+    "csp" : {
+      "required" : [ "csp_id", "name", "partner" ],
+      "properties" : {
+        "csp_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "XYZ"
+        },
+        "partner" : {
+          "type" : "string",
+          "example" : "123456789"
+        },
+        "categories" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/category"
+          }
+        }
+      }
+    },
+    "social_network" : {
+      "properties" : {
+        "url_facebook" : {
+          "type" : "string",
+          "example" : "www.facebook.com/"
+        },
+        "url_twitter" : {
+          "type" : "string",
+          "example" : "www.twitter.com/"
+        },
+        "url_linkedin" : {
+          "type" : "string",
+          "example" : "www.linkedin.com/"
+        },
+        "url_google_plus" : {
+          "type" : "string",
+          "example" : "www.google.com/"
+        },
+        "url_pinterest" : {
+          "type" : "string",
+          "example" : "www.pinterest.com/"
+        }
+      }
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/Petr_Vesely/UP_Digital_User/1.0.0",
+  "schemes" : [ "https" ]
+}
