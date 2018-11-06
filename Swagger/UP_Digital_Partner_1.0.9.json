@@ -1,0 +1,1848 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "1.0.9",
+    "title" : "Sample Implicit Flow OAuth2 Project",
+    "description" : "This is an example of using OAuth2 Implicit Flow in a specification to describe security to your API."
+  },
+  "securityDefinitions" : {
+    "implicit" : {
+      "type" : "oauth2",
+      "authorizationUrl" : "http://example.com/oauth/auth",
+      "flow" : "implicit",
+      "scopes" : {
+        "write" : "allows modifying resources",
+        "read" : "allows reading resources"
+      }
+    }
+  },
+  "security" : [ {
+    "implicit" : [ "read", "write" ]
+  } ],
+  "paths" : {
+    "/partners/{partner_id}/dashboard" : {
+      "get" : {
+        "summary" : "Returns the details of the partner and his / her basic information as \"statuses from the beginning of the year\" or \"Today we have accepted in total\". | Use in WF: P1",
+        "tags" : [ "Partner" ],
+        "operationId" : "get_partners_dashboard",
+        "parameters" : [ {
+          "name" : "partner_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/partner_dashboard"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/partners/{partner_id}/products/{product_id}/sales" : {
+      "get" : {
+        "summary" : "Overview of partner sales, by product. | Use in WF: P1",
+        "tags" : [ "Partner" ],
+        "operationId" : "get_partners_sales",
+        "parameters" : [ {
+          "name" : "partner_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "product_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/partner_sales"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/partners/{partner_id}/overview_sales" : {
+      "get" : {
+        "summary" : "The Partner Sales Score, by product including filtering, for example, year = 2017 | 2018, can be found according to these data also TOP product and total. | Use in WF: P3",
+        "tags" : [ "Partner" ],
+        "operationId" : "get_partners_overview_sales",
+        "parameters" : [ {
+          "name" : "partner_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/partner_overview_sales_response"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/partners/{partner_id}/products" : {
+      "get" : {
+        "summary" : "A list of authorized partners' products. | Use in WF: P5 (codelist)",
+        "tags" : [ "Partner" ],
+        "operationId" : "get_partners_products",
+        "parameters" : [ {
+          "name" : "partner_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/partner_products_response"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/partners/{partner_id}/authorization/check_card" : {
+      "post" : {
+        "summary" : "GB authorization, payment verification.  | Use in WF: P1 (dashboard-provozovny-admin)",
+        "tags" : [ "Partner" ],
+        "operationId" : "post_partner_check_card",
+        "parameters" : [ {
+          "name" : "partner_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "card_number",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/empty_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/partner_check_card_item"
+            }
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/partners/{partner_id}/authorization" : {
+      "post" : {
+        "summary" : "GB authorization, payment.  | Use in WF: P1",
+        "tags" : [ "Partner" ],
+        "operationId" : "post_partner_authorization",
+        "parameters" : [ {
+          "name" : "partner_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/partner_autorization_item"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/partners/{partner_id}/product/{product_id}/transfer_to_account" : {
+      "post" : {
+        "summary" : "Transfer to account.  | Use in WF: P1",
+        "tags" : [ "Partner" ],
+        "operationId" : "post_partner_product_authorization",
+        "parameters" : [ {
+          "name" : "partner_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "product_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/empty_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    },
+    "/partners/{partner_id}/notifications" : {
+      "get" : {
+        "summary" : "Partner notifications including standard filtering. | Use in WF: Menu",
+        "tags" : [ "Partner" ],
+        "operationId" : "get_partners_notifications",
+        "parameters" : [ {
+          "name" : "partner_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/partner_notification_response"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/partners/{partner_id}/documents" : {
+      "get" : {
+        "summary" : "An overview of partner documents, including folders and IdParent. | Use in WF: P7, P7.1",
+        "tags" : [ "Partner" ],
+        "operationId" : "get_partners_documents",
+        "parameters" : [ {
+          "name" : "partner_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/documents_response"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/documents/{document_id}/download" : {
+      "get" : {
+        "summary" : "Download the document. | Use in WF: P7",
+        "tags" : [ "Document" ],
+        "operationId" : "get_document_download",
+        "parameters" : [ {
+          "name" : "document_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/file"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/invoices" : {
+      "get" : {
+        "summary" : "Invoice list including standard filtering. | Use in WF: P1, P4",
+        "tags" : [ "Invoice" ],
+        "operationId" : "get_invoices",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/invoices_response"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/invoices/export" : {
+      "post" : {
+        "summary" : "Export to xls or pdf, file_type = {xls | pdf}. | Use in WF: P4",
+        "tags" : [ "Invoice" ],
+        "operationId" : "post_invoices_export",
+        "parameters" : [ {
+          "name" : "file_type",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/file"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/invoices/{invoice_id}/pdf" : {
+      "get" : {
+        "summary" : "Download invoice s a pdf. | Use in WF: P4",
+        "tags" : [ "Invoice" ],
+        "operationId" : "get_invoice_pdf",
+        "parameters" : [ {
+          "name" : "invoice_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/file"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/transactions" : {
+      "get" : {
+        "summary" : "Transaction list including standard filtering. | Use in WF: P1, P3",
+        "tags" : [ "Transaction" ],
+        "operationId" : "get_transactions",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/transactions_response"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/transactions/export" : {
+      "post" : {
+        "summary" : "Export to xls or pdf, file_type = {xls | pdf}. | Use in WF: P3",
+        "tags" : [ "Transaction" ],
+        "operationId" : "post_transactions_export",
+        "parameters" : [ {
+          "name" : "file_type",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/file"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/transactions/{transaction_id}/storno" : {
+      "post" : {
+        "summary" : "Cancel certain transactions. | Use in WF: P3",
+        "tags" : [ "Transaction" ],
+        "operationId" : "post_transaction_storno",
+        "parameters" : [ {
+          "name" : "transaction_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/vouchers/scan" : {
+      "post" : {
+        "summary" : "Returns voucher by code. | Use in WF: ",
+        "tags" : [ "Voucher" ],
+        "operationId" : "post_vouchers_scan",
+        "parameters" : [ {
+          "name" : "code",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/voucher"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/branches" : {
+      "get" : {
+        "summary" : "Branches list including standard filtering. | Use in WF: P2, P3 (codelist for new user), P4 (codelist for filtering), P6 (codelist for filtering) (filter: partner_id), P5 (codelist for filtering) (filter: partner_id)",
+        "tags" : [ "Branch" ],
+        "operationId" : "get_branches",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/branches_response"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/branches/{branch_id}" : {
+      "get" : {
+        "summary" : "Detail of branch. | Use in WF: P10.1",
+        "tags" : [ "Branch" ],
+        "operationId" : "get_branch",
+        "parameters" : [ {
+          "name" : "branch_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/branch_detail"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Branch" ],
+        "summary" : "Stores branch. | Use in WF: P10.1",
+        "operationId" : "put_branch",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "branch_id",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/branch_detail"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "500" : {
+            "description" : "Error when storing branch."
+          }
+        }
+      }
+    },
+    "/branches/{branch_id}/reset_password" : {
+      "post" : {
+        "summary" : "Change password for the branch. | Use in WF: P6",
+        "tags" : [ "Branch" ],
+        "operationId" : "post_branch_reset_password",
+        "parameters" : [ {
+          "name" : "branch_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/reset_password"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/partners/{partner_id}/users" : {
+      "get" : {
+        "summary" : "Partner list including standard search (search). | Use in WF: P10",
+        "tags" : [ "Partner" ],
+        "operationId" : "get_partner_users",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "partner_id",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/users_response"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/partners/{partner_id}/users/{user_id}" : {
+      "put" : {
+        "tags" : [ "Partner" ],
+        "summary" : "Store partner's user. | Use in WF: P10",
+        "operationId" : "put_partners_user",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "partner_id",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "path",
+          "name" : "user_id",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/user_detail"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "500" : {
+            "description" : "Error when storing user."
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Partner" ],
+        "summary" : "Delete partner's user. | Use in WF: P10",
+        "operationId" : "delete_partners_user",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "partner_id",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "path",
+          "name" : "user_id",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/empty_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "500" : {
+            "description" : "Error when storing user."
+          }
+        }
+      }
+    },
+    "/partners/{partner_id}/roles" : {
+      "get" : {
+        "summary" : "List of partner's roles. | Use in WF: P10",
+        "tags" : [ "Partner" ],
+        "operationId" : "get_partner_roles",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "partner_id",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "schema" : {
+              "$ref" : "#/definitions/roles_response"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/partners/{partner_id}/request" : {
+      "post" : {
+        "summary" : "Sending change request, changing various types including attachment. This is a general request that is internally sent by email, complements the company identification, and is sent as a text to the mail, for example, for \"Address change request\", \"Request for change\" change of the data \". | Use in WF: K8",
+        "tags" : [ "Partner" ],
+        "operationId" : "post_partner_request",
+        "parameters" : [ {
+          "name" : "partner_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/request_body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok"
+          },
+          "400" : {
+            "description" : "Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "pagination" : {
+      "properties" : {
+        "object_count" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 10
+        },
+        "page" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        },
+        "per_page" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 10
+        }
+      }
+    },
+    "search_pagination" : {
+      "properties" : {
+        "search" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/filter_search"
+          }
+        },
+        "page" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        },
+        "per_page" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 10
+        },
+        "order_by" : {
+          "type" : "string",
+          "example" : "name"
+        },
+        "ordering" : {
+          "type" : "string",
+          "example" : "asc"
+        }
+      }
+    },
+    "filter_search" : {
+      "type" : "object",
+      "properties" : {
+        "property_name" : {
+          "type" : "string",
+          "description" : "Identification of property (column) to search within",
+          "example" : "street"
+        },
+        "filter_type" : {
+          "type" : "string",
+          "example" : "neq"
+        },
+        "value" : {
+          "type" : "string",
+          "description" : "Searched value",
+          "example" : "test"
+        }
+      }
+    },
+    "empty_body" : {
+      "properties" : {
+        "body" : {
+          "type" : "string",
+          "format" : "byte"
+        }
+      }
+    },
+    "file" : {
+      "required" : [ "file_name", "byte_data" ],
+      "properties" : {
+        "file_name" : {
+          "type" : "string",
+          "example" : "test.pdf"
+        },
+        "byte_data" : {
+          "type" : "string",
+          "format" : "byte",
+          "description" : "BASE64",
+          "example" : "116cfgnbfg616fgnsXb56"
+        }
+      }
+    },
+    "partner_dashboard" : {
+      "required" : [ "name", "invoiced" ],
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "example" : "Today we have accepted in total"
+        },
+        "invoiced" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        }
+      }
+    },
+    "partner_sales" : {
+      "required" : [ "value" ],
+      "properties" : {
+        "value" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        }
+      }
+    },
+    "partner_product" : {
+      "required" : [ "product_id", "name" ],
+      "properties" : {
+        "product_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "XYZ"
+        }
+      }
+    },
+    "partner_overview_sales_item" : {
+      "required" : [ "year", "month", "value", "product" ],
+      "properties" : {
+        "year" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 2018
+        },
+        "month" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        },
+        "value" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "product" : {
+          "$ref" : "#/definitions/partner_product"
+        }
+      }
+    },
+    "partner_overview_sales_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/partner_overview_sales_item"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "partner_user" : {
+      "required" : [ "user_id", "surname", "name" ],
+      "properties" : {
+        "user_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "surname" : {
+          "type" : "string",
+          "example" : "Novák"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Jan"
+        }
+      }
+    },
+    "partner_category" : {
+      "required" : [ "category_id", "name" ],
+      "properties" : {
+        "category_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "XYZ"
+        }
+      }
+    },
+    "partner_check_card_item" : {
+      "required" : [ "card_id", "user", "pin_max_position" ],
+      "properties" : {
+        "card_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "user" : {
+          "$ref" : "#/definitions/partner_user"
+        },
+        "pin_max_position" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        },
+        "categories" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/partner_category"
+          }
+        }
+      }
+    },
+    "partner_check_card_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/partner_check_card_item"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "partner_autorization_item" : {
+      "required" : [ "card_id", "pin_position_1", "pin_position_2", "pin_position_1_value", "pin_position_2_value", "category_id", "amount" ],
+      "properties" : {
+        "card_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "pin_position_1" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        },
+        "pin_position_2" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 2
+        },
+        "pin_position_1_value" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 9
+        },
+        "pin_position_2_value" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 8
+        },
+        "category_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "amount" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        }
+      }
+    },
+    "partner_notification_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/partner_notification_item"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "partner_notification_item" : {
+      "required" : [ "notification_id", "type", "text", "date" ],
+      "properties" : {
+        "notification_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "type" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1,
+          "description" : "1 - News, 2 - Information"
+        },
+        "text" : {
+          "type" : "string",
+          "example" : "XYZ Notification ..."
+        },
+        "date" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        }
+      }
+    },
+    "partner_products_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/partner_product"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "document_item" : {
+      "required" : [ "document_id", "name", "is_directory", "creation_date" ],
+      "properties" : {
+        "document_id" : {
+          "type" : "string",
+          "example" : "3156651614-56146"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "XYZ"
+        },
+        "parent_id" : {
+          "type" : "string",
+          "example" : "1126516145-56146"
+        },
+        "is_directory" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "creation_date" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2009-06-15T13:45:30.6170000"
+        },
+        "file_length" : {
+          "type" : "integer",
+          "format" : "int64",
+          "example" : 1235
+        },
+        "dictionary_path" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "documents_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/document_item"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "branch" : {
+      "required" : [ "branch_id", "name" ],
+      "properties" : {
+        "branch_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "XYZ"
+        }
+      }
+    },
+    "invoice_item" : {
+      "required" : [ "invoice_id", "invoice_number", "branch", "date", "nominal_value", "price" ],
+      "properties" : {
+        "invoice_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "invoice_number" : {
+          "type" : "string",
+          "example" : "123456789"
+        },
+        "branch" : {
+          "$ref" : "#/definitions/branch"
+        },
+        "date" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2009-06-15T13:45:30.6170000"
+        },
+        "nominal_value" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "price" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "state" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        }
+      }
+    },
+    "invoices_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/invoice_item"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "transaction_item" : {
+      "required" : [ "transaction_id", "transaction_number", "product", "date", "value", "type", "state", "branch" ],
+      "properties" : {
+        "transaction_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "transaction_number" : {
+          "type" : "string",
+          "example" : "123456789"
+        },
+        "product" : {
+          "$ref" : "#/definitions/partner_product"
+        },
+        "date" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2009-06-15T13:45:30.6170000"
+        },
+        "value" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "type" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1,
+          "description" : "1 - Import, 2 - Payment"
+        },
+        "state" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1,
+          "description" : "1 - Blocked, 2 - Paid, 4 - Storno"
+        },
+        "tip" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "partner" : {
+          "$ref" : "#/definitions/partner"
+        },
+        "terminal" : {
+          "$ref" : "#/definitions/terminal"
+        }
+      }
+    },
+    "transactions_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/transaction_item"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "partner" : {
+      "required" : [ "partner_id", "name" ],
+      "properties" : {
+        "partner_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Název X"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Popis..."
+        },
+        "image_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 23
+        }
+      }
+    },
+    "terminal" : {
+      "required" : [ "terminal_id", "name" ],
+      "properties" : {
+        "terminal_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Název X"
+        }
+      }
+    },
+    "address" : {
+      "required" : [ "town", "street", "zip_code" ],
+      "properties" : {
+        "town" : {
+          "type" : "string",
+          "example" : "Benešov"
+        },
+        "street" : {
+          "type" : "string",
+          "example" : "Nádražní 2000"
+        },
+        "zip_code" : {
+          "type" : "string",
+          "example" : "25601"
+        }
+      }
+    },
+    "address_with_type" : {
+      "required" : [ "type" ],
+      "allOf" : [ {
+        "$ref" : "#/definitions/address"
+      }, {
+        "properties" : {
+          "type" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 1,
+            "description" : "1 - Residence, 2 - Billing"
+          }
+        }
+      } ]
+    },
+    "branch_item" : {
+      "required" : [ "branch_id", "name", "address" ],
+      "properties" : {
+        "branch_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "XYZ"
+        },
+        "address" : {
+          "$ref" : "#/definitions/address"
+        },
+        "products" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/partner_product"
+          }
+        },
+        "internal_code" : {
+          "type" : "string",
+          "example" : "ABCXYZ"
+        }
+      }
+    },
+    "branches_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/branch_item"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "social_network" : {
+      "properties" : {
+        "url_facebook" : {
+          "type" : "string",
+          "example" : "www.facebook.com/"
+        },
+        "url_twitter" : {
+          "type" : "string",
+          "example" : "www.twitter.com/"
+        },
+        "url_linkedin" : {
+          "type" : "string",
+          "example" : "www.linkedin.com/"
+        },
+        "url_google_plus" : {
+          "type" : "string",
+          "example" : "www.google.com/"
+        },
+        "url_pinterest" : {
+          "type" : "string",
+          "example" : "www.pinterest.com/"
+        }
+      }
+    },
+    "opening_period" : {
+      "required" : [ "day_of_week", "time_from", "time_to" ],
+      "properties" : {
+        "day_of_week" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1,
+          "description" : "0 - Sunday, 1 - Monday, 2 - Tuesday, 3 - Wednesday, 4 - Thursday, 5 - Friday, 6 - Saturday"
+        },
+        "time_from" : {
+          "type" : "string",
+          "example" : "12:53"
+        },
+        "time_to" : {
+          "type" : "string",
+          "example" : "12:35"
+        }
+      }
+    },
+    "equipment" : {
+      "required" : [ "wifi", "summer_gardern", "boundary_outdoor_space", "other", "salon", "garden", "accepting_meal_ticket", "accepting_e_meal_card", "accepting_credit_cards", "accepting_online_benefits", "own_loyalty_program" ],
+      "properties" : {
+        "wifi" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "summer_gardern" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "boundary_outdoor_space" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "other" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "salon" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "garden" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "accepting_meal_ticket" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "accepting_e_meal_card" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "accepting_credit_cards" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "accepting_online_benefits" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "own_loyalty_program" : {
+          "type" : "boolean",
+          "example" : true
+        }
+      }
+    },
+    "service" : {
+      "required" : [ "terrace", "reservation_online", "baby_friendly", "barrier_free", "private_events" ],
+      "properties" : {
+        "terrace" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "reservation_online" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "baby_friendly" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "barrier_free" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "private_events" : {
+          "type" : "boolean",
+          "example" : false
+        }
+      }
+    },
+    "availability" : {
+      "required" : [ "parking", "parking_bicycle", "carriage", "takeaway", "food_delivery", "pets", "live_music", "smouking_area" ],
+      "properties" : {
+        "parking" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "parking_bicycle" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "carriage" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "takeaway" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "food_delivery" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "pets" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "live_music" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "smouking_area" : {
+          "type" : "boolean",
+          "example" : false
+        }
+      }
+    },
+    "kitchen" : {
+      "required" : [ "type", "breakfast", "lunch", "other", "vegetarians", "gluten_free", "vegan", "only_cold_kitchen", "healthy_food" ],
+      "properties" : {
+        "type" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        },
+        "breakfast" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "lunch" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "other" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "vegetarians" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "gluten_free" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "vegan" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "only_cold_kitchen" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "healthy_food" : {
+          "type" : "boolean",
+          "example" : false
+        }
+      }
+    },
+    "category" : {
+      "type" : "object",
+      "required" : [ "category_id", "name" ],
+      "properties" : {
+        "category_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 2
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Kultura"
+        }
+      }
+    },
+    "branch_detail" : {
+      "required" : [ "branch_id", "name", "registration_number", "up_sticker", "up_sticker_reason", "average_price", "use_resto_zomato", "use_tripadvisor_foursquare", "capacity" ],
+      "properties" : {
+        "branch_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "XYZ"
+        },
+        "registration_number" : {
+          "type" : "string",
+          "example" : "123456789"
+        },
+        "code" : {
+          "type" : "string",
+          "example" : "123456789"
+        },
+        "web" : {
+          "type" : "string",
+          "example" : "www.xyz.cz"
+        },
+        "phone_number" : {
+          "type" : "string",
+          "example" : "+420 603 602 601"
+        },
+        "email" : {
+          "type" : "string",
+          "example" : "john.doe@legendary.com"
+        },
+        "note" : {
+          "type" : "string",
+          "example" : "Note ...."
+        },
+        "up_sticker" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "up_sticker_reason" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1,
+          "description" : "1 - My own, 2 - Sticker dimensions, 3 - Others"
+        },
+        "average_price" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1,
+          "description" : "1 - up to 200 Kč, 2 - 201-400Kč, 3 - 401-600Kč, 4 - 601 and more"
+        },
+        "use_resto_zomato" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "use_tripadvisor_foursquare" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "social_networks" : {
+          "$ref" : "#/definitions/social_network"
+        },
+        "addresses" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/address_with_type"
+          }
+        },
+        "products" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/partner_product"
+          }
+        },
+        "categories" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/category"
+          }
+        },
+        "opening_periods" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/opening_period"
+          }
+        },
+        "capacity" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1,
+          "description" : "1 - up to 20 people, 2 - 21-50 people, 3 - 51 and more people"
+        },
+        "equipment" : {
+          "$ref" : "#/definitions/equipment"
+        },
+        "services" : {
+          "$ref" : "#/definitions/service"
+        },
+        "availability" : {
+          "$ref" : "#/definitions/availability"
+        },
+        "kitchen" : {
+          "$ref" : "#/definitions/kitchen"
+        }
+      }
+    },
+    "reset_password" : {
+      "required" : [ "old_password", "new_password" ],
+      "properties" : {
+        "old_password" : {
+          "type" : "string",
+          "example" : "xvy"
+        },
+        "new_password" : {
+          "type" : "string",
+          "example" : "116cfgnbfg616fgnsXb56"
+        }
+      }
+    },
+    "users_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/user_detail"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "user_detail" : {
+      "required" : [ "user_id", "organization_unit_id", "business_place_id", "number", "surname", "name", "alive_licence", "birthdate", "valid_date_from", "valid_date_to", "user_name", "role", "blocked", "import_prohibited", "send_marketing_information1", "send_marketing_information2", "send_information_about_accounts_changes_by_email", "send_information_about_accounts_changes_by_sms" ],
+      "properties" : {
+        "user_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "organization_unit_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "business_place_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123
+        },
+        "number" : {
+          "type" : "string",
+          "example" : "123"
+        },
+        "partner_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 1
+        },
+        "client_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 3
+        },
+        "title_before" : {
+          "type" : "string",
+          "example" : "Ing."
+        },
+        "surname" : {
+          "type" : "string",
+          "example" : "Novák"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Jan"
+        },
+        "title_after" : {
+          "type" : "string",
+          "example" : "Csc."
+        },
+        "private_email" : {
+          "type" : "string",
+          "format" : "email",
+          "example" : "novak@email.cz"
+        },
+        "work_email" : {
+          "type" : "string",
+          "format" : "email",
+          "example" : "novak@email.cz"
+        },
+        "phone" : {
+          "type" : "string",
+          "format" : "tel",
+          "example" : "+420 777 777 777"
+        },
+        "alive_licence" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "birthdate" : {
+          "type" : "string",
+          "format" : "date",
+          "example" : "2018-02-06"
+        },
+        "employment_begin" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "employment_end" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "valid_date_from" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "valid_date_to" : {
+          "type" : "string",
+          "format" : "datetime",
+          "example" : "2018-02-06 12:00"
+        },
+        "address" : {
+          "$ref" : "#/definitions/address"
+        },
+        "user_name" : {
+          "type" : "string",
+          "example" : "jan.novak"
+        },
+        "role" : {
+          "type" : "string",
+          "example" : "user"
+        },
+        "blocked" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "import_prohibited" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "send_marketing_information1" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "send_marketing_information2" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "send_information_about_accounts_changes_by_email" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "send_information_about_accounts_changes_by_sms" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "note" : {
+          "type" : "string",
+          "example" : "Poznámka"
+        }
+      }
+    },
+    "role" : {
+      "type" : "object",
+      "required" : [ "role_id", "name" ],
+      "properties" : {
+        "role_id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 2
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "User"
+        }
+      }
+    },
+    "roles_response" : {
+      "required" : [ "data", "pagination" ],
+      "properties" : {
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/role"
+          }
+        },
+        "pagination" : {
+          "$ref" : "#/definitions/pagination"
+        }
+      }
+    },
+    "voucher" : {
+      "required" : [ "code", "nominal_value", "product" ],
+      "properties" : {
+        "code" : {
+          "type" : "string",
+          "example" : "123"
+        },
+        "nominal_value" : {
+          "type" : "number",
+          "format" : "decimal",
+          "example" : 100.5
+        },
+        "product" : {
+          "$ref" : "#/definitions/partner_product"
+        }
+      }
+    },
+    "request_body" : {
+      "required" : [ "type", "data" ],
+      "properties" : {
+        "type" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 123,
+          "description" : "1 - Request for change of address, 2 - Request to add address, 3 - Request for change of data, 4 - Request to add delivery point, 5 - Request for contact person"
+        },
+        "data" : {
+          "type" : "string",
+          "example" : "???",
+          "description" : "Application parameters, serialized map, where the key is the name of the parameter and value is a value, for example: {\"Street number\": \"Street 12\", \"City\": \"Prague\", ...}."
+        },
+        "file_data" : {
+          "$ref" : "#/definitions/file"
+        }
+      }
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/Petr_Vesely/Up_Digital_Partner/1.0.0",
+  "schemes" : [ "https" ]
+}
