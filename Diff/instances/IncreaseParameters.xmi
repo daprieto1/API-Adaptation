@@ -8,12 +8,12 @@
     oldVersion="version 1">
   <change xsi:type="Diff:Add"
       changeElement="methodParameter">
-    <new EObject="newParameter"
-        xpath="root/API/Paths[8]/delete"/>
+    <new value="newParameter"
+        EObject="root/API/Paths[8]/delete"/>
   </change>
   <change xsi:type="Diff:Add"
       changeElement="methodParameter">
-    <new EObject="currentStatus"
-        xpath="root/API/Paths[8]/delete"/>
+    <new value="currentStatus"
+        EObject="root/API/Paths[8]/delete"/>
   </change>
 </Diff:Diff>

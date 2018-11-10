@@ -8,9 +8,9 @@
     oldVersion="version 1">
   <change xsi:type="Diff:ResultType"
       changeElement="method">
-    <new EObject="application/json"
-        xpath="root/api/paths[5]/get"/>
-    <old EObject="application/xml"
-        xpath="root/api/paths[4]/get"/>
+    <new value="application/json"
+        EObject="root/api/paths[5]/get"/>
+    <old value="application/xml"
+        EObject="root/api/paths[4]/get"/>
   </change>
 </Diff:Diff>

@@ -8,9 +8,9 @@
     oldVersion="version 1">
   <change xsi:type="Diff:UpperBondary"
       changeElement="methodParameter">
-    <new EObject="limit"
-        xpath="root/API/Path[1]/get"/>
-    <old EObject="limit"
-        xpath="root/API/Path[0]/get"/>
+    <new value="limit"
+        EObject="root/API/Path[1]/get"/>
+    <old value="limit"
+        EObject="root/API/Path[0]/get"/>
   </change>
 </Diff:Diff>

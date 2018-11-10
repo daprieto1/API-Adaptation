@@ -8,9 +8,9 @@
     oldVersion="version 1">
   <change xsi:type="Diff:LowerBondary"
       changeElement="methodParameter">
-    <new EObject="offset"
-        xpath="root/API/Paths[3]/get"/>
-    <old EObject="offset"
-        xpath="root/API/Paths[3]/get"/>
+    <new value="offset"
+        EObject="root/API/Paths[3]/get"/>
+    <old value="offset"
+        EObject="root/API/Paths[3]/get"/>
   </change>
 </Diff:Diff>

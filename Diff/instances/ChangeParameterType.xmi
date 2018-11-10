@@ -8,10 +8,10 @@
     oldVersion="version 1">
   <change xsi:type="Diff:ParameterType"
       changeElement="typeParameter">
-    <new EObject="Age"
-        xpath="root/API/Paths[0]/post"/>
-    <old EObject="Age"
-        xpath="root/API/Paths[1]/post"/>
+    <new value="Age"
+        EObject="root/API/Paths[0]/post"/>
+    <old value="Age"
+        EObject="root/API/Paths[1]/post"/>
     <oldDefinition
         SchemaName="age"
         type="string"/>
@@ -21,10 +21,10 @@
   </change>
   <change xsi:type="Diff:ParameterType"
       changeElement="typeParameter">
-    <new EObject="UserInformation"
-        xpath="root/API/Paths[5]/post"/>
-    <old EObject="UserInformation"
-        xpath="root/API/Paths[4]/post"/>
+    <new value="UserInformation"
+        EObject="root/API/Paths[5]/post"/>
+    <old value="UserInformation"
+        EObject="root/API/Paths[4]/post"/>
     <oldDefinition
         SchemaName="User"
         type="object"/>

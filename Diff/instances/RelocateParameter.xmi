@@ -8,18 +8,18 @@
     oldVersion="1.0">
   <change xsi:type="Diff:Delete"
       changeElement="methodParameter">
-    <old EObject="currentPassword"
-        xpath="root/API/Paths[2]/post"/>
+    <old value="currentPassword"
+        EObject="root/API/Paths[2]/post"/>
   </change>
   <change xsi:type="Diff:Delete"
       changeElement="methodParameter">
-    <old EObject="newPassword"
-        xpath="root/API/Paths[2]/post"/>
+    <old value="newPassword"
+        EObject="root/API/Paths[2]/post"/>
   </change>
   <change xsi:type="Diff:Add"
       changeElement="methodParameter">
-    <new EObject="changePasswordRequest"
-        xpath="root/API/Paths[7]/post"/>
+    <new value="changePasswordRequest"
+        EObject="root/API/Paths[7]/post"/>
   </change>
   <change xsi:type="Diff:RelocateParameter"
       changeElement="methodParameter"

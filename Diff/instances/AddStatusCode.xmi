@@ -8,8 +8,8 @@
     oldVersion="1.0">
   <change xsi:type="Diff:ReturnType"
       changeElement="ReturnType">
-    <new EObject="204"
-        xpath="root/API/Paths[1]/post"/>
+    <new value="204"
+        EObject="root/API/Paths[1]/post"/>
     <newDefinition
         SchemaName="code"/>
   </change>
