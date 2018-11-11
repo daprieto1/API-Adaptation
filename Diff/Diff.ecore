@@ -52,9 +52,11 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="path" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Complex" eSuperTypes="#//Change">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="simpleDiffs" lowerBound="2"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="simpleDiffs" lowerBound="1"
         upperBound="-1" eType="#//Simple"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RemoveRestriction" eSuperTypes="#//Complex"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AddRestriction" eSuperTypes="#//Complex"/>
   <eClassifiers xsi:type="ecore:EEnum" name="APIElementType">
     <eLiterals name="package"/>
     <eLiterals name="class" value="1"/>
