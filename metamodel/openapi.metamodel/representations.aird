@@ -9,6 +9,7 @@
     <semanticResources>model/openAPI.genmodel</semanticResources>
     <semanticResources>instances/ThingBoardV10.xmi</semanticResources>
     <semanticResources>instances/ThingBoardV20.xmi</semanticResources>
+    <semanticResources>instances/v1.2.xmi</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" xmi:id="_hhYGwKOAEeW7qNU6Nu_uNw">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_-6wA8LSkEeiSKdRkRNHbAg" name="core class diagram" representation="_-6woALSkEeiSKdRkRNHbAg">
