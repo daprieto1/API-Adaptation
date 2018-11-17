@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
-<Diff:Diff xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"
-  xsi:schemaLocation="http://www.uniandes.edu.co/diff ../Diff.ecore" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Diff="http://www.uniandes.edu.co/diff" newVersion="2.0" oldVersion="1.0">
-  <change xsi:type="Diff:Delete" changeElement="ReturnType">
-    <new EObject="ACED000574001776312E312E786D69232F2F40726573706F6E7365732E31" value="302"/>
+<Diff:Diff xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Diff="http://www.uniandes.edu.co/diff" newVersion="2.0" oldVersion="1.0">
+  <change xsi:type="Diff:ConsumeType">
+    <new EObject="v1.2.xmi#//@api/@paths.0/@post" value="application/json" path="/settings"/>
   </change>
 </Diff:Diff>

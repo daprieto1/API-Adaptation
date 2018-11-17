@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="Diff" nsURI="http://www.uniandes.edu.co/diff" nsPrefix="Diff">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="diff" nsURI="http://www.uniandes.edu.co/diff" nsPrefix="diff">
   <eClassifiers xsi:type="ecore:EClass" name="Diff">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="newVersion" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="oldVersion" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -16,16 +16,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="Change">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="changeElement" eType="#//APIElementType"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MoveDownInHierarchy" eSuperTypes="#//Complex"/>
   <eClassifiers xsi:type="ecore:EClass" name="RelocateParameter" eSuperTypes="#//Complex">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="newLocation" eType="#//ParameterLocation"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="oldLocation" eType="#//ParameterLocation"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MultipleParametersInOne" eSuperTypes="#//RelocateParameter"/>
   <eClassifiers xsi:type="ecore:EClass" name="SameParameter" eSuperTypes="#//RelocateParameter"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ReorderTypeParameters" eSuperTypes="#//Complex"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ContractSuperSet" eSuperTypes="#//Complex"/>
-  <eClassifiers xsi:type="ecore:EClass" name="MoveUpInHierarchy" eSuperTypes="#//Complex"/>
   <eClassifiers xsi:type="ecore:EClass" name="Simple" eSuperTypes="#//Change">
     <eStructuralFeatures xsi:type="ecore:EReference" name="new" eType="#//ElementReference"
         containment="true"/>
@@ -33,20 +29,23 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Add" eSuperTypes="#//Simple"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AddParameter" eSuperTypes="#//Add"/>
   <eClassifiers xsi:type="ecore:EClass" name="Delete" eSuperTypes="#//Simple"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UnsupportRequestMethod" eSuperTypes="#//Delete"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DeletePath" eSuperTypes="#//Delete"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RemoveParameter" eSuperTypes="#//Delete"/>
   <eClassifiers xsi:type="ecore:EClass" name="DefaultClause" eSuperTypes="#//Delete"/>
   <eClassifiers xsi:type="ecore:EClass" name="Modify" eSuperTypes="#//Simple"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ModifyParameterSchemaType" eSuperTypes="#//Modify"/>
   <eClassifiers xsi:type="ecore:EClass" name="UpperBondary" eSuperTypes="#//Modify"/>
   <eClassifiers xsi:type="ecore:EClass" name="LowerBondary" eSuperTypes="#//Modify"/>
   <eClassifiers xsi:type="ecore:EClass" name="DefaultValue" eSuperTypes="#//Modify"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Rename" eSuperTypes="#//Modify"/>
-  <eClassifiers xsi:type="ecore:EClass" name="AccessModifier" eSuperTypes="#//Modify"/>
-  <eClassifiers xsi:type="ecore:EClass" name="TypeBound" eSuperTypes="#//Modify"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ResultType" eSuperTypes="#//Modify"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RenameParameter" eSuperTypes="#//Modify"/>
   <eClassifiers xsi:type="ecore:EClass" name="ConsumeType" eSuperTypes="#//Modify"/>
-  <eClassifiers xsi:type="ecore:EClass" name="FieldValue" eSuperTypes="#//Modify"/>
-  <eClassifiers xsi:type="ecore:EClass" name="TypeAPI" eSuperTypes="#//Modify"/>
-  <eClassifiers xsi:type="ecore:EClass" name="OtherModifier" eSuperTypes="#//Modify"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ProduceType" eSuperTypes="#//Modify"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AddStatusCode" eSuperTypes="#//Modify"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RemoveStatusCode" eSuperTypes="#//Modify"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ExposeData" eSuperTypes="#//Complex"/>
   <eClassifiers xsi:type="ecore:EClass" name="ElementReference">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="EObject" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"/>
@@ -58,6 +57,10 @@
         upperBound="-1" eType="#//Simple"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RemoveRestriction" eSuperTypes="#//Complex"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ChangeFormatReturnValue" eSuperTypes="#//Complex"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RenameMethod" eSuperTypes="#//Complex"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CombineMethods" eSuperTypes="#//Complex"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SplitMethod" eSuperTypes="#//Complex"/>
   <eClassifiers xsi:type="ecore:EClass" name="AddRestriction" eSuperTypes="#//Complex"/>
   <eClassifiers xsi:type="ecore:EEnum" name="APIElementType">
     <eLiterals name="package"/>
@@ -75,6 +78,9 @@
     <eLiterals name="typeParameter" value="12"/>
     <eLiterals name="Location" value="13"/>
     <eLiterals name="ReturnType" value="14"/>
+    <eLiterals name="path" value="15"/>
+    <eLiterals name="ContentType" value="16"/>
+    <eLiterals name="StatusCode" value="17"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ParameterLocation">
     <eLiterals name="query" value="1"/>
