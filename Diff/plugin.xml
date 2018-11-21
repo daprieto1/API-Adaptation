@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated diff -->
+      <package
+            uri="http://www.uniandes.edu.co/diff"
+            class="co.edu.uniandes.metamodel.Diff.DiffPackage"
+            genModel="models/diff.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated html -->
+      <package
+            uri="http://web.emn.fr/primitiveTypes"
+            class="co.edu.uniandes.metamodel.PrimitiveTypes.PrimitiveTypesPackage"
+            genModel="models/html.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated html -->
+      <package
+            uri="http://web.emn.fr/html"
+            class="co.edu.uniandes.metamodel.Html.HtmlPackage"
+            genModel="models/html.genmodel"/>
+   </extension>
+</plugin>

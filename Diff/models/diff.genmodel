@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/diff.metamodel/srcdiff" modelPluginID="diff.metamodel"
+    modelName="Diff" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>diff.ecore</foreignModel>
+  <genPackages prefix="Diff" basePackage="co.edu.uniandes.metamodel" disposableProviderFactory="true"
+      ecorePackage="diff.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="diff.ecore#//APIElementType">
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//APIElementType/Package"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//APIElementType/Class"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//APIElementType/Interface"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//APIElementType/Method"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//APIElementType/Constructor"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//APIElementType/Field"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//APIElementType/Enumeration"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//APIElementType/ElementAnnotation"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//APIElementType/EnumLiteral"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//APIElementType/MethodParameter"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//APIElementType/TypeField"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//APIElementType/ExceptionThrow"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//APIElementType/TypeParameter"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//APIElementType/Location"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//APIElementType/ReturnType"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//APIElementType/Path"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//APIElementType/ContentType"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//APIElementType/StatusCode"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="diff.ecore#//ParameterLocation">
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//ParameterLocation/query"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//ParameterLocation/path"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//ParameterLocation/header"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//ParameterLocation/body"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//ParameterLocation/formData"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="diff.ecore#//ElementType">
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//ElementType/unspecified"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//ElementType/object"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//ElementType/boolean"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//ElementType/integer"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//ElementType/number"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//ElementType/string"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//ElementType/array"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//ElementType/file"/>
+      <genEnumLiterals ecoreEnumLiteral="diff.ecore#//ElementType/null"/>
+    </genEnums>
+    <genClasses ecoreClass="diff.ecore#//Diff">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diff.ecore#//Diff/newVersion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diff.ecore#//Diff/oldVersion"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diff.ecore#//Diff/refactoringType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diff.ecore#//Diff/change"/>
+    </genClasses>
+    <genClasses ecoreClass="diff.ecore#//RefactoringType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diff.ecore#//RefactoringType/changes"/>
+    </genClasses>
+    <genClasses ecoreClass="diff.ecore#//Change">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diff.ecore#//Change/changeElement"/>
+    </genClasses>
+    <genClasses ecoreClass="diff.ecore#//RelocateParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diff.ecore#//RelocateParameter/newLocation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diff.ecore#//RelocateParameter/oldLocation"/>
+    </genClasses>
+    <genClasses ecoreClass="diff.ecore#//MultipleParametersInOne"/>
+    <genClasses ecoreClass="diff.ecore#//SameParameter"/>
+    <genClasses ecoreClass="diff.ecore#//Simple">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diff.ecore#//Simple/new"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diff.ecore#//Simple/old"/>
+    </genClasses>
+    <genClasses ecoreClass="diff.ecore#//Add"/>
+    <genClasses ecoreClass="diff.ecore#//AddParameter"/>
+    <genClasses ecoreClass="diff.ecore#//Delete"/>
+    <genClasses ecoreClass="diff.ecore#//UnsupportRequestMethod"/>
+    <genClasses ecoreClass="diff.ecore#//DeletePath"/>
+    <genClasses ecoreClass="diff.ecore#//RemoveParameter"/>
+    <genClasses ecoreClass="diff.ecore#//DefaultClause"/>
+    <genClasses ecoreClass="diff.ecore#//Modify"/>
+    <genClasses ecoreClass="diff.ecore#//ModifyParameterSchemaType"/>
+    <genClasses ecoreClass="diff.ecore#//UpperBondary"/>
+    <genClasses ecoreClass="diff.ecore#//LowerBondary"/>
+    <genClasses ecoreClass="diff.ecore#//DefaultValue"/>
+    <genClasses ecoreClass="diff.ecore#//RenameParameter"/>
+    <genClasses ecoreClass="diff.ecore#//ConsumeType"/>
+    <genClasses ecoreClass="diff.ecore#//ProduceType"/>
+    <genClasses ecoreClass="diff.ecore#//AddStatusCode"/>
+    <genClasses ecoreClass="diff.ecore#//RemoveStatusCode"/>
+    <genClasses ecoreClass="diff.ecore#//ExposeData"/>
+    <genClasses ecoreClass="diff.ecore#//ElementReference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diff.ecore#//ElementReference/EObject"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diff.ecore#//ElementReference/lineNumber"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diff.ecore#//ElementReference/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diff.ecore#//ElementReference/path"/>
+    </genClasses>
+    <genClasses ecoreClass="diff.ecore#//Complex">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diff.ecore#//Complex/simpleDiffs"/>
+    </genClasses>
+    <genClasses ecoreClass="diff.ecore#//RemoveRestriction"/>
+    <genClasses ecoreClass="diff.ecore#//ChangeFormatReturnValue"/>
+    <genClasses ecoreClass="diff.ecore#//RenameMethod"/>
+    <genClasses ecoreClass="diff.ecore#//CombineMethods"/>
+    <genClasses ecoreClass="diff.ecore#//SplitMethod"/>
+    <genClasses ecoreClass="diff.ecore#//AddRestriction"/>
+    <genClasses ecoreClass="diff.ecore#//ParameterType"/>
+    <genClasses ecoreClass="diff.ecore#//ReturnType"/>
+  </genPackages>
+</genmodel:GenModel>

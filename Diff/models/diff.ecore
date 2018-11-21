@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="diff" nsURI="http://www.uniandes.edu.co/diff" nsPrefix="diff">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="Diff" nsURI="http://www.uniandes.edu.co/diff" nsPrefix="Diff">
   <eClassifiers xsi:type="ecore:EClass" name="Diff">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="newVersion" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="oldVersion" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -63,22 +63,22 @@
   <eClassifiers xsi:type="ecore:EClass" name="SplitMethod" eSuperTypes="#//Complex"/>
   <eClassifiers xsi:type="ecore:EClass" name="AddRestriction" eSuperTypes="#//Complex"/>
   <eClassifiers xsi:type="ecore:EEnum" name="APIElementType">
-    <eLiterals name="package"/>
-    <eLiterals name="class" value="1"/>
-    <eLiterals name="interface" value="2"/>
-    <eLiterals name="method" value="3"/>
-    <eLiterals name="constructor" value="4"/>
-    <eLiterals name="field" value="5"/>
-    <eLiterals name="enumeration" value="6"/>
-    <eLiterals name="elementAnnotation" value="7"/>
-    <eLiterals name="enumLiteral" value="8"/>
-    <eLiterals name="methodParameter" value="9"/>
-    <eLiterals name="typeField" value="10"/>
-    <eLiterals name="exceptionThrow" value="11"/>
-    <eLiterals name="typeParameter" value="12"/>
+    <eLiterals name="Package" literal="Package"/>
+    <eLiterals name="Class" value="1"/>
+    <eLiterals name="Interface" value="2"/>
+    <eLiterals name="Method" value="3"/>
+    <eLiterals name="Constructor" value="4" literal="Constructor"/>
+    <eLiterals name="Field" value="5"/>
+    <eLiterals name="Enumeration" value="6"/>
+    <eLiterals name="ElementAnnotation" value="7"/>
+    <eLiterals name="EnumLiteral" value="8"/>
+    <eLiterals name="MethodParameter" value="9"/>
+    <eLiterals name="TypeField" value="10"/>
+    <eLiterals name="ExceptionThrow" value="11"/>
+    <eLiterals name="TypeParameter" value="12"/>
     <eLiterals name="Location" value="13"/>
     <eLiterals name="ReturnType" value="14"/>
-    <eLiterals name="path" value="15"/>
+    <eLiterals name="Path" value="15"/>
     <eLiterals name="ContentType" value="16"/>
     <eLiterals name="StatusCode" value="17"/>
   </eClassifiers>
@@ -89,17 +89,7 @@
     <eLiterals name="body" value="4"/>
     <eLiterals name="formData" value="5"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ParameterType" instanceTypeName="ParameterType"
-      eSuperTypes="#//Modify">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="oldDefinition" lowerBound="1"
-        eType="#//ElementDefinition" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="newDefinition" lowerBound="1"
-        eType="#//ElementDefinition" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ElementDefinition" instanceTypeName="ElementDefinition">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SchemaName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ElementType"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ParameterType" eSuperTypes="#//Modify"/>
   <eClassifiers xsi:type="ecore:EEnum" name="ElementType" instanceTypeName="ElementType">
     <eLiterals name="unspecified" literal="unspecified"/>
     <eLiterals name="object" value="1"/>
@@ -111,11 +101,5 @@
     <eLiterals name="file" value="7" literal="file"/>
     <eLiterals name="null" value="8" literal="null"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ReturnType" instanceTypeName="ReturnType"
-      eSuperTypes="#//Modify">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="oldDefinition" lowerBound="1"
-        eType="#//ElementDefinition" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="newDefinition" lowerBound="1"
-        eType="#//ElementDefinition" containment="true"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReturnType" eSuperTypes="#//Modify"/>
 </ecore:EPackage>
