@@ -5,7 +5,7 @@
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
     operationReflection="true" importOrganizing="true">
   <foreignModel>diff.ecore</foreignModel>
-  <genPackages prefix="Diff" basePackage="co.edu.uniandes.metamodel" disposableProviderFactory="true"
+  <genPackages prefix="Diff" basePackage="co.edu.uniandes.metamodels" disposableProviderFactory="true"
       ecorePackage="diff.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="diff.ecore#//APIElementType">
       <genEnumLiterals ecoreEnumLiteral="diff.ecore#//APIElementType/Package"/>

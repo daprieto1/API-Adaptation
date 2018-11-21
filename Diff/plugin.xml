@@ -10,7 +10,7 @@
       <!-- @generated diff -->
       <package
             uri="http://www.uniandes.edu.co/diff"
-            class="co.edu.uniandes.metamodel.Diff.DiffPackage"
+            class="co.edu.uniandes.metamodels.Diff.DiffPackage"
             genModel="models/diff.genmodel"/>
    </extension>
 
@@ -18,7 +18,7 @@
       <!-- @generated html -->
       <package
             uri="http://web.emn.fr/primitiveTypes"
-            class="co.edu.uniandes.metamodel.PrimitiveTypes.PrimitiveTypesPackage"
+            class="co.edu.uniandes.metamodels.PrimitiveTypes.PrimitiveTypesPackage"
             genModel="models/html.genmodel"/>
    </extension>
 
@@ -26,7 +26,7 @@
       <!-- @generated html -->
       <package
             uri="http://web.emn.fr/html"
-            class="co.edu.uniandes.metamodel.Html.HtmlPackage"
+            class="co.edu.uniandes.metamodels.Html.HtmlPackage"
             genModel="models/html.genmodel"/>
    </extension>
 </plugin>

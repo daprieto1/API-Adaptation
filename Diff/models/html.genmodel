@@ -5,13 +5,13 @@
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
     operationReflection="true" importOrganizing="true">
   <foreignModel>html.ecore</foreignModel>
-  <genPackages prefix="PrimitiveTypes" basePackage="co.edu.uniandes.metamodel" disposableProviderFactory="true"
+  <genPackages prefix="PrimitiveTypes" basePackage="co.edu.uniandes.metamodels" disposableProviderFactory="true"
       ecorePackage="html.ecore#/0">
     <genDataTypes ecoreDataType="html.ecore#/0/Boolean"/>
     <genDataTypes ecoreDataType="html.ecore#/0/String"/>
     <genDataTypes ecoreDataType="html.ecore#/0/Integer"/>
   </genPackages>
-  <genPackages prefix="Html" basePackage="co.edu.uniandes.metamodel" disposableProviderFactory="true"
+  <genPackages prefix="Html" basePackage="co.edu.uniandes.metamodels" disposableProviderFactory="true"
       ecorePackage="html.ecore#/1">
     <genClasses ecoreClass="html.ecore#/1/HTML">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference html.ecore#/1/HTML/head"/>

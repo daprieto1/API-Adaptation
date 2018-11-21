@@ -7,14 +7,15 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: co.edu.uniandes.metamodel.Diff,
- co.edu.uniandes.metamodel.Diff.impl,
- co.edu.uniandes.metamodel.Diff.util,
- co.edu.uniandes.metamodel.Html,
- co.edu.uniandes.metamodel.Html.impl,
- co.edu.uniandes.metamodel.Html.util,
- co.edu.uniandes.metamodel.PrimitiveTypes,
- co.edu.uniandes.metamodel.PrimitiveTypes.impl
+Export-Package: co.edu.uniandes.metamodels.Diff, 
+ co.edu.uniandes.metamodels.Diff,
+ co.edu.uniandes.metamodels.Diff.impl,
+ co.edu.uniandes.metamodels.Diff.util,
+ co.edu.uniandes.metamodels.Html,
+ co.edu.uniandes.metamodels.Html.impl,
+ co.edu.uniandes.metamodels.Html.util,
+ co.edu.uniandes.metamodels.PrimitiveTypes,
+ co.edu.uniandes.metamodels.PrimitiveTypes.impl
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport
 Bundle-ActivationPolicy: lazy
