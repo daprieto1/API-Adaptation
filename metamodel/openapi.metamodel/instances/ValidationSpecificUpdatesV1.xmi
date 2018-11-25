@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openAPI.core:Root
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:openAPI.core="http://example.com/openAPI/core"
+    xsi:schemaLocation="http://example.com/openAPI/core ../model/openAPI.ecore">
+  <api swagger="2.0"
+      host="virtserver.swaggerhub.com"
+      basePath="/thingsboard/2">
+    <info title="Thingsboard API"
+        description="This is a thingsboard API"
+        version="1.0.0"/>
+    <schemes>https</schemes>
+    <paths pattern="/updateAge">
+      <post
+          parameters="//@paramters.5 //@paramters.1"
+          summary=""
+          responses="//@responses.0">
+        <schemes>https</schemes>
+        <schemes>http</schemes>
+      </post>
+    </paths>
+    <paths pattern="/updatePassword">
+      <post
+          parameters="//@paramters.3 //@paramters.4"
+          responses="//@responses.3"/>
+    </paths>
+    <paths pattern="/updatePassword2">
+      <post
+          parameters="//@paramters.3 //@paramters.4"
+          responses="//@responses.0"/>
+    </paths>
+    <paths pattern="/settings">
+      <get parameters="//@paramters.2"
+          summary=""
+          responses="//@responses.1">
+        <produces>application/xml</produces>
+        <schemes>http</schemes>
+        <schemes>https</schemes>
+      </get>
+    </paths>
+    <paths pattern="/settings/{settingId}">
+      <get parameters="//@paramters.9"
+          summary="get setting"
+          responses="//@responses.2"/>
+      <delete
+          parameters="//@paramters.9 //@paramters.7"
+          responses="//@responses.0">
+        <schemes>https</schemes>
+        <schemes>http</schemes>
+      </delete>
+    </paths>
+    <paths pattern="/devices">
+      <post
+          parameters="//@paramters.6"
+          responses="//@responses.0">
+        <schemes>https</schemes>
+        <schemes>http</schemes>
+      </post>
+    </paths>
+    <paths pattern="/user">
+      <get parameters="//@paramters.0"
+          summary="get user"
+          responses="//@responses.4">
+        <produces>application/xml</produces>
+        <schemes>http</schemes>
+        <schemes>https</schemes>
+      </get>
+      <post
+          parameters="//@paramters.8"
+          summary="save user"
+          description=""
+          operationId=""
+          responses="//@responses.0">
+        <consumes>application/xml</consumes>
+        <schemes>https</schemes>
+        <schemes>http</schemes>
+      </post>
+    </paths>
+  </api>
+  <paramters
+      type="string"
+      name="nameUser"
+      location="query"/>
+  <paramters
+      type="string"
+      format=""
+      name="ageNew"
+      location="query"
+      referenceName="ageNew"/>
+  <paramters
+      type="integer"
+      format=""
+      description=""
+      maximum="100.0"
+      minimum="5.0"
+      default="10"
+      name="top"
+      location="query"
+      referenceName="top"/>
+  <paramters
+      type="string"
+      format=""
+      name="newPassword"
+      location="query"
+      referenceName="newPassword"/>
+  <paramters
+      type="string"
+      name="oldPassword"
+      location="query"
+      referenceName="oldPassword"/>
+  <paramters
+      type="string"
+      name="ageOld"
+      location="query"
+      referenceName="ageOld"/>
+  <paramters
+      schema="//@schemas.4"
+      type="string"
+      name="deviceName"
+      location="query"
+      referenceName="deviceName"/>
+  <paramters
+      type="string"
+      name="key"
+      location="query"/>
+  <paramters
+      schema="//@schemas.5"
+      type="object"
+      name="user"
+      location="body"
+      referenceName="user"/>
+  <paramters
+      type="string"
+      name="settingId"
+      location="path"
+      referenceName="settingId"/>
+  <schemas type="array"
+      name="Settings"
+      title="Settings"
+      items="//@schemas.3"/>
+  <schemas type="string"
+      pattern=""
+      name="value"
+      title="value"/>
+  <schemas type="string"
+      name="key"
+      title="key"/>
+  <schemas type="object"
+      pattern=""
+      name="Setting"
+      title="Setting"
+      properties="//@schemas.2 //@schemas.1"/>
+  <schemas name="deviceName"
+      title="deviceName"/>
+  <schemas type="object"
+      name="User"
+      title="User"
+      properties="//@schemas.6 //@schemas.7"/>
+  <schemas type="string"
+      name="name"
+      title="name"/>
+  <schemas type="string"
+      name="lastName"
+      title="lastName"/>
+  <responses
+      description="Empty"
+      code="200"
+      referenceName="Empty"/>
+  <responses
+      schema="//@schemas.0"
+      description="Settings"
+      code="200"
+      referenceName="Settings"/>
+  <responses
+      schema="//@schemas.3"
+      description="Setting"
+      code="200"
+      referenceName="Setting"/>
+  <responses
+      description="401"
+      code="401"
+      referenceName="401"/>
+  <responses
+      schema="//@schemas.5"
+      description="user"
+      code="200"
+      referenceName="user"/>
+</openAPI.core:Root>
