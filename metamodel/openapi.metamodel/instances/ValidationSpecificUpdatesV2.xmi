@@ -8,6 +8,9 @@
   <api swagger="2.0"
       host="virtserver.swaggerhub.com"
       basePath="/thingsboard/2">
+    <securityRequirements
+        securityScopes="//@api/@securityDefinitions.0/@scopes.0 //@api/@securityDefinitions.0/@scopes.1"
+        securitySchema="//@api/@securityDefinitions.0"/>
     <info title="Thingsboard API"
         description="This is a thingsboard API"
         version="1.0.0"/>
@@ -67,6 +70,14 @@
         <schemes>http</schemes>
       </post>
     </paths>
+    <securityDefinitions>
+      <scopes
+          name="write"
+          description="allows modifying resources"/>
+      <scopes
+          name="read"
+          description="allows reading resources"/>
+    </securityDefinitions>
   </api>
   <paramters
       type="string"
