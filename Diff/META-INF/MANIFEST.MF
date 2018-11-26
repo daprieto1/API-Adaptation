@@ -7,7 +7,7 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: co.edu.uniandes.metamodels.Diff, 
+Export-Package: co.edu.uniandes.metamodels.Diff,
  co.edu.uniandes.metamodels.Diff,
  co.edu.uniandes.metamodels.Diff.impl,
  co.edu.uniandes.metamodels.Diff.util,
