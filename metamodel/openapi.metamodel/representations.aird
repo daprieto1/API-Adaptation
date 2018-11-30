@@ -7,10 +7,6 @@
     <semanticResources>model/swagger.genmodel</semanticResources>
     <semanticResources>model/openAPI.ecore</semanticResources>
     <semanticResources>model/openAPI.genmodel</semanticResources>
-    <semanticResources>instances/ThingBoardV10.xmi</semanticResources>
-    <semanticResources>instances/ThingBoardV20.xmi</semanticResources>
-    <semanticResources>instances/v1.1.xmi</semanticResources>
-    <semanticResources>instances/v1.2.xmi</semanticResources>
     <semanticResources>instances/ShipwireAPI_3.0.xmi</semanticResources>
     <semanticResources>instances/ShipwireAPI_4.0.xmi</semanticResources>
     <semanticResources>instances/UP_Digital_Client_1.0.10.xmi</semanticResources>
@@ -23,6 +19,12 @@
     <semanticResources>instances/lavanapp_2.1.1.xmi</semanticResources>
     <semanticResources>instances/ValidationSpecificUpdatesV1.xmi</semanticResources>
     <semanticResources>instances/ValidationSpecificUpdatesV2.xmi</semanticResources>
+    <semanticResources>instances/CustomValidation-1.0.0-swagger.xmi</semanticResources>
+    <semanticResources>instances/CustomValidation-2.0.0-swagger.xmi</semanticResources>
+    <semanticResources>instances/thingsboardV1.xmi</semanticResources>
+    <semanticResources>instances/thingsboardV2.xmi</semanticResources>
+    <semanticResources>instances/v1.2.xmi</semanticResources>
+    <semanticResources>instances/v1.1.xmi</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" xmi:id="_hhYGwKOAEeW7qNU6Nu_uNw">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_-6wA8LSkEeiSKdRkRNHbAg" name="core class diagram" representation="_-6woALSkEeiSKdRkRNHbAg">
