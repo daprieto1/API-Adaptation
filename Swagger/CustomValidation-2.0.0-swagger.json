@@ -1,0 +1,288 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is a simple API",
+    "version" : "2.0.0",
+    "title" : "Simple Inventory API",
+    "contact" : {
+      "email" : "you@your-company.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags" : [ {
+    "name" : "admins",
+    "description" : "admin"
+  }, {
+    "name" : "user",
+    "description" : "user"
+  } ],
+  "paths" : {
+    "/updateAge" : {
+      "post" : {
+        "tags" : [ "user" ],
+        "summary" : "update  the user age",
+        "operationId" : "updaUserAge",
+        "description" : "By passing new user age will be updated \n",
+        "produces" : [ "application/json" ],
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "ageOld",
+          "description" : "old age",
+          "type" : "integer"
+        }, {
+          "in" : "query",
+          "name" : "ageNew",
+          "description" : "new age",
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria"
+          }
+        }
+      }
+    },
+    "/updatePassword/{userId}" : {
+      "post" : {
+        "tags" : [ "user" ],
+        "summary" : "update user password",
+        "operationId" : "updateUserPassword",
+        "description" : "By passing a new password it will be updated\n",
+        "produces" : [ "application/json" ],
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "userId",
+          "description" : "userId",
+          "type" : "string",
+          "required" : true
+        }, {
+          "in" : "body",
+          "name" : "newPassword",
+          "schema" : {
+            "$ref" : "#/definitions/newPassword"
+          }
+        } ],
+        "responses" : {
+          "403" : {
+            "description" : "error 403"
+          },
+          "200" : {
+            "description" : "ok"
+          }
+        }
+      }
+    },
+    "/updatePassword" : {
+      "post" : {
+        "tags" : [ "user" ],
+        "summary" : "update user password",
+        "operationId" : "updateUserPassword2",
+        "description" : "By passing a new password it will be updated\n",
+        "produces" : [ "application/json" ],
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "password",
+          "description" : "old password",
+          "schema" : {
+            "$ref" : "#/definitions/Password"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "ok"
+          }
+        }
+      }
+    },
+    "/settings" : {
+      "get" : {
+        "tags" : [ "admins" ],
+        "summary" : "get all settings",
+        "operationId" : "getSettings",
+        "description" : "get settings\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "top",
+          "description" : "list top",
+          "type" : "integer",
+          "default" : 10,
+          "minimum" : 5,
+          "maximum" : 100
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "ok",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "$ref" : "#/definitions/Setting"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/{settingId}" : {
+      "get" : {
+        "tags" : [ "admins" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "settingId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get a setting",
+        "operationId" : "getSetting",
+        "description" : "get setting\n",
+        "produces" : [ "application/json" ],
+        "consumes" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "ok",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/Setting"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "user" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "settingId",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "delete setting",
+        "operationId" : "delete setting",
+        "description" : "Delete setting\n",
+        "produces" : [ "application/json" ],
+        "consumes" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "ok"
+          }
+        }
+      }
+    },
+    "/devices" : {
+      "post" : {
+        "tags" : [ "admins" ],
+        "summary" : "save device",
+        "operationId" : "saveDevice",
+        "description" : "save device\n",
+        "produces" : [ "application/json" ],
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "deviceName",
+          "type" : "string",
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "ok"
+          }
+        }
+      }
+    },
+    "/user" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "username",
+          "type" : "string",
+          "required" : true
+        } ],
+        "summary" : "get user",
+        "operationId" : "getUser",
+        "description" : "get user\n",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "ok",
+            "schema" : {
+              "type" : "object",
+              "$ref" : "#/definitions/User"
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "user" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "user",
+          "description" : "save user",
+          "schema" : {
+            "type" : "object",
+            "$ref" : "#/definitions/User"
+          }
+        } ],
+        "summary" : "save user",
+        "operationId" : "saveUser",
+        "description" : "save user\n",
+        "consumes" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "ok"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Setting" : {
+      "type" : "object",
+      "required" : [ "key", "value" ],
+      "properties" : {
+        "key" : {
+          "type" : "string"
+        },
+        "value" : {
+          "type" : "string"
+        }
+      }
+    },
+    "User" : {
+      "type" : "object",
+      "required" : [ "name", "lastName" ],
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "lastName" : {
+          "type" : "string"
+        }
+      }
+    },
+    "newPassword" : {
+      "type" : "string"
+    },
+    "Password" : {
+      "type" : "object",
+      "required" : [ "newPassword", "oldPassword" ],
+      "properties" : {
+        "newPassword" : {
+          "type" : "string"
+        },
+        "oldPassword" : {
+          "type" : "string"
+        }
+      }
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "schemes" : [ "https", "http" ],
+  "basePath" : "/castellanos/CustomValidation/1.0.0"
+}

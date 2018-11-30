@@ -9,7 +9,18 @@
     <semanticResources>model/openAPI.genmodel</semanticResources>
     <semanticResources>instances/ThingBoardV10.xmi</semanticResources>
     <semanticResources>instances/ThingBoardV20.xmi</semanticResources>
+    <semanticResources>instances/v1.1.xmi</semanticResources>
     <semanticResources>instances/v1.2.xmi</semanticResources>
+    <semanticResources>instances/ShipwireAPI_3.0.xmi</semanticResources>
+    <semanticResources>instances/ShipwireAPI_4.0.xmi</semanticResources>
+    <semanticResources>instances/UP_Digital_Client_1.0.10.xmi</semanticResources>
+    <semanticResources>instances/UP_Digital_Client_1.0.42.xmi</semanticResources>
+    <semanticResources>instances/UP_Digital_Partner_1.0.1.xmi</semanticResources>
+    <semanticResources>instances/UP_Digital_Partner_1.0.9.xmi</semanticResources>
+    <semanticResources>instances/UP_Digital_User_1.0.10.xmi</semanticResources>
+    <semanticResources>instances/UP_Digital_User_1.0.37.xmi</semanticResources>
+    <semanticResources>instances/lavanapp_2.0.0.xmi</semanticResources>
+    <semanticResources>instances/lavanapp_2.1.1.xmi</semanticResources>
     <semanticResources>instances/ValidationSpecificUpdatesV1.xmi</semanticResources>
     <semanticResources>instances/ValidationSpecificUpdatesV2.xmi</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" xmi:id="_hhYGwKOAEeW7qNU6Nu_uNw">
