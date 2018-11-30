@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:Html="http://web.emn.fr/html">
+  <Html:TD value="device2"
+      title="Old parameter"
+      tr="/2"/>
+  <Html:TD value="device"
+      title="New parameter"
+      tr="/2"/>
+  <Html:TR table="/24"
+      tds="/0 /1"/>
+  <Html:TD value="ruleId"
+      title="Old parameter"
+      tr="/5"/>
+  <Html:TD value="ruleNodeId"
+      title="New parameter"
+      tr="/5"/>
+  <Html:TR table="/24"
+      tds="/3 /4"/>
+  <Html:TD value="ruleId"
+      title="Old parameter"
+      tr="/8"/>
+  <Html:TD value="ruleChainId"
+      title="New parameter"
+      tr="/8"/>
+  <Html:TR table="/24"
+      tds="/6 /7"/>
+  <Html:TD value="ruleId"
+      title="Old parameter"
+      tr="/11"/>
+  <Html:TD value="ruleChainId"
+      title="New parameter"
+      tr="/11"/>
+  <Html:TR table="/24"
+      tds="/9 /10"/>
+  <Html:TD value="ruleId"
+      title="Old parameter"
+      tr="/14"/>
+  <Html:TD value="ruleChainId"
+      title="New parameter"
+      tr="/14"/>
+  <Html:TR table="/24"
+      tds="/12 /13"/>
+  <Html:TD value="isSystem"
+      title="Old parameter"
+      tr="/17"/>
+  <Html:TD value="startTs"
+      title="New parameter"
+      tr="/17"/>
+  <Html:TR table="/24"
+      tds="/15 /16"/>
+  <Html:TD value="isSystem"
+      title="Old parameter"
+      tr="/20"/>
+  <Html:TD value="startTs"
+      title="New parameter"
+      tr="/20"/>
+  <Html:TR table="/24"
+      tds="/18 /19"/>
+  <Html:TD value="bundleAlias"
+      title="Old parameter"
+      tr="/23"/>
+  <Html:TD value="assetName"
+      title="New parameter"
+      tr="/23"/>
+  <Html:TR table="/24"
+      tds="/21 /22"/>
+  <Html:TABLE
+      id="215795ed-c644-4972-9ca6-b45cc79efa37"
+      title="Rename Parameter"
+      body="/26"
+      trs="/2 /5 /8 /11 /14 /17 /20 /23">
+    <parent
+        href="#/26"/>
+  </Html:TABLE>
+  <Html:HTML
+      body="/26"/>
+  <Html:BODY
+      bodyElements="/24"
+      html="/25">
+    <children
+        xsi:type="Html:TABLE"
+        title="table 2"/>
+    <children
+        href="#/24"/>
+  </Html:BODY>
+</xmi:XMI>

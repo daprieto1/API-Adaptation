@@ -48,7 +48,6 @@ Package Diff <http://www.uniandes.edu.co/diff>
   Class Modify -> Simple
 
   Class ModifyParameterSchemaType -> Modify
-    Reference schemas : Schema<<1..*>>
 
   Class UpperBondary -> Modify
 
@@ -92,10 +91,6 @@ Package Diff <http://www.uniandes.edu.co/diff>
   Class ParameterType -> Modify
 
   Class ReturnType -> Modify
-
-  Class Schema
-    Attribute name : EString
-    Attribute uri : EString
 
   Enum APIElementType
     Literal Package = 0

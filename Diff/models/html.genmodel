@@ -21,6 +21,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute html.ecore#/1/HTMLElement/value"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference html.ecore#/1/HTMLElement/children"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference html.ecore#/1/HTMLElement/parent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute html.ecore#/1/HTMLElement/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute html.ecore#/1/HTMLElement/class"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute html.ecore#/1/HTMLElement/title"/>
     </genClasses>
     <genClasses ecoreClass="html.ecore#/1/HEAD">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference html.ecore#/1/HEAD/headElements"/>
@@ -31,7 +34,6 @@
     </genClasses>
     <genClasses ecoreClass="html.ecore#/1/LINK">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute html.ecore#/1/LINK/rel"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute html.ecore#/1/LINK/title"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute html.ecore#/1/LINK/ahref"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute html.ecore#/1/LINK/type"/>
     </genClasses>
@@ -107,7 +109,6 @@
     <genClasses ecoreClass="html.ecore#/1/A">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute html.ecore#/1/A/ahref"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute html.ecore#/1/A/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute html.ecore#/1/A/id"/>
     </genClasses>
     <genClasses ecoreClass="html.ecore#/1/DIV">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute html.ecore#/1/DIV/align"/>
@@ -194,7 +195,6 @@
     </genClasses>
     <genClasses ecoreClass="html.ecore#/1/OBJECT">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute html.ecore#/1/OBJECT/classid"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute html.ecore#/1/OBJECT/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute html.ecore#/1/OBJECT/data"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute html.ecore#/1/OBJECT/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute html.ecore#/1/OBJECT/standby"/>
