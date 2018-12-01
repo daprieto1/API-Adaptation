@@ -69,7 +69,7 @@ Package Diff <http://www.uniandes.edu.co/diff>
 
   Class ElementReference
     Attribute EObject : EString
-    Attribute lineNumber : EBigInteger
+    Attribute method : EString
     Attribute value : EString<<1..1>>
     Attribute path : EString
 
