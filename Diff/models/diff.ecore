@@ -57,7 +57,7 @@
         upperBound="-1" eType="#//Simple"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RemoveRestriction" eSuperTypes="#//Complex"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ChangeFormatReturnValue" eSuperTypes="#//Complex"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ChangeFormatReturnValue" eSuperTypes="#//Modify"/>
   <eClassifiers xsi:type="ecore:EClass" name="RenameMethod" eSuperTypes="#//Complex"/>
   <eClassifiers xsi:type="ecore:EClass" name="CombineMethods" eSuperTypes="#//Complex"/>
   <eClassifiers xsi:type="ecore:EClass" name="SplitMethod" eSuperTypes="#//Complex"/>
