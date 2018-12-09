@@ -17,9 +17,6 @@
   <change xsi:type="Diff:AddParameter" changeElement="MethodParameter">
     <new EObject="CustomValidation-2.0.0-swagger.xmi#//@paramters.4" method="Post" value="password" path="/updatePassword"/>
   </change>
-  <change xsi:type="Diff:AddParameter" changeElement="MethodParameter">
-    <new EObject="CustomValidation-2.0.0-swagger.xmi#//@paramters.8" method="Post" value="deviceName" path="/devices"/>
-  </change>
   <change xsi:type="Diff:RemoveParameter" changeElement="MethodParameter">
     <old EObject="CustomValidation-1.0.0-swagger.xmi#//@paramters.4" method="Post" value="oldPassword" path="/updatePassword"/>
   </change>
@@ -29,6 +26,9 @@
   <change xsi:type="Diff:RemoveParameter" changeElement="MethodParameter">
     <old EObject="CustomValidation-1.0.0-swagger.xmi#//@paramters.9" method="Delete" value="key" path="/settings/{settingId}"/>
   </change>
+  <change xsi:type="Diff:RemoveParameter" changeElement="MethodParameter">
+    <old EObject="CustomValidation-1.0.0-swagger.xmi#//@paramters.7" method="Get" value="settingId" path="/settings/{settingId}"/>
+  </change>
   <change xsi:type="Diff:RenameParameter" changeElement="MethodParameter">
     <new EObject="CustomValidation-2.0.0-swagger.xmi#//@paramters.9" method="Get" value="username" path="/user"/>
     <old EObject="CustomValidation-1.0.0-swagger.xmi#//@paramters.10" method="Get" value="nameUser" path="/user"/>
@@ -36,21 +36,33 @@
   <change xsi:type="Diff:AddStatusCode" changeElement="StatusCode">
     <new EObject="CustomValidation-2.0.0-swagger.xmi#//@responses.2" method="Post" value="200" path="/updatePassword/{userId}"/>
   </change>
-  <change xsi:type="Diff:AddStatusCode" changeElement="StatusCode">
-    <new EObject="CustomValidation-2.0.0-swagger.xmi#//@responses.7" method="Post" value="200" path="/devices"/>
-  </change>
   <change xsi:type="Diff:ProduceType" changeElement="ContentType">
-    <new EObject="CustomValidation-2.0.0-swagger.xmi#//@api/@paths.6/@get" value="application/json " path="/user"/>
+    <new EObject="CustomValidation-2.0.0-swagger.xmi#//@api/@paths.5/@get" value="application/json " path="/user"/>
     <old EObject="CustomValidation-1.0.0-swagger.xmi#//@api/@paths.5/@get" value="application/xml " path="/user"/>
   </change>
   <change xsi:type="Diff:ConsumeType" changeElement="ContentType">
-    <new EObject="CustomValidation-2.0.0-swagger.xmi#//@api/@paths.6/@post" value="application/json " path="/user"/>
+    <new EObject="CustomValidation-2.0.0-swagger.xmi#//@api/@paths.5/@post" value="application/json " path="/user"/>
     <old EObject="CustomValidation-1.0.0-swagger.xmi#//@api/@paths.5/@post" value="application/xml " path="/user"/>
   </change>
   <change xsi:type="Diff:ProduceType" changeElement="ContentType">
     <new EObject="CustomValidation-2.0.0-swagger.xmi#//@api/@paths.3/@get" value="application/json " path="/settings"/>
     <old EObject="CustomValidation-1.0.0-swagger.xmi#//@api/@paths.3/@get" value="application/xml " path="/settings"/>
   </change>
+  <change xsi:type="Diff:UnsupportRequestMethod" changeElement="Method">
+    <old EObject="CustomValidation-1.0.0-swagger.xmi#//@api/@paths.4/@get" method="Get" value="get setting&#xA;" path="/settings/{settingId}"/>
+  </change>
+  <change xsi:type="Diff:DefaultValue" changeElement="MethodParameter">
+    <new EObject="CustomValidation-2.0.0-swagger.xmi#//@paramters.5" method="Get" value="20" path="/settings"/>
+    <old EObject="CustomValidation-1.0.0-swagger.xmi#//@paramters.6" method="Get" value="10" path="/settings"/>
+  </change>
+  <change xsi:type="Diff:DefaultValue" changeElement="MethodParameter">
+    <new EObject="CustomValidation-2.0.0-swagger.xmi#//@paramters.5" method="Get" value="20" path="/settings"/>
+    <old EObject="CustomValidation-1.0.0-swagger.xmi#//@paramters.6" method="Get" value="10" path="/settings"/>
+  </change>
+  <change xsi:type="Diff:DefaultValue" changeElement="MethodParameter">
+    <new EObject="CustomValidation-2.0.0-swagger.xmi#//@paramters.5" method="Get" value="20" path="/settings"/>
+    <old EObject="CustomValidation-1.0.0-swagger.xmi#//@paramters.6" method="Get" value="10" path="/settings"/>
+  </change>
   <change xsi:type="Diff:Delete" changeElement="ContentType">
     <old EObject="CustomValidation-1.0.0-swagger.xmi#//@api/@paths.3/@get" value="application/xml " path="/settings"/>
   </change>
@@ -61,7 +73,7 @@
     <new EObject="CustomValidation-2.0.0-swagger.xmi#//@api/@paths.3/@get" value="application/json " path="/settings"/>
   </change>
   <change xsi:type="Diff:Add" changeElement="ContentType">
-    <new EObject="CustomValidation-2.0.0-swagger.xmi#//@api/@paths.6/@get" value="application/json " path="/user"/>
+    <new EObject="CustomValidation-2.0.0-swagger.xmi#//@api/@paths.5/@get" value="application/json " path="/user"/>
   </change>
-  <change xsi:type="Diff:ExposeData" changeElement="Path" simpleDiffs="//@change.16 //@change.17 //@change.18 //@change.19"/>
+  <change xsi:type="Diff:ExposeData" changeElement="Path" simpleDiffs="//@change.19 //@change.20 //@change.21 //@change.22"/>
 </Diff:Diff>

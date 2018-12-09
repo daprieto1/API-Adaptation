@@ -1250,7 +1250,7 @@
   </change>
   <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.417"/>
   <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
-    <new EObject="thingsboardV1.xmi#//@responses.67" value="ComponentDescriptor" path="/components/{componentType}"/>
+    <new EObject="thingsboardV1.xmi#//@responses.13" path="/components/{componentType}"/>
   </change>
   <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.419"/>
   <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
