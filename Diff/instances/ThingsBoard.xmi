@@ -1237,156 +1237,118 @@
   <change xsi:type="Diff:ModifyParameterSchemaType" changeElement="MethodParameter">
     <new EObject="thingsboardV1.xmi#//@paramters.17" value="customer" path="/customer"/>
   </change>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.51" value="User" path="/user/{userId}"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.413"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.21" value="Dashboard" path="/dashboard"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.415"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.15" value="Customer" path="/customer/{customerId}"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.417"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.67" value="ComponentDescriptor" path="/components/{componentType}"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.419"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.50" value="TextPageData" path="/tenants"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.421"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.66" path="/widgetTypes"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.423"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.25" value="TimePageData" path="/customer/{customerId}/dashboards"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.425"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.18" value="TextPageData" path="/customers"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.427"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.36" value="TimePageData" path="/events/{entityType}/{entityId}"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.429"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.62" value="WidgetType" path="/widgetType/{widgetTypeId}"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.431"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.47" value="Tenant" path="/tenant/{tenantId}"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.433"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.60" value="TextPageData" path="/widgetsBundles"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.435"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.46" path="/rules"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.437"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.35" value="TimePageData" path="/events/{entityType}/{entityId}/{eventType}"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.439"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.59" value="widgetsBundle" path="/widgetsBundle"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.441"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.30" value="Device" path="/customer/device/{deviceId}"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.443"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.56" value="TextPageData" path="/customer/{customerId}/users"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.445"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.64" value="WidgetType" path="/widgetType"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.447"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.49" value="Tenant" path="/tenant"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.449"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.32" value="DeviceCredentials" path="/device/credentials"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.451"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.22" value="Dashboard" path="/customer/{customerId}/dashboard/{dashboardId}"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.453"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.5" value="User" path="/auth/user"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.455"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.26" value="Device" path="/device/{deviceId}"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.457"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.28" value="Device" path="/device"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.459"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.37" value="RuleMetaData" path="/rule/{ruleId}"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.461"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.31" value="DeviceCredentials" path="/device/{deviceId}/credentials"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.463"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.24" value="TextPageData" path="/tenant/dashboards"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.465"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.19" value="Dashboard" path="/dashboard/{dashboardId}"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.467"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.33" value="TextPageData" path="/tenant/devices"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.469"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.61" path="/widgetsBundles2"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.471"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.12" value="ComponentDescriptor" path="/component/{componentDescriptorClazz:.+}"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.473"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.55" value="TextPageData" path="/tenant/{tenantId}/users"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.475"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.53" value="User" path="/user"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.477"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.34" value="TextPageData" path="/customer/{customerId}/devices"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.479"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.29" value="Device" path="/customer/{customerId}/device/{deviceId}"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.481"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.23" value="Dashboard" path="/dashboard/{dashboardId}/customers"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.483"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.57" value="widgetsBundle" path="/widgetsBundle/{widgetsBundleId}"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.485"/>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="thingsboardV1.xmi#//@responses.17" value="Customer" path="/customer"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.487"/>
 </Diff:Diff>
