@@ -87,7 +87,7 @@
     <genClasses ecoreClass="diff.ecore#//ExposeData"/>
     <genClasses ecoreClass="diff.ecore#//ElementReference">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diff.ecore#//ElementReference/EObject"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diff.ecore#//ElementReference/lineNumber"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diff.ecore#//ElementReference/method"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diff.ecore#//ElementReference/value"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diff.ecore#//ElementReference/path"/>
     </genClasses>

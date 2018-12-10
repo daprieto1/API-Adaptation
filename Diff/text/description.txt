@@ -78,7 +78,7 @@ Package Diff <http://www.uniandes.edu.co/diff>
 
   Class RemoveRestriction -> Complex
 
-  Class ChangeFormatReturnValue -> Complex
+  Class ChangeFormatReturnValue -> Modify
 
   Class RenameMethod -> Complex
 
