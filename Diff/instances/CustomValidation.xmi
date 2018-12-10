@@ -122,8 +122,7 @@
   <change xsi:type="Diff:ModifyParameterSchemaType" changeElement="MethodParameter">
     <new EObject="CustomValidation-1.0.0-swagger.xmi#//@paramters.12" value="user" path="/user"/>
   </change>
-  <change xsi:type="Diff:ReturnType" changeElement="ReturnType">
+  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType">
     <new EObject="CustomValidation-1.0.0-swagger.xmi#//@responses.6" value="User" path="/user"/>
   </change>
-  <change xsi:type="Diff:ChangeFormatReturnValue" changeElement="ReturnType" simpleDiffs="//@change.41"/>
 </Diff:Diff>
