@@ -16,10 +16,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Change">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="changeElement" eType="#//APIElementType"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RelocateParameter" eSuperTypes="#//Complex">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="newLocation" eType="#//ParameterLocation"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="oldLocation" eType="#//ParameterLocation"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RelocateParameter" eSuperTypes="#//Complex"/>
   <eClassifiers xsi:type="ecore:EClass" name="MultipleParametersInOne" eSuperTypes="#//RelocateParameter"/>
   <eClassifiers xsi:type="ecore:EClass" name="SameParameter" eSuperTypes="#//RelocateParameter"/>
   <eClassifiers xsi:type="ecore:EClass" name="Simple" eSuperTypes="#//Change">
